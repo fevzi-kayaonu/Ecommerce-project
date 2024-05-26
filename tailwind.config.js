@@ -1,0 +1,31 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      fontFamily: {
+        montserrat: ["Montserrat", "sans serif"],
+      },
+      colors: {
+        headerBlue: "#252B42",
+        heroLeft: "#96E9FB",
+        heroRight: "#ABECD6",
+        heroContent: "#2A7CC7",
+        primary: "#23A6F0",
+        success: "#2DC071",
+        secondTextColor: "#737373",
+        lightSecontTextColor: "#858585",
+        bgGray: "#FAFAFA",
+        muted: "#BDBDBD",
+        secondary: "#23856D",
+        alert: "#E77C40",
+        error: "#E74040",
+        lightGray: "#ECECEC",
+        borderGray: "#DDDDDD",
+        dropDownGray: "#F9F9F9",
+        yellow: "#F3CD03",
+      },
+    },
+  },
+  plugins: [],
+};

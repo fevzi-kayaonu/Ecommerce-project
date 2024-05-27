@@ -11,6 +11,7 @@ export default {
         heroLeft: "#96E9FB",
         heroRight: "#ABECD6",
         heroContent: "#2A7CC7",
+        heroBonus: "#977DF4",
         primary: "#23A6F0",
         success: "#2DC071",
         secondTextColor: "#737373",

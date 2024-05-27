@@ -6,7 +6,53 @@
   background: linear-gradient(
     to right,
     #96e9fb,
-    #abecd6 calc(100% - 2rem),
-    white 2rem
+    #abecd6 calc(100% - 5%),
+    white 5%
   );
+}
+
+.min-content {
+  width: min-content;
+}
+
+.max-content {
+  width: max-content;
+}
+
+.revert {
+  max-width: revert;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.w-100 {
+  width: 100%;
+}
+.w-50 {
+  width: 75%;
+}
+
+.display-block {
+  display: block;
+}
+.max-width-100 {
+  max-width: 100%;
+}
+
+.z-index {
+  z-index: -1;
+}
+
+.z-index-2 {
+  z-index: -2;
+}
+
+.z-index-3 {
+  z-index: -10;
 }

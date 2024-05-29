@@ -4,11 +4,11 @@ export const ProductCard = () => {
   return (
     <>
       <div className="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%] text-center my-[1%]">
-        <picture className="aspect-[1/2]">
+        <picture className="block aspect-[1/1.3] w-full">
           <img
             src={ProductImg}
             alt="ProductImg"
-            className="w-full object-cover"
+            className="w-full h-full object-cover"
           />
         </picture>
         <div className="flex flex-col my-6 font-bold gap-3">

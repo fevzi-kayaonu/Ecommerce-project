@@ -18,6 +18,7 @@ export default {
         secondTextColor: "#737373",
         lightSecontTextColor: "#858585",
         bgGray: "#FAFAFA",
+        bgInput: "#F9F9F9",
         muted: "#BDBDBD",
         secondary: "#23856D",
         alert: "#E77C40",

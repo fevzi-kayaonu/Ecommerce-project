@@ -7,7 +7,7 @@ export const ShopCard = () => {
     <>
       <section className="py-10 flex justify-center">
         <div className=" flex justify-center basis-[90%] max-md:flex-wrap gap-5">
-          <div className="relative text-white max-md:basis-[100%] basis-[45%] min-w-[345px] max-md:aspect-[4/5] max-sm:aspect-[3/5]  ">
+          <div className="relative text-white max-md:basis-[100%] basis-[45%] min-w-[345px] max-md:aspect-[4/5] max-sm:aspect-[3/5]">
             <img className="object-cover w-full h-full" src={left} alt="" />
             <div className="bg-customColor bg-opacity-75 absolute bottom-0 max-lg:p-5 py-10 px-20 max-md:w-full  flex flex-col items-center ">
               <h2 className="font-bold text-2xl mb-4 ">

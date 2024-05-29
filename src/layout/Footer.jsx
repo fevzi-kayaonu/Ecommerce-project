@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <>
-      <footer>
+      <footer className="mt-10">
         <div className="bg-bgGray flex justify-center py-16 ">
           <div className="flex flex-wrap justify-between basis-[85%] text-2xl pr-[10%]">
             <h3 className="font-bold">BrandName</h3>
@@ -52,7 +52,7 @@ export const Footer = () => {
             </div>
             <div className="font-bold flex flex-col basis[34%] mx-auto min-w-[335px] gap-3 text-sm tracking-wider text-secondTextColor">
               <h5 className="text-black text-lg py-3">Get In Touch</h5>
-              <div className="rounded-md p-0 m-0 bg-secondTextColor border-2">
+              <div className="rounded-md bg-secondTextColor border-2">
                 <input
                   type="text"
                   placeholder="Your Email"

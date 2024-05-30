@@ -13,7 +13,7 @@ export const ShopCard = () => {
               <h2 className="font-bold text-2xl mb-4 ">
                 Top Product Of the Week
               </h2>
-              <button className="text-sm border-solid border-[1px] border-white py-3 px-8 rounded-md">
+              <button className="text-sm border-solid border-[1px] border-white py-3 px-8 rounded-md hover:bg-primary hover:opacity-60">
                 EXPLORE ITEMS
               </button>
             </div>
@@ -28,7 +28,7 @@ export const ShopCard = () => {
               />
               <div className="bg-customColor bg-opacity-75 absolute bottom-0 max-lg:p-5 py-10 pl-10 max-md:w-full pr-20 text-center ">
                 <h2 className="font-normal text-xl">Top Product Of the Week</h2>
-                <button className="text-sm border-solid border-[1px] border-white py-3 px-8 rounded-md mt-3">
+                <button className="text-sm border-solid border-[1px] border-white py-3 px-8 rounded-md mt-3 hover:bg-primary hover:opacity-60">
                   EXPLORE ITEMS
                 </button>
               </div>
@@ -41,7 +41,7 @@ export const ShopCard = () => {
               />
               <div className="bg-customColor bg-opacity-75 absolute bottom-0 max-lg:p-5 py-10 pl-10 max-md:w-full pr-20 text-center ">
                 <h2 className="font-normal text-xl">Top Product Of the Week</h2>
-                <button className="text-sm border-solid border-[1px] border-white py-3 px-8 rounded-md mt-3">
+                <button className="text-sm border-solid border-[1px] border-white py-3 px-8 rounded-md mt-3 hover:bg-primary hover:opacity-60">
                   EXPLORE ITEMS
                 </button>
               </div>

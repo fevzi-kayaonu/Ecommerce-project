@@ -24,7 +24,7 @@ export const Products = () => {
           <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
             {productCards}
           </div>
-          <button className="font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6">
+          <button className="font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6 hover:opacity-60">
             LOAD MORE PRODUCTS
           </button>
         </div>

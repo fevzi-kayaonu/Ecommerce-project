@@ -1,7 +1,7 @@
 export const NavBar = () => {
   return (
-    <section className="text-sm">
-      <address className="bg-headerBlue text-white flex justify-between px-5 py-2">
+    <section className="text-sm max-md:pt-6 max-md:px-4">
+      <address className="bg-headerBlue text-white flex justify-between px-5 py-2 max-md:hidden">
         <div className="flex gap-5 items-center">
           <div className="flex gap-2 items-center">
             <i className="fa-solid fa-phone "></i>
@@ -17,40 +17,77 @@ export const NavBar = () => {
         </div>
         <div className="flex items-center gap-2">
           <p>Follow Us :</p>
-          <i className="fa-brands fa-instagram"></i>
-          <i className="fa-brands fa-youtube"></i>
-          <i className="fa-brands fa-facebook"></i>
-          <i className="fa-brands fa-x-twitter"></i>
+          <i className="fa-brands fa-instagram hover:opacity-75"></i>
+          <i className="fa-brands fa-youtube hover:opacity-75"></i>
+          <i className="fa-brands fa-facebook hover:opacity-75"></i>
+          <i className="fa-brands fa-x-twitter hover:opacity-75"></i>
         </div>
       </address>
       <article className="flex justify-between px-5 py-3 items-center">
-        <div className="flex gap-9  items-center">
+        <div className="flex gap-6  items-center ">
           <h1 className="text-2xl">BrandName</h1>
-          <nav className="flex text-[#737373] gap-2">
-            <a href="">Home</a>
-            <a href="">
+          <nav className="flex text-[#737373] gap-2 max-md:hidden">
+            <a className="hover:underline" href="/">
+              Home
+            </a>
+            <a className="hover:underline" href="/shop">
               Shop{" "}
               <span>
                 <i className="fa-solid fa-angle-down"></i>
               </span>
             </a>
-            <a href="">About</a>
-            <a href="">Blog</a>
-            <a href="">Contact</a>
-            <a href="">Pages</a>
+            <a className="hover:underline" href="/about-us">
+              About
+            </a>
+            <a className="hover:underline" href="/blog">
+              Blog
+            </a>
+            <a className="hover:underline" href="/contact">
+              Contact
+            </a>
+            <a className="hover:underline" href="/">
+              Pages
+            </a>
           </nav>
         </div>
-        <div className="flex gap-5 text-[#23A6F0] items-center">
-          <div className="">
+        <div className="flex gap-5 text-[#23A6F0] max-md:text-black items-center max-md:text-2xl">
+          <div className="max-md:hidden">
             <i className="fa-regular fa-user"> </i>
             <span> </span>
-            <button> Login</button>/<button>Register</button>
+            <button className="hover:underline"> Login</button>/
+            <button className="hover:underline">Register</button>
           </div>
-          <i className="fa-solid fa-magnifying-glass"></i>
-          <i className="fa-solid fa-cart-shopping"></i>
-          <i className="fa-regular fa-heart"></i>
+          <i className="fa-solid fa-magnifying-glass hover:opacity-75"></i>
+          <i className="fa-solid fa-cart-shopping hover:opacity-75"></i>
+          <i className="fa-regular fa-heart max-md:hidden hover:opacity-75"></i>
+          <i className="fa-solid fa-bars md:hidden hover:opacity-75"></i>
         </div>
       </article>
+      <div>
+        <nav className="flex flex-col items-center text-[#737373] gap-5 md:hidden py-10 text-3xl">
+          <a className="hover:underline" href="/">
+            Home
+          </a>
+          <a className="hover:underline" href="/Shop">
+            Shop{" "}
+            <span>
+              <i className="fa-solid fa-angle-down"></i>
+            </span>
+          </a>
+          <a className="hover:underline" href="/about-us">
+            About
+          </a>
+          <a className="hover:underline" href="/blog">
+            Blog
+          </a>
+          <a className="hover:underline" href="/contact">
+            Contact
+          </a>
+          <a className="hover:underline" href="/">
+            Pages
+          </a>
+        </nav>
+      </div>
     </section>
   );
 };

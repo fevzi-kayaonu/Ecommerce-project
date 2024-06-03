@@ -1,9 +1,14 @@
 import { ProductCard } from "./ProductCard";
 
-export const Products = () => {
+export const ProductsHome = () => {
   const productCards = [];
   for (let i = 0; i < 10; i++) {
-    productCards.push(<ProductCard key={i} />);
+    productCards.push(
+      <ProductCard
+        key={i}
+        cssDiv="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%]"
+      />
+    );
   }
 
   return (

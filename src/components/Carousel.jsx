@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function Carousel({ children, specialClasses }) {
+function Carousel({ children }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [slideDone, setSlideDone] = useState(true);
   const [timeID, setTimeID] = useState(null);

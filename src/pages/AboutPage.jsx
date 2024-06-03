@@ -1,5 +1,13 @@
+import { ProductDescription } from "../components/ProductDescription";
+import ProductDetailPage from "./ProductDetailPage";
+
 const AboutPage = () => {
-  return <></>;
+  return (
+    <>
+      <ProductDescription />
+      <ProductDetailPage />
+    </>
+  );
 };
 
 export default AboutPage;

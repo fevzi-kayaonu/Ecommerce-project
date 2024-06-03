@@ -6,7 +6,8 @@ export const ProductsShop = () => {
     productCards.push(
       <ProductCard
         key={i}
-        cssDiv="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
+        cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
+        colors={true}
       />
     );
   }

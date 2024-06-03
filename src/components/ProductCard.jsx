@@ -1,9 +1,9 @@
 import ProductImg from "../assets/ProductImg.jpg";
 
-export const ProductCard = ({ cssDiv }) => {
+export const ProductCard = ({ cssContainer, colors }) => {
   return (
     <>
-      <div className={`text-center my-[1%] hover:opacity-75 ${cssDiv}`}>
+      <div className={`text-center my-[1%] hover:opacity-75 ${cssContainer}`}>
         <picture className="block aspect-[1/1.3] w-full">
           <img
             src={ProductImg}
@@ -20,12 +20,14 @@ export const ProductCard = ({ cssDiv }) => {
             <p className="text-secondTextColor">$16.48</p>
             <p className="text-secondary">$6.48</p>
           </div>
-          <div className="flex justify-center gap-1">
-            <div className="bg-primary w-[16px] h-[16px] rounded-full"></div>
-            <div className="bg-secondary w-[16px] h-[16px] rounded-full"></div>
-            <div className="bg-alert w-[16px] h-[16px] rounded-full"></div>
-            <div className="bg-black w-[16px] h-[16px] rounded-full"></div>
-          </div>
+          {colors ? (
+            <div className="flex justify-center gap-1">
+              <div className="bg-primary w-[16px] h-[16px] rounded-full"></div>
+              <div className="bg-secondary w-[16px] h-[16px] rounded-full"></div>
+              <div className="bg-alert w-[16px] h-[16px] rounded-full"></div>
+              <div className="bg-black w-[16px] h-[16px] rounded-full"></div>
+            </div>
+          ) : null}
         </div>
       </div>
     </>

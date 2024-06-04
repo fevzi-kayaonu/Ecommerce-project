@@ -1,11 +1,5 @@
-import ProductDetailPage from "./ProductDetailPage";
-
 const AboutPage = () => {
-  return (
-    <>
-      <ProductDetailPage />
-    </>
-  );
+  return <></>;
 };
 
 export default AboutPage;

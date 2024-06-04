@@ -15,10 +15,10 @@ const ProductBestSellers = () => {
   return (
     <>
       <main className="flex justify-center pb-20 pt-10 max-sm:py-10 max-md:pb-15 bg-bgGray">
-        <div className="basis-[90%] text-center">
-          <div className="flex max-md:flex-col justify-between max-md:justify-center px-10 items-center flex-wrap gap-3 pb-5">
-            <h3 className="font-bold text-2xl">BESTSELLER PRODUCTS</h3>
-            <div className="border-b-2	border-black"></div>
+        <div className="basis-[90%] ">
+          <div className="px-10">
+            <h3 className="font-bold text-2xl pb-5">BESTSELLER PRODUCTS</h3>
+            <div className="border-[1px] border-lightGray" />
           </div>
           <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
             {productCards}

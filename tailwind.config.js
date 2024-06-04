@@ -16,7 +16,7 @@ export default {
         customColor: "#2D8BC0",
         success: "#2DC071",
         secondTextColor: "#737373",
-        lightSecontTextColor: "#858585",
+        lightSecondTextColor: "#858585",
         bgGray: "#FAFAFA",
         bgInput: "#F9F9F9",
         muted: "#BDBDBD",

@@ -1,4 +1,4 @@
-import DescriptionImg from "../assets/Description-Img.png";
+import DescriptionImg from "../../assets/Description-Img.png";
 
 export const ProductDescription = () => {
   return (

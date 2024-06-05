@@ -1,10 +1,10 @@
-import { Clients } from "../components/Clients";
-import { Content } from "../components/Content";
-import { FeaturedPosts } from "../components/FeaturedPosts";
-import { Hero } from "../components/Hero";
-import { ProductsHome } from "../components/ProductsHome";
-import { Services } from "../components/Services";
-import { ShopCard } from "../components/ShopCard";
+import { Clients } from "../components/home/Clients";
+import { Content } from "../components/home/Content";
+import { FeaturedPosts } from "../components/home/FeaturedPosts";
+import { Hero } from "../components/home/Hero";
+import { ProductsHome } from "../components/product/ProductsHome";
+import { Services } from "../components/home/Services";
+import { ShopCard } from "../components/shop/ShopCard";
 
 export const HomePage = () => {
   return (

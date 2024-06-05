@@ -1,4 +1,4 @@
-import PostImg from "../assets/PostImg.jpg";
+import PostImg from "../../assets/PostImg.jpg";
 
 export const Post = () => {
   return (

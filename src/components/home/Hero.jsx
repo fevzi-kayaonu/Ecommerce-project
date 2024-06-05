@@ -1,5 +1,5 @@
-import Carousel from "../components/Carousel";
-import HeroContent from "./others/HeroContent";
+import Carousel from "../others/Carousel";
+import HeroContent from "../others/HeroContent";
 
 export const Hero = () => {
   const arr = [];

@@ -1,6 +1,6 @@
-import { Clients } from "../components/Clients";
-import { ProductsShop } from "../components/ProductsShop";
-import { ShopContainer } from "../components/ShopContainer";
+import { Clients } from "../components/home/Clients";
+import { ProductsShop } from "../components/product/ProductsShop";
+import { ShopContainer } from "../components/shop/ShopContainer";
 const ShopPage = () => {
   return (
     <>

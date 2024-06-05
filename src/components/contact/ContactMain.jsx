@@ -1,4 +1,4 @@
-import arrow from "../assets/Arrow.png";
+import arrow from "../../assets/Arrow.png";
 
 export const ContactMain = () => {
   return (

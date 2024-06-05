@@ -1,8 +1,8 @@
-import shop1 from "../assets/ShopContainer-1.jpg";
-import shop2 from "../assets/ShopContainer-2.jpg";
-import shop3 from "../assets/ShopContainer-3.jpg";
-import shop4 from "../assets/ShopContainer-4.jpg";
-import shop5 from "../assets/ShopContainer-5.jpg";
+import shop1 from "../../assets/ShopContainer-1.jpg";
+import shop2 from "../../assets/ShopContainer-2.jpg";
+import shop3 from "../../assets/ShopContainer-3.jpg";
+import shop4 from "../../assets/ShopContainer-4.jpg";
+import shop5 from "../../assets/ShopContainer-5.jpg";
 
 export const ShopContainer = () => {
   return (

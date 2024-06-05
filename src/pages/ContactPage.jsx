@@ -1,5 +1,5 @@
-import { ContactHeader } from "../components/ContactHeader";
-import { ContactMain } from "../components/ContactMain";
+import { ContactHeader } from "../components/contact/ContactHeader";
+import { ContactMain } from "../components/contact/ContactMain";
 
 const ContactPage = () => {
   return (

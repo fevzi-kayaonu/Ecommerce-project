@@ -3,7 +3,7 @@ import { HomePage } from "../pages/HomePage";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import ShopPage from "../pages/ShopPage";
-import BlogPage from "../pages/BlogPage";
+import TeamPage from "../pages/TeamPage";
 
 export const PageContent = () => {
   return (
@@ -15,8 +15,8 @@ export const PageContent = () => {
         <Route path="/shop" exact>
           <ShopPage />
         </Route>
-        <Route path="/blog">
-          <BlogPage />
+        <Route path="/team">
+          <TeamPage />
         </Route>
         <Route path="/contact">
           <ContactPage />

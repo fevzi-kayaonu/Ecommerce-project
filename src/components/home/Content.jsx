@@ -1,5 +1,5 @@
-import ContentLeft from "../assets/content-left.jpg";
-import ContentRight from "../assets/content-right.jpg";
+import ContentLeft from "../../assets/content-left.jpg";
+import ContentRight from "../../assets/content-right.jpg";
 
 export const Content = () => {
   return (

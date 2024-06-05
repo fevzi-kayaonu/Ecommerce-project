@@ -1,4 +1,4 @@
-import ProductImg from "../assets/ProductImg.jpg";
+import ProductImg from "../../assets/ProductImg.jpg";
 
 export const ProductCard = ({ cssContainer, colors }) => {
   return (

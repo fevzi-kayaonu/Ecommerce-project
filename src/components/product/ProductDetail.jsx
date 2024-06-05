@@ -1,6 +1,6 @@
 import { useState } from "react";
-import detailImg1 from "../assets/detail-1.jpg";
-import detailImg2 from "../assets/detail-2.jpeg";
+import detailImg1 from "../../assets/detail-1.jpg";
+import detailImg2 from "../../assets/detail-2.jpeg";
 
 const data = [detailImg1, detailImg2];
 

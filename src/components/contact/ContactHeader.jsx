@@ -1,4 +1,4 @@
-import contactHeader from "../assets/ContactHeader.png";
+import contactHeader from "../../assets/ContactHeader.png";
 
 export const ContactHeader = () => {
   return (

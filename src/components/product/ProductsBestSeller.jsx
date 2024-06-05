@@ -1,17 +1,18 @@
 import { ProductCard } from "./ProductCard";
+import ProductImg from "../../assets/Best-Seller-1.jpg";
+
+const data = [
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+];
 
 const ProductBestSellers = () => {
-  const productCards = [];
-  for (let i = 0; i < 8; i++) {
-    productCards.push(
-      <ProductCard
-        key={i}
-        cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%] bg-white"
-        colors={false}
-      />
-    );
-  }
-
   return (
     <>
       <main className="flex justify-center pb-20 pt-10 max-sm:py-10 max-md:pb-15 bg-bgGray">
@@ -21,7 +22,14 @@ const ProductBestSellers = () => {
             <div className="border-[1px] border-lightGray" />
           </div>
           <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-            {productCards}
+            {data.map((item) => (
+              <ProductCard
+                key={item}
+                item={item}
+                cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%] bg-white"
+                colors={false}
+              />
+            ))}
           </div>
         </div>
       </main>

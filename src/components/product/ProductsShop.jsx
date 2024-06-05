@@ -1,17 +1,20 @@
 import { ProductCard } from "./ProductCard";
+import ProductImg from "../../assets/ProductImg.jpg";
+
+const data = [
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+  ProductImg,
+];
 
 export const ProductsShop = () => {
-  const productCards = [];
-  for (let i = 0; i < 10; i++) {
-    productCards.push(
-      <ProductCard
-        key={i}
-        cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
-        colors={true}
-      />
-    );
-  }
-
   return (
     <>
       <main className="flex justify-center pb-20 pt-10 max-sm:py-10 max-md:pb-15">
@@ -41,7 +44,14 @@ export const ProductsShop = () => {
             </div>
           </div>
           <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-            {productCards}
+            {data.map((item) => (
+              <ProductCard
+                key={item}
+                item={item}
+                cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
+                colors={true}
+              />
+            ))}
           </div>
           <div className="text-primary w-[313px] h-[74px] flex mx-auto border-2 border-lightGray rounded-md">
             <button className="basis-[33%] border-r-2 border-lightGray cursor-pointer hover:bg-primary hover:text-white	">

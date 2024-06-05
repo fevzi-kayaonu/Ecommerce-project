@@ -15,8 +15,8 @@ export const ProductDetail = () => {
     } else if (name === "next") {
       setActiveIndex(activeIndex >= data.length - 1 ? 0 : activeIndex + 1);
     } else {
-      console.log(e.target.value + "girdim");
-      setActiveIndex(e.target.value);
+      console.log(e.target.dataset.value + "girdim");
+      setActiveIndex(Number(e.currentTarget.dataset.value));
     }
   };
 
@@ -63,7 +63,7 @@ export const ProductDetail = () => {
                 {data.map((item, index) => (
                   <div
                     name="direct"
-                    value={index}
+                    data-value={index}
                     className="basis-[20%] aspect-[1/0.75]"
                     key={index}
                     onClick={handleClick}

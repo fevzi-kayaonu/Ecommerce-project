@@ -3,7 +3,7 @@ import arrow from "../../assets/Arrow.png";
 export const ContactMain = () => {
   return (
     <>
-      <main className="pt-10 flex flex-col gap-20 max-md:bg-bgGray">
+      <main className="py-10 flex flex-col gap-20 max-md:bg-bgGray">
         <title className="flex flex-col justify-center items-center text-center">
           <h6 className="font-bold text-sm">VISIT OUR OFFICE</h6>
           <h2 className="font-bold text-4xl max-w-[400px]">

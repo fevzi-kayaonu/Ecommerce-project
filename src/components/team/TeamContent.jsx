@@ -1,6 +1,6 @@
 export const TeamContent = () => {
   return (
-    <section className="flex justify-center items-center">
+    <section className="flex justify-center items-center pb-10">
       <div className="text-center">
         <h2 className="font-bold text-4xl">Start your 14 days free trial</h2>
         <p className="font-bold text-sm text-secondTextColor mx-[20%] my-5">

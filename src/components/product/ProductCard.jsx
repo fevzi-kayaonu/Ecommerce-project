@@ -1,12 +1,21 @@
-import ProductImg from "../../assets/ProductImg.jpg";
+import { useHistory } from "react-router-dom";
 
-export const ProductCard = ({ cssContainer, colors }) => {
+export const ProductCard = ({ item, cssContainer, colors }) => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push("/detail");
+  };
+
   return (
     <>
-      <div className={`text-center my-[1%] hover:opacity-75 ${cssContainer}`}>
+      <div
+        className={`text-center my-[1%] hover:opacity-75 ${cssContainer}`}
+        onClick={handleClick}
+      >
         <picture className="block aspect-[1/1.3] w-full">
           <img
-            src={ProductImg}
+            src={item}
             alt="ProductImg"
             className="w-full h-full object-cover "
           />

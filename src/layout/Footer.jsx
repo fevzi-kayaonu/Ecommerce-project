@@ -1,7 +1,7 @@
 export const Footer = () => {
   return (
     <>
-      <footer className="mt-10">
+      <footer className="">
         <div className="bg-bgGray flex justify-center py-16 ">
           <div className="flex flex-wrap justify-between items-center basis-[85%] text-2xl pr-[10%]">
             <h3 className="font-bold">BrandName</h3>

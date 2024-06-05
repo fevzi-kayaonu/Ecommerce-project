@@ -1,18 +1,4 @@
-import image1 from "../../assets/teamImage.jpg";
-
-const data = [
-  image1,
-  image1,
-  image1,
-  image1,
-  image1,
-  image1,
-  image1,
-  image1,
-  image1,
-];
-
-export const TeamCard = () => {
+export const TeamCard = ({ data }) => {
   return (
     <>
       <section className="flex justify-center pb-20  max-md:pb-15">

@@ -8,7 +8,7 @@ export const FeaturedPosts = () => {
 
   return (
     <>
-      <section className="flex justify-center py-12">
+      <section className="flex justify-center pt-12 pb-20">
         <div className="flex flex-col justify-center w-[85%]">
           <div className="text-center py-16">
             <p className="font-normal text-sm py-1 text-primary">

@@ -28,8 +28,8 @@ export const Footer = () => {
                 <a className="hover:underline" href="">
                   We are hiring
                 </a>
-                <a className="hover:underline" href="">
-                  Blog
+                <a className="hover:underline" href="/team">
+                  Team
                 </a>
               </div>
               <div className="font-bold  flex flex-col max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
@@ -43,8 +43,8 @@ export const Footer = () => {
                 <a className="hover:underline" href="">
                   We are hiring
                 </a>
-                <a className="hover:underline" href="/blog">
-                  Blog
+                <a className="hover:underline" href="/team">
+                  Team
                 </a>
               </div>
               <div className="font-bold flex flex-col  max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">

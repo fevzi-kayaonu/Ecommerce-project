@@ -20,10 +20,10 @@ export const ContactHeader = () => {
               Fax : +451 215 215
             </h3>
             <div className="flex items-center text-headerColor text-3xl justify-center lg:justify-normal">
-              <i className="fa-brands fa-twitter  mr-7"></i>
-              <i className="fa-brands fa-facebook  mr-7"></i>
-              <i className="fa-brands fa-instagram mr-7"></i>
-              <i className="fa-brands fa-linkedin "></i>
+              <i className="fa-brands fa-twitter  mr-7 hover:opacity-70"></i>
+              <i className="fa-brands fa-facebook  mr-7 hover:opacity-70"></i>
+              <i className="fa-brands fa-instagram mr-7 hover:opacity-70"></i>
+              <i className="fa-brands fa-linkedin hover:opacity-70"></i>
             </div>
           </article>
           <article className="relative basis-[45%] ">

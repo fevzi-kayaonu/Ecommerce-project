@@ -109,18 +109,18 @@ export const ProductDetail = () => {
                 <div className="bg-black w-[26px] h-[26px] rounded-full"></div>
               </div>
               <div className="flex gap-4">
-                <button className="text-sm font-bold bg-primary text-white rounded-md px-6">
+                <button className="text-sm font-bold bg-primary text-white rounded-md px-6 hover:opacity-75">
                   Select Options
                 </button>
                 <div className="flex justify-center gap-4 text-xl max-xl:text-sm max-lg:text-xs max-sm:text-2xl">
                   <div className="bg-white rounded-full p-2">
-                    <i className="fa-regular fa-heart"></i>
+                    <i className="fa-regular fa-heart hover:opacity-45"></i>
                   </div>
                   <div className="bg-white rounded-full p-2">
-                    <i className="fa-solid fa-cart-shopping"></i>
+                    <i className="fa-solid fa-cart-shopping hover:opacity-45"></i>
                   </div>
                   <div className="bg-white rounded-full p-2">
-                    <i className="fa-solid fa-eye"></i>
+                    <i className="fa-solid fa-eye hover:opacity-45"></i>
                   </div>
                 </div>
               </div>

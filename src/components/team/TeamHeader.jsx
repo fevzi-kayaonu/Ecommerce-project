@@ -12,11 +12,11 @@ export const TeamHeader = () => {
         Innovation tailored for you
       </h1>
       <div className="mb-12 mt-7">
-        <a href="" className="mx-2">
+        <a href="/" className="mx-2 hover:underline">
           Home{" "}
         </a>
         {">"}
-        <a href="" className="text-secondTextColor mx-2">
+        <a href="/team" className="text-secondTextColor mx-2 hover:underline">
           Team
         </a>
       </div>

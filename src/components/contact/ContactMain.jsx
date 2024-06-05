@@ -22,7 +22,7 @@ export const ContactMain = () => {
               </h6>
               <h5 className=" font-bold leading-6 my-4">Get Support</h5>
 
-              <button className="py-4 px-9 border border-primary rounded-full text-primary">
+              <button className="py-4 px-9 border border-primary rounded-full text-primary hover:opacity-40">
                 Submit Request
               </button>
             </div>
@@ -42,7 +42,7 @@ export const ContactMain = () => {
               </h6>
               <h5 className=" font-bold leading-6 my-4">Get Support</h5>
 
-              <button className="py-4 px-9 border border-primary rounded-full text-primary">
+              <button className="py-4 px-9 border border-primary rounded-full text-primary hover:opacity-70">
                 Submit Request
               </button>
             </div>
@@ -60,7 +60,7 @@ export const ContactMain = () => {
               </h6>
               <h5 className=" font-bold leading-6 my-4">Get Support</h5>
 
-              <button className="py-4 px-9 border border-primary rounded-full text-primary">
+              <button className="py-4 px-9 border border-primary rounded-full text-primary hover:opacity-40">
                 Submit Request
               </button>
             </div>
@@ -74,7 +74,7 @@ export const ContactMain = () => {
           <h1 className="mb-8 font-bold leading-[80px] text-5xl md:text-6xl">
             Let{"'"}s Talk
           </h1>
-          <button className="py-4 px-10 bg-primary rounded-md font-bold text-white ">
+          <button className="py-4 px-10 bg-primary rounded-md font-bold text-white hover:opacity-70">
             Try it free now
           </button>
         </section>

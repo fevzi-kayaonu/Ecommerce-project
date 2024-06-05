@@ -12,7 +12,7 @@ export const AboutTestimonials = () => {
               The gradual accumulation of information about atomic and
               small-scale behavior during the first quarter of the 20th{" "}
             </p>
-            <button className="text-sm font-bold border-[1px] w-[120px] border-white py-2 rounded-md">
+            <button className="text-sm font-bold border-[1px] w-[120px] border-white py-2 rounded-md hover:bg-white hover:text-primary">
               Button
             </button>
           </div>

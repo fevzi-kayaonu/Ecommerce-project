@@ -4,7 +4,7 @@ import { FeaturedPosts } from "../components/home/FeaturedPosts";
 import { Hero } from "../components/home/Hero";
 import { ProductsHome } from "../components/product/ProductsHome";
 import { Services } from "../components/home/Services";
-import { ShopCard } from "../components/shop/ShopCard";
+import { ShopCard } from "../components/home/ShopCard";
 
 export const HomePage = () => {
   return (

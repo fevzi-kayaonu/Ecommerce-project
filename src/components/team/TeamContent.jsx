@@ -7,7 +7,7 @@ export const TeamContent = () => {
           Met minim Mollie non desert Alamo est sit cliquey dolor do met sent.
           RELIT official consequent.
         </p>
-        <button className="text-white font-bold text-sm py-3 px-14 bg-primary rounded-md mb-2">
+        <button className="text-white font-bold text-sm py-3 px-14 bg-primary rounded-md mb-2 hover:opacity-70">
           Try it free now
         </button>
         <div className="flex gap-5 text-xl justify-center py-5">

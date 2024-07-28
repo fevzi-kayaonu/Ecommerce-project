@@ -1,10 +1,12 @@
 import { Switch, Route } from "react-router-dom/";
-import { HomePage } from "../pages/HomePage";
+import HomePage from "../pages/HomePage";
 import AboutPage from "../pages/AboutPage";
 import ContactPage from "../pages/ContactPage";
 import ShopPage from "../pages/ShopPage";
 import TeamPage from "../pages/TeamPage";
 import ProductDetailPage from "../pages/ProductDetailPage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 
 export const PageContent = () => {
   return (
@@ -27,6 +29,12 @@ export const PageContent = () => {
         </Route>
         <Route path="/detail">
           <ProductDetailPage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/register">
+          <RegisterPage />
         </Route>
       </Switch>
     </>

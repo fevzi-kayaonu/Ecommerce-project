@@ -57,8 +57,14 @@ export const Header = () => {
             <div className="max-md:hidden">
               <i className="fa-regular fa-user"> </i>
               <span> </span>
-              <button className="hover:underline"> Login</button>/
-              <button className="hover:underline">Register</button>
+              <Link className="hover:underline" to="/login">
+                {" "}
+                Login
+              </Link>
+              /
+              <Link className="hover:underline" to="/register">
+                Register
+              </Link>
             </div>
             <i className="fa-solid fa-magnifying-glass hover:opacity-75"></i>
             <i className="fa-solid fa-cart-shopping hover:opacity-75"></i>

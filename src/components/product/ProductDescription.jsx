@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import DescriptionImg from "../../assets/Description-Img.png";
 
 export const ProductDescription = () => {
@@ -7,11 +8,11 @@ export const ProductDescription = () => {
         <div className="basis-[90%] flex flex-col">
           <section className="pb-7 text-center ">
             <div className="flex justify-center gap-7 text-secondTextColor text-sm pb-7">
-              <a href="">Description</a>
-              <a href="">Additional Information</a>
-              <a href="">
+              <Link to="">Description</Link>
+              <Link to="">Additional Information</Link>
+              <Link to="">
                 Reviews (<span className="text-secondary">0</span>)
-              </a>
+              </Link>
             </div>
             <div className="border-[1px] border-lightGray" />
           </section>

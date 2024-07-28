@@ -1,6 +1,7 @@
 import { useState } from "react";
 import detailImg1 from "../../assets/detail-1.jpg";
 import detailImg2 from "../../assets/detail-2.jpeg";
+import { Link } from "react-router-dom";
 
 const data = [detailImg1, detailImg2];
 
@@ -25,16 +26,16 @@ export const ProductDetail = () => {
       <section className="flex justify-center bg-bgGray py-16">
         <article className="basis-[85%]">
           <div className="py-5 px-5">
-            <a className="font-bold text-sm hover:underline" href="/">
+            <Link className="font-bold text-sm hover:underline" to="/">
               Home
-            </a>
+            </Link>
             <i className="fa-solid fa-chevron-right m-2 text-muted"></i>
-            <a
+            <Link
               className="font-bold text-sm text-muted hover:underline"
               href="/shop"
             >
               Shop
-            </a>
+            </Link>
           </div>
           <section className="flex max-md:flex-col justify-between gap-5">
             <article className="basis-[48%]">

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import shop1 from "../../assets/ShopContainer-1.jpg";
 import shop2 from "../../assets/ShopContainer-2.jpg";
 import shop3 from "../../assets/ShopContainer-3.jpg";
@@ -13,16 +14,16 @@ export const ShopContainer = () => {
             <h3 className="font-bold text-2xl">Shop</h3>
 
             <div className="py-5">
-              <a className="font-bold text-sm hover:underline" href="/">
+              <Link className="font-bold text-sm hover:underline" to="/">
                 Home
-              </a>
+              </Link>
               <i className="fa-solid fa-chevron-right m-2 text-muted"></i>
-              <a
+              <Link
                 className="font-bold text-sm text-muted hover:underline"
                 href="/shop"
               >
                 Shop
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex justify-between max-lg:justify-center flex-wrap gap-4">

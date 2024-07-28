@@ -7,7 +7,7 @@ export const TeamCard = ({ data }) => {
             Meet Our Team
           </h2>
           <div className="flex flex-wrap mx-auto justify-center gap-5">
-            {data.map((item) => (
+            {data?.map((item) => (
               <div
                 className="text-center my-[1%] basis-[30%]  max-md:basis-[45%] max-sm:basis-[100%] hover:opacity-75"
                 key={item}

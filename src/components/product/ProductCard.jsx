@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export const ProductCard = ({ item, cssContainer, colors }) => {
   const history = useHistory();
@@ -22,9 +22,9 @@ export const ProductCard = ({ item, cssContainer, colors }) => {
         </picture>
         <div className="flex flex-col my-6 font-bold gap-3">
           <h5 className=" text-base tracking-wide">Graphic Design</h5>
-          <a className="text-sm tracking-wider text-secondTextColor">
+          <Link className="text-sm tracking-wider text-secondTextColor">
             English Department
-          </a>
+          </Link>
           <div className="flex justify-center text-base tracking-wide gap-2">
             <p className="text-secondTextColor">$16.48</p>
             <p className="text-secondary">$6.48</p>

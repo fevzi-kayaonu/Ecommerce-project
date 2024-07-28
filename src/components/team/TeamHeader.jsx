@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import img1 from "../../assets/teamHeaderImg-1.jpg";
 import img2 from "../../assets/teamHeaderImg-2.jpg";
 import img3 from "../../assets/teamHeaderImg-3.jpg";
@@ -12,13 +13,13 @@ export const TeamHeader = () => {
         Innovation tailored for you
       </h1>
       <div className="mb-12 mt-7">
-        <a href="/" className="mx-2 hover:underline">
+        <Link to="/" className="mx-2 hover:underline">
           Home{" "}
-        </a>
+        </Link>
         {">"}
-        <a href="/team" className="text-secondTextColor mx-2 hover:underline">
+        <Link to="/team" className="text-secondTextColor mx-2 hover:underline">
           Team
-        </a>
+        </Link>
       </div>
       <div className="flex max-md:flex-wrap gap-2 justify-between">
         <div className="basis-[50%] max-md:basis-[100%] aspect-[7/5.3]">

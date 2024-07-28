@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Footer = () => {
   return (
     <>
@@ -19,67 +21,67 @@ export const Footer = () => {
                 <h5 className="text-black text-lg tracking-wide py-3">
                   Company Info
                 </h5>
-                <a className="hover:underline" href="/about-us">
+                <Link className="hover:underline" to="/about-us">
                   About Us
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Carrier
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   We are hiring
-                </a>
-                <a className="hover:underline" href="/team">
+                </Link>
+                <Link className="hover:underline" to="/team">
                   Team
-                </a>
+                </Link>
               </div>
               <div className="font-bold  flex flex-col max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
                 <h5 className="text-black text-lg tracking-wide py-3">Legal</h5>
-                <a className="hover:underline" href="/about-us">
+                <Link className="hover:underline" to="/about-us">
                   About Us
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Carrier
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   We are hiring
-                </a>
-                <a className="hover:underline" href="/team">
+                </Link>
+                <Link className="hover:underline" to="/team">
                   Team
-                </a>
+                </Link>
               </div>
               <div className="font-bold flex flex-col  max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
                 <h5 className="text-black text-lg tracking-wide py-3">
                   Features
                 </h5>
-                <a className="hover:underline" href="">
+                <Link className="hover:underline" to="">
                   Business Marketing
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   User Analytic
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Live Chat
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Unlimited Support
-                </a>
+                </Link>
               </div>
               <div className="font-bold flex flex-col max-md:basis-[45%] max-sm:basis-[80%]  gap-3 text-sm tracking-wider text-secondTextColor">
                 <h5 className="text-black text-lg tracking-wide py-3">
                   Resources
                 </h5>
-                <a className="hover:underline" href="">
+                <Link className="hover:underline" to="">
                   IOS & Android
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Watch a Demo
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   Customers
-                </a>
-                <a className="hover:underline" href="">
+                </Link>
+                <Link className="hover:underline" to="">
                   API
-                </a>
+                </Link>
               </div>
             </div>
             <div className="font-bold flex flex-col basis[34%] mx-auto min-w-[320px] gap-3 text-sm tracking-wider text-secondTextColor">

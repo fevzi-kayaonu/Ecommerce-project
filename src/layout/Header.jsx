@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Header = () => {
   return (
     <>
@@ -28,27 +30,27 @@ export const Header = () => {
           <div className="flex gap-6  items-center ">
             <h1 className="text-2xl">BrandName</h1>
             <nav className="flex text-[#737373] gap-2 max-md:hidden">
-              <a className="hover:underline" href="/">
+              <Link className="hover:underline" to="/">
                 Home
-              </a>
-              <a className="hover:underline" href="/shop">
+              </Link>
+              <Link className="hover:underline" to="/shop">
                 Shop{" "}
                 <span>
                   <i className="fa-solid fa-angle-down"></i>
                 </span>
-              </a>
-              <a className="hover:underline" href="/about-us">
+              </Link>
+              <Link className="hover:underline" to="/about-us">
                 About
-              </a>
-              <a className="hover:underline" href="/team">
+              </Link>
+              <Link className="hover:underline" to="/team">
                 Team
-              </a>
-              <a className="hover:underline" href="/contact">
+              </Link>
+              <Link className="hover:underline" to="/contact">
                 Contact
-              </a>
-              <a className="hover:underline" href="/">
+              </Link>
+              <Link className="hover:underline" to="/">
                 Pages
-              </a>
+              </Link>
             </nav>
           </div>
           <div className="flex gap-5 text-[#23A6F0] max-md:text-black items-center max-md:text-2xl">
@@ -66,27 +68,27 @@ export const Header = () => {
         </article>
         <div>
           <nav className="flex flex-col items-center text-[#737373] gap-5 md:hidden py-10 text-3xl">
-            <a className="hover:underline" href="/">
+            <Link className="hover:underline" to="/">
               Home
-            </a>
-            <a className="hover:underline" href="/Shop">
+            </Link>
+            <Link className="hover:underline" to="/Shop">
               Shop{" "}
               <span>
                 <i className="fa-solid fa-angle-down"></i>
               </span>
-            </a>
-            <a className="hover:underline" href="/about-us">
+            </Link>
+            <Link className="hover:underline" to="/about-us">
               About
-            </a>
-            <a className="hover:underline" href="/blog">
+            </Link>
+            <Link className="hover:underline" to="/blog">
               Blog
-            </a>
-            <a className="hover:underline" href="/contact">
+            </Link>
+            <Link className="hover:underline" to="/contact">
               Contact
-            </a>
-            <a className="hover:underline" href="/">
+            </Link>
+            <Link className="hover:underline" to="/">
               Pages
-            </a>
+            </Link>
           </nav>
         </div>
       </section>

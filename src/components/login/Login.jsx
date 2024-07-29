@@ -15,12 +15,11 @@ export const Login = () => {
     console.log("Password:", password);
 
     axios
-      .post("https://workintech-fe-ecommerce.onrender.com/login", {
+      .post("http://localhost:8080/workintech/ecommerce/v1/api/login", {
         email,
         password,
       })
-      .then((response) => {
-        console.log("Success:", response.data);
+      .then(() => {
         history.push("/");
       })
       .catch((error) => {

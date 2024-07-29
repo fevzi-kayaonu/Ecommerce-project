@@ -23,18 +23,15 @@ export const ProductsHome = () => {
   const limit = 10;
   useEffect(() => {
     axios
-      .get("https://workintech-fe-ecommerce.onrender.com/products", {
+      .get("http://localhost:8080/workintech/ecommerce/v1/api/welcome/", {
         params: {
           offset: offSet,
           limit: limit,
         },
       })
       .then((response) => {
-        setProducts((prevProducts) => [
-          ...prevProducts,
-          ...response.data.products,
-        ]);
-        // console.log(response.data.products[0].images[0].url);
+        setProducts((prevProducts) => [...prevProducts, ...response.data]);
+        console.log(response.data);
       })
       .catch((err) => console.error("Error fetching data:", err));
   }, [offSet]);
@@ -61,8 +58,8 @@ export const ProductsHome = () => {
           <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
             {products?.map((item) => (
               <ProductCard
-                key={item}
-                item={item.images[0].url}
+                key={item.id}
+                item={item.imageResponseDtos[0].url}
                 cssContainer="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%]"
                 colors={false}
               />
@@ -79,22 +76,3 @@ export const ProductsHome = () => {
     </>
   );
 };
-
-/*
-  useEffect(() => {
-    axios
-      .get("https://workintech-fe-ecommerce.onrender.com/products", {
-        params: {
-          offset: offSet,
-          limit: limit,
-        },
-      })
-      .then((response) => {
-        setProducts(response.data.products);
-        console.log(response.data.products[0].images.url);      
-      })
-      .catch((err) => console.error("Error fetching data:", err));
-
-    console.log("yaz bakalım");
-  }, []);
-  */

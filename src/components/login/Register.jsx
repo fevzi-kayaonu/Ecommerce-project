@@ -1,31 +1,32 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export const Register = () => {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Burada form verilerini işleyebilir veya bir API çağrısı yapabilirsiniz.
-    console.log("Firstname:", firstname);
-    console.log("Lastname:", lastname);
+    console.log("FirstName:", firstName);
+    console.log("LastName:", lastName);
     console.log("Email:", email);
     console.log("Password:", password);
 
-    // Örneğin, bir API'ye gönderim yapmak için:
     axios
-      .post("https://workintech-fe-ecommerce.onrender.com/", {
-        firstname,
-        lastname,
-        email,
-        password,
+      .post("http://localhost:8080/workintech/ecommerce/v1/api/auth/register", {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
       })
       .then((response) => {
         console.log("Success:", response.data);
+        history.push("/login");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -56,8 +57,8 @@ export const Register = () => {
               id="firstname"
               placeholder="Your Firstname"
               className="py-5 rounded-l-md bg-bgInput pl-4"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
 
@@ -73,8 +74,8 @@ export const Register = () => {
               id="lastname"
               placeholder="Your Lastname"
               className="py-5 rounded-l-md bg-bgInput pl-4"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
 

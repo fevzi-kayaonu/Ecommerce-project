@@ -11,19 +11,28 @@ export const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log("Email:", email);
     console.log("Password:", password);
 
+    const formData = new URLSearchParams();
+    formData.append("username", email);
+    formData.append("password", password);
+
     axios
-      .post("http://localhost:8080/workintech/ecommerce/v1/api/login", {
-        email,
-        password,
-      })
-      .then(() => {
+      .post(
+        "http://localhost:8080/workintech/ecommerce/v1/api/login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
         history.push("/");
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Error:", error.response.data);
       });
   };
 

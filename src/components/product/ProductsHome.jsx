@@ -1,6 +1,9 @@
 import { ProductCard } from "./ProductCard";
-import ProductImg from "../../assets/ProductImg.jpg";
+//import ProductImg from "../../assets/ProductImg.jpg";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
+/*
 const data = [
   ProductImg,
   ProductImg,
@@ -13,8 +16,30 @@ const data = [
   ProductImg,
   ProductImg,
 ];
-
+*/
 export const ProductsHome = () => {
+  const [products, setProducts] = useState([]);
+  const [offSet, setOffSet] = useState(0);
+  const limit = 10;
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/workintech/ecommerce/v1/api/welcome/", {
+        params: {
+          offset: offSet,
+          limit: limit,
+        },
+      })
+      .then((response) => {
+        setProducts((prevProducts) => [...prevProducts, ...response.data]);
+        console.log(response.data);
+      })
+      .catch((err) => console.error("Error fetching data:", err));
+  }, [offSet]);
+
+  const handleClick = () => {
+    setOffSet((offSet) => offSet + limit);
+  };
+
   return (
     <>
       <main className="flex justify-center py-20 max-sm:py-10 max-md:py-15">
@@ -31,16 +56,19 @@ export const ProductsHome = () => {
             </p>
           </div>
           <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-            {data.map((item) => (
+            {products?.map((item) => (
               <ProductCard
-                key={item}
-                item={item}
+                key={item.id}
+                item={item.imageResponseDtos[0].url}
                 cssContainer="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%]"
                 colors={false}
               />
             ))}
           </div>
-          <button className="font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6 hover:opacity-60">
+          <button
+            className="font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6 hover:opacity-60"
+            onClick={handleClick}
+          >
             LOAD MORE PRODUCTS
           </button>
         </div>

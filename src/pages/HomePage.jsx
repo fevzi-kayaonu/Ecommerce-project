@@ -6,7 +6,7 @@ import { ProductsHome } from "../components/product/ProductsHome";
 import { Services } from "../components/home/Services";
 import { ShopCard } from "../components/home/ShopCard";
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <>
       <Hero />
@@ -19,3 +19,5 @@ export const HomePage = () => {
     </>
   );
 };
+
+export default HomePage;

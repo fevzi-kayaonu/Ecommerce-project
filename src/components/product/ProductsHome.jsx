@@ -23,15 +23,18 @@ export const ProductsHome = () => {
   const limit = 10;
   useEffect(() => {
     axios
-      .get("http://localhost:8080/workintech/ecommerce/v1/api/welcome/", {
+      .get("https://workintech-fe-ecommerce.onrender.com/products", {
         params: {
           offset: offSet,
           limit: limit,
         },
       })
       .then((response) => {
-        setProducts((prevProducts) => [...prevProducts, ...response.data]);
-        console.log(response.data);
+        setProducts((prevProducts) => [
+          ...prevProducts,
+          ...response.data.products,
+        ]);
+        console.log(response.data.products);
       })
       .catch((err) => console.error("Error fetching data:", err));
   }, [offSet]);
@@ -59,7 +62,7 @@ export const ProductsHome = () => {
             {products?.map((item) => (
               <ProductCard
                 key={item.id}
-                item={item.imageResponseDtos[0].url}
+                item={item.images[0].url}
                 cssContainer="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%]"
                 colors={false}
               />

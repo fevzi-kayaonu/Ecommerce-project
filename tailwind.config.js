@@ -31,6 +31,9 @@ export default {
       opacity: {
         75: "0.75",
       },
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
+      },
     },
   },
   plugins: [],

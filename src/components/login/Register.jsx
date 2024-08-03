@@ -1,8 +1,10 @@
-import axios from "axios";
 import { useForm, Controller } from "react-hook-form";
 import { Link, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { showToast } from "../util/ShowToast";
+import { useEffect } from "react";
+import { showToast } from "../../util/ShowToast";
+import { useDispatch, useSelector } from "react-redux";
+import { getRoles } from "../../store/actions/clientAction";
+import { METHODS, sendRequest } from "../../util/axiosUtil";
 
 const formData = {
   name: "",
@@ -30,76 +32,83 @@ export const Register = () => {
     mode: "onChange",
   });
 
-  const [roles, setRoles] = useState([]);
+  const roles = useSelector((store) => store.client.roles);
+
+  const dispatch = useDispatch();
 
   const history = useHistory();
   const password = watch("password");
-  const role_id = watch("role_id"); // Use watch to observe role_id
+  const role_id = watch("role_id");
 
   useEffect(() => {
-    axios
-      .get("https://workintech-fe-ecommerce.onrender.com/roles")
-      .then((response) => {
-        setRoles(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => console.error("Error fetching roles:", error));
-  }, []);
+    if (roles.length === 0) {
+      dispatch(getRoles());
+    }
+  }, [dispatch, roles]);
 
   const onSubmit = (data) => {
-    const { confirmPassword, ...formDataToSend } = data;
+    const { confirmPassword, store, ...formDataToSend } = data;
     const filteredData =
-      role_id === 2
-        ? { ...formDataToSend, store: data.store }
-        : { ...formDataToSend };
+      role_id == 2 ? { ...formDataToSend, ...store } : { ...formDataToSend };
 
-    axios
-      .post("https://workintech-fe-ecommerce.onrender.com/signup", filteredData)
-      .then((response) => {
-        showToast({
-          message: response.data.message,
-          type: "warn",
-          position: "top-center",
-          autoClose: false,
-          closeOnClick: false,
-          transition: "Zoom",
-        });
-        history.goBack();
-      })
-      .catch((error) => {
-        console.error("girdim:", error.message);
-        console.error("Error:", error);
-        showToast({
-          message: "Doesnt registaration",
-          type: "error",
-          position: "top-right",
-          autoClose: 5000,
-          closeOnClick: false,
-          transition: "Bounce",
-        });
-      });
+    console.log("data: ", filteredData);
+
+    sendRequest(
+      {
+        url: "/signup",
+        method: METHODS.POST,
+        data: filteredData,
+        redirect: "goBack",
+        callbackSuccess: (data) => {
+          console.log("dataa: ", data);
+          showToast({
+            message: data.message,
+            type: "warn",
+            position: "top-center",
+            autoClose: false,
+            closeOnClick: false,
+            transition: "Zoom",
+          });
+        },
+        callbackError: () =>
+          showToast({
+            message: "Doesnt registaration",
+            type: "error",
+            position: "top-right",
+            autoClose: 5000,
+            closeOnClick: false,
+            transition: "Bounce",
+          }),
+      },
+      history
+    );
   };
 
   return (
     <section className="flex justify-center py-10">
-      <div className="flex flex-col items-center shadow-lg w-[600px] py-10 max-sm:py-5 max-lg:py-7 max-lg:w-[400px] max-sm:w-[300px]">
-        <div>
-          <Link className="hover:underline" to="/login">
+      <div className="flex flex-col items-center shadow-lg w-[600px] pb-10 max-sm:pb-5 max-lg:pb-7 max-lg:w-[500px] max-sm:w-[400px] gap-5  border-2">
+        <div className="flex justify-between w-full text-3xl text-primary  border-b-2">
+          <Link
+            className="basis-[48%] text-center  hover:bg-primary hover:text-white py-4"
+            to="/login"
+          >
             Login
           </Link>
-          /
-          <Link className="hover:underline" to="/register">
+          <Link
+            className="basis-[48%]  text-center bg-primary text-white py-4"
+            to="/register"
+          >
             Register
           </Link>
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center gap-5 w-[80%] text-lg"
         >
-          <div>
+          <div className="w-full">
             <label
               htmlFor="name"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block mb-2 font-medium text-gray-700"
             >
               Name
             </label>
@@ -107,7 +116,7 @@ export const Register = () => {
               type="text"
               id="name"
               placeholder="Your Name"
-              className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.name ? "border-red-500" : "border-gray-300"}`}
+              className={`py-5 rounded-l-md bg-bgInput w-full pl-4 ${errors.name ? "border-red-500" : "border-gray-300"}`}
               {...register("name", {
                 required: "Name is required",
                 minLength: {
@@ -121,10 +130,10 @@ export const Register = () => {
             )}
           </div>
 
-          <div>
+          <div className="w-full">
             <label
               htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block mb-2 font-medium text-gray-700"
             >
               Email
             </label>
@@ -132,7 +141,7 @@ export const Register = () => {
               type="email"
               id="email"
               placeholder="Your Email"
-              className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.email ? "border-red-500" : "border-gray-300"}`}
+              className={`py-5 rounded-l-md bg-bgInput w-full pl-4 ${errors.email ? "border-red-500" : "border-gray-300"}`}
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -146,10 +155,10 @@ export const Register = () => {
             )}
           </div>
 
-          <div>
+          <div className="w-full">
             <label
               htmlFor="password"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block mb-2 font-medium text-gray-700"
             >
               Password
             </label>
@@ -157,7 +166,7 @@ export const Register = () => {
               type="password"
               id="password"
               placeholder="Your Password"
-              className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.password ? "border-red-500" : "border-gray-300"}`}
+              className={`py-5 rounded-l-md bg-bgInput w-full pl-4 ${errors.password ? "border-red-500" : "border-gray-300"}`}
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -177,10 +186,10 @@ export const Register = () => {
             )}
           </div>
 
-          <div>
+          <div className="w-full">
             <label
               htmlFor="confirmPassword"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block mb-2 font-medium text-gray-700"
             >
               Confirm Password
             </label>
@@ -188,7 +197,7 @@ export const Register = () => {
               type="password"
               id="confirmPassword"
               placeholder="Confirm Password"
-              className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.confirmPassword ? "border-red-500" : "border-gray-300"}`}
+              className={`py-5 rounded-l-md bg-bgInput w-full pl-4 ${errors.confirmPassword ? "border-red-500" : "border-gray-300"}`}
               {...register("confirmPassword", {
                 required: "Please confirm your password",
                 validate: (value) =>
@@ -200,10 +209,10 @@ export const Register = () => {
             )}
           </div>
 
-          <div className="self-start">
+          <div className="self-start w-full">
             <label
               htmlFor="role_id"
-              className="block mb-2 text-sm font-medium text-gray-700"
+              className="block mb-2 font-medium text-gray-700"
             >
               Role
             </label>
@@ -213,7 +222,7 @@ export const Register = () => {
               render={({ field }) => (
                 <select
                   id="role"
-                  className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.role_id ? "border-red-500" : "border-gray-300"}`}
+                  className={`py-5 rounded-l-md bg-bgInput w-full pl-4 ${errors.role_id ? "border-red-500" : "border-gray-300"}`}
                   {...field}
                   onChange={(e) => {
                     const value = Number(e.target.value); // Convert to Number
@@ -236,10 +245,10 @@ export const Register = () => {
 
           {role_id === 2 && (
             <>
-              <div>
+              <div className="w-full">
                 <label
                   htmlFor="storeName"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="block mb-2 font-medium text-gray-700"
                 >
                   Store Name
                 </label>
@@ -247,7 +256,7 @@ export const Register = () => {
                   type="text"
                   id="storeName"
                   placeholder="Store Name"
-                  className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.store?.name ? "border-red-500" : "border-gray-300"}`}
+                  className={`py-5 rounded-l-md w-full bg-bgInput pl-4 ${errors.store?.name ? "border-red-500" : "border-gray-300"}`}
                   {...register("store.name", {
                     required: "Store Name is required",
                     minLength: {
@@ -261,10 +270,10 @@ export const Register = () => {
                 )}
               </div>
 
-              <div>
+              <div className="w-full">
                 <label
                   htmlFor="storePhone"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="block mb-2 font-medium text-gray-700"
                 >
                   Store Phone
                 </label>
@@ -272,7 +281,7 @@ export const Register = () => {
                   type="text"
                   id="storePhone"
                   placeholder="Store Phone"
-                  className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.store?.phone ? "border-red-500" : "border-gray-300"}`}
+                  className={`py-5 rounded-l-md bg-bgInput w-full pl-4 ${errors.store?.phone ? "border-red-500" : "border-gray-300"}`}
                   {...register("store.phone", {
                     required: "Store Phone is required",
                     pattern: {
@@ -287,10 +296,10 @@ export const Register = () => {
                 )}
               </div>
 
-              <div>
+              <div className="w-full">
                 <label
                   htmlFor="storeTaxId"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="block mb-2 font-medium text-gray-700"
                 >
                   Store Tax ID
                 </label>
@@ -298,7 +307,7 @@ export const Register = () => {
                   type="text"
                   id="storeTaxId"
                   placeholder="Store Tax ID"
-                  className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.store?.tax_no ? "border-red-500" : "border-gray-300"}`}
+                  className={`py-5 rounded-l-md bg-bgInput w-full pl-4 ${errors.store?.tax_no ? "border-red-500" : "border-gray-300"}`}
                   {...register("store.tax_no", {
                     required: "Store Tax ID is required",
                     pattern: {
@@ -313,10 +322,10 @@ export const Register = () => {
                 )}
               </div>
 
-              <div>
+              <div className="w-full">
                 <label
                   htmlFor="storeBankAccount"
-                  className="block mb-2 text-sm font-medium text-gray-700"
+                  className="block mb-2 font-medium text-gray-700"
                 >
                   Store Bank Account
                 </label>
@@ -324,7 +333,7 @@ export const Register = () => {
                   type="text"
                   id="storeBankAccount"
                   placeholder="Store Bank Account"
-                  className={`py-5 rounded-l-md bg-bgInput pl-4 ${errors.store?.bank_account ? "border-red-500" : "border-gray-300"}`}
+                  className={`py-5 rounded-l-md bg-bgInput w-full pl-4 ${errors.store?.bank_account ? "border-red-500" : "border-gray-300"}`}
                   {...register("store.bank_account", {
                     required: "Store Bank Account is required",
                     pattern: {
@@ -345,7 +354,7 @@ export const Register = () => {
 
           <button
             type="submit"
-            className={`flex items-center justify-center mt-4 py-2 px-4 rounded-md text-white ${isSubmitting ? "bg-gray-500" : "bg-blue-500"} ${errors.length ? "cursor-not-allowed" : ""}`}
+            className={`flex items-center justify-center mt-4 text-2xl py-4 px-10 rounded-md text-white hover:opacity-75 ${isSubmitting ? "bg-gray-500" : "bg-primary"} ${errors.length ? "cursor-not-allowed" : ""}`}
             disabled={isSubmitting}
           >
             {isSubmitting && (

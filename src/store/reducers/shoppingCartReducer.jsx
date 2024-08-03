@@ -1,8 +1,4 @@
-import {
-  REQUEST_ERROR,
-  REQUEST_START,
-  REQUEST_SUCCESS,
-} from "../actions/clientAction";
+import { REQUEST_ERROR, REQUEST_START } from "../actions/clientAction";
 import {
   SET_ADDRESS,
   SET_CART,
@@ -13,22 +9,16 @@ const order = {
   cart: [],
   payment: {},
   address: {},
-  loading: false,
+  loading: true,
   error: null,
 };
 
-const shoppingCartReducer = (state = order, action) => {
+const shoppingCartReducer = (state = { ...order }, action) => {
   switch (action.type) {
     case REQUEST_START:
       return {
         ...state,
         loading: true,
-        error: null,
-      };
-    case REQUEST_SUCCESS:
-      return {
-        ...state,
-        loading: false,
         error: null,
       };
     case REQUEST_ERROR:
@@ -38,11 +28,26 @@ const shoppingCartReducer = (state = order, action) => {
         error: action.error,
       };
     case SET_CART:
-      return { ...state, cart: [...state.cart, action.payload] };
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        cart: [...state.cart, action.payload],
+      };
     case SET_PAYMENT:
-      return { ...state, payment: [...state.payment, action.payload] };
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        payment: [...state.payment, action.payload],
+      };
     case SET_ADDRESS:
-      return { ...state, address: [...state.address, action.payload] };
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        address: [...state.address, action.payload],
+      };
     default:
       return state;
   }

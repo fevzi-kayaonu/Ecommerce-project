@@ -1,6 +1,7 @@
 import { showToast } from "../../util/ShowToast";
 import { METHODS } from "../../util/axiosUtil";
 import { sendRequest } from "../../util/axiosUtil";
+import { client } from "../reducers/clientReducer";
 
 export const SET_USER = "SET_USER";
 export const SET_ROLES = "SET_ROLES";
@@ -41,24 +42,29 @@ export const getRoles = () => (dispatch) => {
     dispatch
   );
 };
-export const getUserWithToken = (token) => (dispatch) => {
-  token &&
-    sendRequest(
-      {
-        url: "/verify",
-        method: METHODS.GET,
-        callbackSuccess: (data) => {
-          dispatch(setUser(data));
+
+export const getUserWithToken = () => (dispatch) => {
+  const token = localStorage.getItem("token");
+  token
+    ? sendRequest(
+        {
+          url: "/verify",
+          method: METHODS.GET,
+          callbackSuccess: (data) => {
+            dispatch(setUser(data));
+          },
+          callbackError: (err) => {
+            err.response &&
+              err.response.status === 401 &&
+              localStorage.removeItem("token");
+            dispatch(setUser(client.userInfo));
+          },
+          authentication: true,
         },
-        callbackError: (err) => {
-          console.log("verify err: ", err);
-          localStorage.removeItem("token");
-        },
-        authentication: true,
-        token: token,
-      },
-      dispatch
-    );
+        dispatch
+      )
+    : ((client.userInfo.loading = false),
+      dispatch(setUser(client.userInfo.loading)));
 };
 
 export const getUser = (data, history) => (dispatch) => {

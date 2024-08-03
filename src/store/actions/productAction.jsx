@@ -1,3 +1,5 @@
+import { METHODS } from "../../util/axiosUtil";
+
 export const SET_PRODUCT_LİST = "SET_PRODUCT_LİST";
 export const SET_CATEGORİES = "SET_CATEGORİES";
 export const SET_TOTAL = "SET_TOTAL";
@@ -32,4 +34,17 @@ export const setOffset = (data) => {
 
 export const setFilter = (data) => {
   return { type: SET_FILTER, payload: data };
+};
+
+export const getCategories = () => (dispatch) => {
+  sendRequest(
+    {
+      url: "/categories",
+      method: METHODS.GET,
+      callbackSuccess: (data) => {
+        dispatch(setCategories(data));
+      },
+    },
+    dispatch
+  );
 };

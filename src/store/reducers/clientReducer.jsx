@@ -1,7 +1,6 @@
 import {
   REQUEST_ERROR,
   REQUEST_START,
-  REQUEST_SUCCESS,
   SET_LANGUAGE,
   SET_ROLES,
   SET_THEME,
@@ -12,7 +11,7 @@ export const client = {
   userInfo: {
     name: "",
     email: "",
-    token: localStorage.getItem("token"),
+    token: undefined,
     role_id: "",
   },
   addressList: [],
@@ -20,22 +19,16 @@ export const client = {
   roles: [],
   theme: "light",
   language: "tr",
-  loading: false,
+  loading: true,
   error: null,
 };
 
-const clientReducer = (state = client, action) => {
+const clientReducer = (state = { ...client }, action) => {
   switch (action.type) {
     case REQUEST_START:
       return {
         ...state,
         loading: true,
-        error: null,
-      };
-    case REQUEST_SUCCESS:
-      return {
-        ...state,
-        loading: false,
         error: null,
       };
     case REQUEST_ERROR:
@@ -45,13 +38,23 @@ const clientReducer = (state = client, action) => {
         error: action.error,
       };
     case SET_USER:
-      return { ...state, userInfo: { ...action.payload } };
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        userInfo: { ...action.payload },
+      };
     case SET_ROLES: // Action içinde yazdığımız methodda yazılan actıon.type başka reducer içinde de tanımlıysa fetch in hangisine gideceğini nerden biliyor.
-      return { ...state, roles: action.payload };
+      return { ...state, loading: false, error: null, roles: action.payload };
     case SET_THEME:
-      return { ...state, theme: action.payload };
+      return { ...state, loading: false, error: null, theme: action.payload };
     case SET_LANGUAGE:
-      return { ...state, language: action.payload };
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        language: action.payload,
+      };
 
     default:
       return state;

@@ -14,10 +14,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserWithToken(token));
+    dispatch(getUserWithToken());
   }, [dispatch]);
 
-  console.log("loading: ", loading);
+  console.log("token :", token, " loading: ", loading);
 
   if (loading) {
     return (

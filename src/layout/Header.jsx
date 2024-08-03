@@ -3,9 +3,12 @@ import { Link, useHistory } from "react-router-dom";
 import { client } from "../store/reducers/clientReducer";
 import { setUser } from "../store/actions/clientAction";
 import CryptoJS from "crypto-js";
+import { useState } from "react";
 
 export const Header = () => {
   const user = useSelector((state) => state.client.userInfo);
+  const [toogle, setToogle] = useState(false);
+
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -16,7 +19,7 @@ export const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     dispatch(setUser(client.userInfo));
-    history.push("/login");
+    history.push("/");
   };
 
   return (

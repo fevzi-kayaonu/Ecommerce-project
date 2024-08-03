@@ -23,12 +23,12 @@ export const sendRequest = (
     callbackSuccess = null,
     callbackError = null,
     authentication = false,
-    token,
   },
   dispatch = null,
   history = null
 ) => {
-  const headers = authentication ? { Authorization: `Bearer ${token}` } : {};
+  const token = authentication ? localStorage.getItem("token") : undefined;
+  const headers = authentication ? { Authorization: token } : {};
 
   const instance = axios.create({
     baseURL: "https://workintech-fe-ecommerce.onrender.com",
@@ -39,7 +39,6 @@ export const sendRequest = (
   dispatch && dispatch(requestStart());
   instance[method](url, data === null ? null : data)
     .then((response) => {
-      dispatch && dispatch(requestSuccess());
       callbackSuccess && callbackSuccess(response.data);
       redirect === "goBack"
         ? history.length > 1
@@ -51,6 +50,6 @@ export const sendRequest = (
     })
     .catch((error) => {
       dispatch && dispatch(requestError(error.message));
-      callbackError && callbackError(error.message);
+      callbackError && callbackError(error);
     });
 };

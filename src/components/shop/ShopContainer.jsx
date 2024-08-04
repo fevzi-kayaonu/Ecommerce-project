@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
-import shop1 from "../../assets/ShopContainer-1.jpg";
-import shop2 from "../../assets/ShopContainer-2.jpg";
-import shop3 from "../../assets/ShopContainer-3.jpg";
-import shop4 from "../../assets/ShopContainer-4.jpg";
-import shop5 from "../../assets/ShopContainer-5.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { getCategories } from "../../store/actions/productAction";
+import { useEffect } from "react";
+import Spinner from "../others/Spinner";
 
 export const ShopContainer = () => {
+  const { categories, loading } = useSelector((store) => store.product);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (categories.length === 0) dispatch(getCategories());
+  }, [dispatch]);
+
   return (
     <>
       <section className="flex justify-center bg-bgGray py-4">
@@ -20,68 +26,43 @@ export const ShopContainer = () => {
               <i className="fa-solid fa-chevron-right m-2 text-muted"></i>
               <Link
                 className="font-bold text-sm text-muted hover:underline"
-                href="/shop"
+                to="/shop"
               >
                 Shop
               </Link>
             </div>
           </div>
-          <div className="flex justify-between max-lg:justify-center flex-wrap gap-4">
-            <div className="relative basis-[18%] max-lg:basis-[30%] max-md:basis-[45%] max-sm:basis-[85%] aspect-[1/1.1] max-md:aspect-[1.1/1]">
-              <img
-                className="w-full h-full object-cover hover:opacity-75"
-                src={shop1}
-                alt="shop.jpg"
-              />
-              <div className="absolute flex flex-col bottom-[50%] translate-y-[50%] left-[50%] translate-x-[-50%] text-white">
-                <h3 className="font-bold text-base">CLOTHS</h3>
-                <p className="font-normal text-sm">5 Items</p>
-              </div>
-            </div>
-            <div className="relative basis-[18%] max-lg:basis-[30%] max-md:basis-[45%] max-sm:basis-[85%] aspect-[1/1.1] max-md:aspect-[1.1/1]">
-              <img
-                className="w-full h-full object-cover hover:opacity-75"
-                src={shop2}
-                alt="shop.jpg"
-              />
-              <div className="absolute flex flex-col bottom-[50%] translate-y-[50%] left-[50%] translate-x-[-50%] text-white">
-                <h3 className="font-bold text-base">CLOTHS</h3>
-                <p className="font-normal text-sm">5 Items</p>
-              </div>
-            </div>
-            <div className="relative basis-[18%] max-lg:basis-[30%] max-md:basis-[45%] max-sm:basis-[85%] aspect-[1/1.1] max-md:aspect-[1.1/1]">
-              <img
-                className="w-full h-full object-cover hover:opacity-75"
-                src={shop3}
-                alt="shop.jpg"
-              />
-              <div className="absolute flex flex-col bottom-[50%] translate-y-[50%] left-[50%] translate-x-[-50%] text-white">
-                <h3 className="font-bold text-base">CLOTHS</h3>
-                <p className="font-normal text-sm">5 Items</p>
-              </div>
-            </div>
-            <div className="relative basis-[18%] max-lg:basis-[30%] max-md:basis-[45%] max-sm:basis-[85%] aspect-[1/1.1] max-md:aspect-[1.1/1]">
-              <img
-                className="w-full h-full object-cover hover:opacity-75"
-                src={shop4}
-                alt="shop.jpg"
-              />
-              <div className="absolute flex flex-col bottom-[50%] translate-y-[50%] left-[50%] translate-x-[-50%] text-white">
-                <h3 className="font-bold text-base">CLOTHS</h3>
-                <p className="font-normal text-sm">5 Items</p>
-              </div>
-            </div>
-            <div className="relative basis-[18%] max-lg:basis-[30%] max-md:basis-[45%] max-sm:basis-[85%] aspect-[1/1.1] max-md:aspect-[1.1/1]">
-              <img
-                className="w-full h-full object-cover hover:opacity-75"
-                src={shop5}
-                alt="shop.jpg"
-              />
-              <div className="absolute flex flex-col bottom-[50%] translate-y-[50%] left-[50%] translate-x-[-50%] text-white">
-                <h3 className="font-bold text-base">CLOTHS</h3>
-                <p className="font-normal text-sm">5 Items</p>
-              </div>
-            </div>
+          <div className="flex justify-center max-lg:justify-center flex-wrap gap-4">
+            {!loading ? (
+              categories
+                ?.sort((a, b) => a.rating - b.rating)
+                ?.slice(0, 5)
+                ?.map((category) => (
+                  <Link
+                    to={`/shop/${
+                      category.gender === "k"
+                        ? `kadin/${category.code.slice(2)}`
+                        : `erkek/${category.code.slice(2)}`
+                    }`}
+                    key={category.id}
+                    className="relative basis-[18%] max-lg:basis-[30%] max-md:basis-[45%] max-sm:basis-[85%] aspect-[1/1.1] max-md:aspect-[1.1/1] hover:scale-105 hover:shadow-sm hover:opacity-75"
+                  >
+                    <img
+                      className="w-full h-full object-cover hover:opacity-75"
+                      src={category.img}
+                      alt="shop.jpg"
+                    />
+                    <div className="absolute flex flex-col bottom-[50%] translate-y-[50%] left-[50%] translate-x-[-50%] text-white text-center">
+                      <h3 className="font-bold text-base">
+                        {category?.title.toUpperCase()}
+                      </h3>
+                      <p className="font-normal text-sm">{category.rating}</p>
+                    </div>
+                  </Link>
+                ))
+            ) : (
+              <Spinner svgCss="w-12 h-12" />
+            )}
           </div>
         </div>
       </section>

@@ -1,9 +1,4 @@
 import axios from "axios";
-import {
-  requestError,
-  requestStart,
-  requestSuccess,
-} from "../store/actions/clientAction";
 
 // API İstek Metodlarını Tanımla
 export const METHODS = {
@@ -24,7 +19,6 @@ export const sendRequest = (
     callbackError = null,
     authentication = false,
   },
-  dispatch = null,
   history = null
 ) => {
   const token = authentication ? localStorage.getItem("token") : undefined;
@@ -36,7 +30,6 @@ export const sendRequest = (
     headers,
   });
 
-  dispatch && dispatch(requestStart());
   instance[method](url, data === null ? null : data)
     .then((response) => {
       callbackSuccess && callbackSuccess(response.data);
@@ -49,7 +42,6 @@ export const sendRequest = (
           : null;
     })
     .catch((error) => {
-      dispatch && dispatch(requestError(error.message));
       callbackError && callbackError(error);
     });
 };

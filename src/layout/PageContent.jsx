@@ -7,7 +7,7 @@ import TeamPage from "../pages/TeamPage";
 import ProductDetailPage from "../pages/ProductDetailPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
-
+///:gender?/:category?
 export const PageContent = () => {
   return (
     <>
@@ -15,7 +15,7 @@ export const PageContent = () => {
         <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path="/shop" exact>
+        <Route path="/shop/:gender?/:category?">
           <ShopPage />
         </Route>
         <Route path="/team">

@@ -1,24 +1,21 @@
-import { ProductCard } from "./ProductCard";
-import ProductImg from "../../assets/ProductImg.jpg";
-
-const data = [
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-];
+import { ProductCard } from "../product/ProductCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../store/actions/productAction";
+import { useEffect } from "react";
+import Spinner from "../others/Spinner";
 
 export const ProductsShop = () => {
+  const { products, loading } = useSelector((store) => store.product);
+  const dispatch = useDispatch();
+  console.log("products: ", products);
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
   return (
     <>
       <main className="flex justify-center pb-20 pt-10 max-sm:py-10 max-md:pb-15">
-        <div className="basis-[90%] text-center">
+        <div className="basis-[90%] flex flex-col text-center">
           <div className="flex max-md:flex-col justify-between max-md:justify-center px-10 items-center flex-wrap gap-5 pb-10">
             <h6 className="font-bold text-sm text-secondTextColor">
               Showing all 12 results
@@ -43,16 +40,20 @@ export const ProductsShop = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-            {data.map((item) => (
-              <ProductCard
-                key={item}
-                item={item}
-                cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
-                colors={true}
-              />
-            ))}
-          </div>
+          {!loading ? (
+            <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
+              {products?.map((item) => (
+                <ProductCard
+                  key={item.id}
+                  item={item}
+                  cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
+                  colors={true}
+                />
+              ))}
+            </div>
+          ) : (
+            <Spinner divCss="self-center mb-6" svgCss="w-14 h-14" />
+          )}
           <div className="text-primary w-[313px] h-[74px] flex mx-auto border-2 border-lightGray rounded-md">
             <button className="basis-[33%] border-r-2 border-lightGray cursor-pointer hover:bg-primary hover:text-white	">
               First

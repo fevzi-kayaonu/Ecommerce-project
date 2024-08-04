@@ -4,10 +4,12 @@ import { client } from "../store/reducers/clientReducer";
 import { setUser } from "../store/actions/clientAction";
 import CryptoJS from "crypto-js";
 import { useState } from "react";
+import Categories from "../components/category/Categories";
 
 export const Header = () => {
   const user = useSelector((state) => state.client.userInfo);
-  const [toogle, setToogle] = useState(false);
+  const [toogleClick, setToogleClick] = useState(false);
+  const [toogleTouch, setToogleTouch] = useState(false);
 
   const history = useHistory();
 
@@ -20,6 +22,13 @@ export const Header = () => {
     localStorage.removeItem("token");
     dispatch(setUser(client.userInfo));
     history.push("/");
+  };
+
+  const handleClick = () => {
+    setToogleClick(!toogleClick);
+  };
+  const handleTouch = () => {
+    setToogleTouch(!toogleTouch);
   };
 
   return (
@@ -54,12 +63,22 @@ export const Header = () => {
               <Link className="hover:underline" to="/">
                 Home
               </Link>
-              <Link className="hover:underline" to="/shop">
-                Shop{" "}
-                <span>
-                  <i className="fa-solid fa-angle-down"></i>
-                </span>
-              </Link>
+              <div className="flex gap-1 items-center ">
+                <Link className="hover:underline" to="/shop">
+                  Shop{" "}
+                </Link>
+                <button className="relative">
+                  <i
+                    className="fa-solid fa-angle-down "
+                    onClick={handleClick}
+                  ></i>
+                  {toogleClick && (
+                    <div className="absolute z-10 origin-bottom-left">
+                      <Categories />
+                    </div>
+                  )}
+                </button>
+              </div>
               <Link className="hover:underline" to="/about-us">
                 About
               </Link>
@@ -105,12 +124,22 @@ export const Header = () => {
             <Link className="hover:underline" to="/">
               Home
             </Link>
-            <Link className="hover:underline" to="/Shop">
-              Shop{" "}
-              <span>
-                <i className="fa-solid fa-angle-down"></i>
-              </span>
-            </Link>
+            <div className="flex gap-1 items-center ">
+              <Link className="hover:underline" to="/shop">
+                Shop{" "}
+              </Link>
+              <button className="relative">
+                <i
+                  className="fa-solid fa-angle-down "
+                  onClick={handleTouch}
+                ></i>
+                {toogleTouch && (
+                  <div className="absolute z-10 origin-bottom-left">
+                    <Categories />
+                  </div>
+                )}
+              </button>
+            </div>
             <Link className="hover:underline" to="/about-us">
               About
             </Link>

@@ -1,17 +1,20 @@
-import { REQUEST_ERROR, REQUEST_START } from "../actions/clientAction";
+import {
+  REQUEST_ERROR_PRODUCT,
+  REQUEST_START_PRODUCT,
+} from "../actions/productAction";
 import {
   SET_CATEGORİES,
   SET_FILTER,
   SET_LIMIT,
   SET_OFFSET,
-  SET_PRODUCT_LİST,
+  SET_PRODUCT,
   SET_TOTAL,
 } from "../actions/productAction";
 
 const product = {
   categories: [],
-  productList: [],
-  total: null,
+  products: [],
+  total: 0,
   limit: 10,
   offset: null,
   filter: "",
@@ -21,24 +24,24 @@ const product = {
 
 const productReducer = (state = { ...product }, action) => {
   switch (action.type) {
-    case REQUEST_START:
+    case REQUEST_START_PRODUCT:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case REQUEST_ERROR:
+    case REQUEST_ERROR_PRODUCT:
       return {
         ...state,
         loading: false,
         error: action.error,
       };
-    case SET_PRODUCT_LİST:
+    case SET_PRODUCT:
       return {
         ...state,
         loading: false,
         error: null,
-        productList: [...state.productList, action.payload],
+        products: [...state.products, ...action.payload],
       };
     case SET_CATEGORİES:
       return {

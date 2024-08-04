@@ -1,4 +1,7 @@
-import { REQUEST_ERROR, REQUEST_START } from "../actions/clientAction";
+import {
+  REQUEST_ERROR_SHOP,
+  REQUEST_START_SHOP,
+} from "../actions/shoppingCartAction";
 import {
   SET_ADDRESS,
   SET_CART,
@@ -15,13 +18,13 @@ const order = {
 
 const shoppingCartReducer = (state = { ...order }, action) => {
   switch (action.type) {
-    case REQUEST_START:
+    case REQUEST_START_SHOP:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case REQUEST_ERROR:
+    case REQUEST_ERROR_SHOP:
       return {
         ...state,
         loading: false,

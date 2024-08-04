@@ -1,6 +1,6 @@
 import {
-  REQUEST_ERROR,
-  REQUEST_START,
+  REQUEST_ERROR_CLİENT,
+  REQUEST_START_CLİENT,
   SET_LANGUAGE,
   SET_ROLES,
   SET_THEME,
@@ -25,13 +25,13 @@ export const client = {
 
 const clientReducer = (state = { ...client }, action) => {
   switch (action.type) {
-    case REQUEST_START:
+    case REQUEST_START_CLİENT:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case REQUEST_ERROR:
+    case REQUEST_ERROR_CLİENT:
       return {
         ...state,
         loading: false,

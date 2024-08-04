@@ -1,4 +1,4 @@
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "../product/ProductCard";
 //import ProductImg from "../../assets/ProductImg.jpg";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -59,14 +59,14 @@ export const ProductsHome = () => {
             </p>
           </div>
           <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-            {products?.map((item) => (
+            {/*   {products?.map((item) => (
               <ProductCard
                 key={item.id}
                 item={item.images[0].url}
                 cssContainer="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%]"
                 colors={false}
               />
-            ))}
+            ))} */}
           </div>
           <button
             className="font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6 hover:opacity-60"

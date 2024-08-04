@@ -1,16 +1,41 @@
 import { ProductCard } from "../product/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../store/actions/productAction";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "../others/Spinner";
+import { useLocation } from "react-router-dom";
 
 export const ProductsShop = () => {
   const { products, loading } = useSelector((store) => store.product);
+  const [selectionFilter, setSelectionFilter] = useState(0);
+  const [iteratableProduct, setIteratableProduct] = useState([]);
+  const location = useLocation();
   const dispatch = useDispatch();
   console.log("products: ", products);
+
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    if (location.pathname === "/shop") dispatch(getProducts());
+    else dispatch(getProducts(location.pathname));
+  }, [dispatch, location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname === "/shop") setIteratableProduct([...products]);
+  }, [location.pathname]);
+
+  const handleClick = () => {
+    //selectionFilterın default olma durumunu ayarlıcaksın
+    const type = selectionFilter < 2 ? "price" : "rating";
+    const newProducts = iteratableProduct?.sort((a, b) => {
+      selectionFilter % 2 === 0 ? a[type] - b[type] : b[type] - a[type];
+    });
+
+    setIteratableProduct([...newProducts]);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "select") setSelectionFilter(value);
+  };
 
   return (
     <>
@@ -31,18 +56,30 @@ export const ProductsShop = () => {
             </div>
             <div className="flex gap-3">
               <div className="py-5 rounded-md bg-bgInput pl-8 pr-10 border-2 border-borderGray">
-                <select className="bg-bgInput font-normal text-sm text-secondTextColor">
-                  <option value="0">Popularity</option>
+                <select
+                  className="bg-bgInput font-normal text-sm text-secondTextColor"
+                  name="select"
+                  value={selectionFilter}
+                  onChange={(e) => handleChange(e)}
+                >
+                  <option value="0">Default</option>
+                  <option value="1">Price Low To High</option>
+                  <option value="2">Price High To Low</option>
+                  <option value="3">Rating Low To High</option>
+                  <option value="4">Rating High To Low</option>
                 </select>
               </div>
-              <button className="font-bold text-sm text-white tracking-wider bg-primary px-[30px] py-[16px] rounded-md hover:opacity-70">
+              <button
+                className="font-bold text-sm text-white tracking-wider bg-primary px-[30px] py-[16px] rounded-md hover:opacity-70"
+                onClick={handleClick}
+              >
                 Filter
               </button>
             </div>
           </div>
           {!loading ? (
             <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-              {products?.map((item) => (
+              {iteratableProduct?.map((item) => (
                 <ProductCard
                   key={item.id}
                   item={item}

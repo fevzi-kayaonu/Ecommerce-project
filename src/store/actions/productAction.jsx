@@ -53,10 +53,14 @@ export const getCategories = () => (dispatch) => {
   });
 };
 
-export const getProducts = () => (dispatch) => {
+export const getProducts = (location) => (dispatch) => {
+  const parts = location?.split("/");
   dispatch(requestStart());
+  const url = location
+    ? `/products?category=${parts[parts.length - 1]}`
+    : "/products";
   sendRequest({
-    url: "/products",
+    url,
     method: METHODS.GET,
     callbackSuccess: (data) => {
       dispatch(setProduct(data.products));

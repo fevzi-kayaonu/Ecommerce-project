@@ -7,8 +7,8 @@ function CategoryCard({ category }) {
       <Link
         to={`/shop/${
           category.gender === "k"
-            ? `kadin/${category.code.slice(2)}`
-            : `erkek/${category.code.slice(2)}`
+            ? `kadin/${category.code.slice(2)}/${category.id}`
+            : `erkek/${category.code.slice(2)}/${category.id}`
         }`}
       >
         {category?.title}

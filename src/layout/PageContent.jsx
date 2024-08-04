@@ -15,7 +15,7 @@ export const PageContent = () => {
         <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path="/shop/:gender?/:category?">
+        <Route path="/shop/:gender?/:categoryName?/:categoryId?">
           <ShopPage />
         </Route>
         <Route path="/team">

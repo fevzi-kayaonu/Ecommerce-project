@@ -18,28 +18,40 @@ export const sendRequest = (
     callbackSuccess = null,
     callbackError = null,
     authentication = false,
+    category = null,
+    filter = null,
+    sort = null,
+    limit = null,
+    offset = null,
   },
   history = null
 ) => {
   const token = authentication ? localStorage.getItem("token") : undefined;
   const headers = authentication ? { Authorization: token } : {};
 
+  // Parametreleri ekle
+  const params = {};
+  if (category) params.category = category;
+  if (filter) params.filter = filter;
+  if (sort) params.sort = sort;
+  if (limit) params.limit = limit;
+  if (offset) params.offset = offset;
+
   const instance = axios.create({
     baseURL: "https://workintech-fe-ecommerce.onrender.com",
     timeout: 5000,
     headers,
+    params, // Parametreleri buraya ekledik
   });
 
-  instance[method](url, data === null ? null : data)
+  instance[method](url, data)
     .then((response) => {
       callbackSuccess && callbackSuccess(response.data);
-      redirect === "goBack"
-        ? history.length > 1
-          ? history.goBack()
-          : history.push("/")
-        : redirect
-          ? history.push(redirect)
-          : null;
+      if (redirect === "goBack") {
+        history.length > 1 ? history.goBack() : history.push("/");
+      } else if (redirect) {
+        history.push(redirect);
+      }
     })
     .catch((error) => {
       callbackError && callbackError(error);

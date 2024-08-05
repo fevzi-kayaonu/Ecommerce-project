@@ -10,7 +10,7 @@ export const ProductCard = ({ item, cssContainer, colors }) => {
   return (
     <>
       <div
-        className={`text-center my-[1%] hover:opacity-75 hover:scale-105 ${cssContainer} shadow-xl`}
+        className={`text-center my-[1%] hover:opacity-75 hover:scale-105 ${cssContainer} shadow-xl border-[1px] border-gray-200`}
         onClick={handleClick}
       >
         <picture className="block aspect-[1/1.3] w-full">

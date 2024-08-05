@@ -1,4 +1,5 @@
 import {
+  ADD_PRODUCT,
   REQUEST_ERROR_PRODUCT,
   REQUEST_START_PRODUCT,
 } from "../actions/productAction";
@@ -37,6 +38,13 @@ const productReducer = (state = { ...product }, action) => {
         error: action.error,
       };
     case SET_PRODUCT:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        products: [...action.payload],
+      };
+    case ADD_PRODUCT:
       return {
         ...state,
         loading: false,

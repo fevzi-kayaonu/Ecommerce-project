@@ -1,40 +1,58 @@
 import { ProductCard } from "../product/ProductCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../store/actions/productAction";
+import { getProducts, setFilter } from "../../store/actions/productAction";
 import { useEffect, useState } from "react";
 import Spinner from "../others/Spinner";
 import { useLocation } from "react-router-dom";
 
+const selectionSort = [
+  { label: "Default", value: "" },
+  { label: "Price Low to High", value: "price:asc" },
+  { label: "Price High to Low", value: "price:desc" },
+  { label: "Rating Low to High", value: "rating:asc" },
+  { label: "Rating High to Low", value: "rating:desc" },
+];
+
 export const ProductsShop = () => {
-  const { products, loading } = useSelector((store) => store.product);
-  const [selectionFilter, setSelectionFilter] = useState(0);
-  const [iteratableProduct, setIteratableProduct] = useState([]);
+  const { products, loading, filter } = useSelector((store) => store.product);
+  const [sort, setSort] = useState(selectionSort[0].value);
   const location = useLocation();
   const dispatch = useDispatch();
   console.log("products: ", products);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (location.pathname === "/shop") dispatch(getProducts());
     else dispatch(getProducts(location.pathname));
-  }, [dispatch, location.pathname]);
-
+  }, [dispatch, location.pathname, filter]);
+ */
   useEffect(() => {
+    const parts = location.pathname?.split("/");
+    const category = parts.length >= 3 ? parts.pop() : null;
+
+    dispatch(
+      getProducts({ category: category, sort: sort, filter: filter, limit: 12 })
+    );
+  }, [dispatch, location.pathname, sort, filter]);
+
+  /*   useEffect(() => {
     if (location.pathname === "/shop") setIteratableProduct([...products]);
   }, [location.pathname]);
-
+ */
   const handleClick = () => {
-    //selectionFilterın default olma durumunu ayarlıcaksın
-    const type = selectionFilter < 2 ? "price" : "rating";
+    /*  //selectionFilterın default olma durumunu ayarlıcaksın
+    /*    const type = selectionFilter < 2 ? "price" : "rating";
     const newProducts = iteratableProduct?.sort((a, b) => {
       selectionFilter % 2 === 0 ? a[type] - b[type] : b[type] - a[type];
-    });
+    }); */
+    /*  setIteratableProduct([...newProducts]); 
 
-    setIteratableProduct([...newProducts]);
+    dispatch(setFilter(selectionFilter));*/
   };
 
   const handleChange = (e) => {
+    console.log(e.target.value);
     const { name, value } = e.target;
-    if (name === "select") setSelectionFilter(value);
+    if (name === "select") setSort(value);
   };
 
   return (
@@ -54,32 +72,46 @@ export const ProductsShop = () => {
                 <i className="fa-solid fa-list"></i>
               </div>
             </div>
-            <div className="flex gap-3">
-              <div className="py-5 rounded-md bg-bgInput pl-8 pr-10 border-2 border-borderGray">
-                <select
-                  className="bg-bgInput font-normal text-sm text-secondTextColor"
-                  name="select"
-                  value={selectionFilter}
-                  onChange={(e) => handleChange(e)}
-                >
-                  <option value="0">Default</option>
-                  <option value="1">Price Low To High</option>
-                  <option value="2">Price High To Low</option>
-                  <option value="3">Rating Low To High</option>
-                  <option value="4">Rating High To Low</option>
-                </select>
+            <div className="flex gap-[15px] max-lg:justify-self-end justify-center items-center">
+              <select
+                className="bg-bgInput font-normal text-sm text-secondTextColor py-2 rounded-md pl-4 border-2 border-borderGray w-40 "
+                name="select"
+                value={sort}
+                onChange={(e) => handleChange(e)}
+              >
+                {selectionSort.map((select, index) => (
+                  <>
+                    <option key={index} value={select.value}>
+                      {select.label}
+                    </option>
+                  </>
+                ))}
+              </select>
+              <div>
+                <input
+                  type="text"
+                  name="filter"
+                  className="border border-[#DADADA] py-2 rounded-md bg-[#F5F5F5] text-black p-2 w-60 max-xl:w-40 max-md:w-30"
+                  placeholder="Search"
+                  onChange={handleChange}
+                  value={filter}
+                ></input>
+                {/*                 <button onClick={cleanFilter}>
+                  <i className="fa-solid fa-x"></i>
+                </button> */}
               </div>
+
               <button
-                className="font-bold text-sm text-white tracking-wider bg-primary px-[30px] py-[16px] rounded-md hover:opacity-70"
+                className="font-bold text-sm text-white tracking-wider bg-primary px-6 py-3 rounded-md hover:opacity-70"
                 onClick={handleClick}
               >
-                Filter
+                Search
               </button>
             </div>
           </div>
           {!loading ? (
             <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-              {iteratableProduct?.map((item) => (
+              {products?.map((item) => (
                 <ProductCard
                   key={item.id}
                   item={item}

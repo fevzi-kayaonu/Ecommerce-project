@@ -4,9 +4,6 @@ import { sendRequest } from "../../util/axiosUtil";
 import { client } from "../reducers/clientReducer";
 
 export const SET_USER = "SET_USER";
-export const SET_ROLES = "SET_ROLES";
-export const SET_THEME = "SET_THEME";
-export const SET_LANGUAGE = "SET_LANGUAGE";
 
 export const REQUEST_START_CLİENT = "REQUEST_START_CLİENT";
 export const REQUEST_SUCCESS_CLİENT = "REQUEST_SUCCESS_CLİENT";
@@ -18,33 +15,6 @@ export const requestError = (error) => ({ type: REQUEST_ERROR_CLİENT, error });
 
 export const setUser = (data) => {
   return { type: SET_USER, payload: data };
-};
-
-export const setRoles = (data) => {
-  return { type: SET_ROLES, payload: data };
-};
-export const setTheme = (data) => {
-  return { type: SET_THEME, payload: data };
-};
-export const setLanguage = (data) => {
-  return { type: SET_LANGUAGE, payload: data };
-};
-
-export const getRoles = () => (dispatch) => {
-  dispatch(requestStart());
-  sendRequest(
-    {
-      url: "/roles",
-      method: METHODS.GET,
-      callbackSuccess: (data) => {
-        dispatch(setRoles(data));
-      },
-      callbackError: (error) => {
-        dispatch(requestError(error.message));
-      },
-    },
-    dispatch
-  );
 };
 
 export const getUserWithToken = () => (dispatch) => {

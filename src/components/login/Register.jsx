@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { showToast } from "../../util/ShowToast";
 import { useDispatch, useSelector } from "react-redux";
-import { getRoles } from "../../store/actions/clientAction";
+import { getRoles } from "../../store/actions/globalAction";
 import { METHODS, sendRequest } from "../../util/axiosUtil";
 
 const formData = {
@@ -32,7 +32,7 @@ export const Register = () => {
     mode: "onChange",
   });
 
-  const roles = useSelector((store) => store.client.roles);
+  const roles = useSelector((store) => store.global.roles);
 
   const dispatch = useDispatch();
 

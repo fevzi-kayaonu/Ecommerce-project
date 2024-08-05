@@ -15,19 +15,19 @@ export const ProductCard = ({ item, cssContainer, colors }) => {
       >
         <picture className="block aspect-[1/1.3] w-full">
           <img
-            src={item.images[0].url}
+            src={item?.images[0]?.url}
             alt="ProductImg"
             className="w-full h-full object-cover "
           />
         </picture>
         <div className="flex flex-col my-6 font-bold gap-3">
-          <h5 className=" text-base tracking-wide">{item.name}</h5>
+          <h5 className=" text-base tracking-wide">{item?.name}</h5>
           <p className="text-sm tracking-wider line-clamp-2 break-words text-secondTextColor px-3">
-            {item.description}
+            {item?.description}
           </p>
           <div className="flex justify-center text-base tracking-wide gap-2">
-            <p className="text-secondTextColor">${item.price}</p>
-            <p className="text-secondary">${(item.price * 0.8).toFixed(2)}</p>
+            <p className="text-secondTextColor">${item?.price}</p>
+            <p className="text-secondary">${(item?.price * 0.8).toFixed(2)}</p>
           </div>
           {colors ? (
             <div className="flex justify-center gap-1">

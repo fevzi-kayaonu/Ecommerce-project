@@ -1,9 +1,6 @@
 import {
   REQUEST_ERROR_CLİENT,
   REQUEST_START_CLİENT,
-  SET_LANGUAGE,
-  SET_ROLES,
-  SET_THEME,
   SET_USER,
 } from "../actions/clientAction";
 
@@ -44,18 +41,6 @@ const clientReducer = (state = { ...client }, action) => {
         error: null,
         userInfo: { ...action.payload },
       };
-    case SET_ROLES: // Action içinde yazdığımız methodda yazılan actıon.type başka reducer içinde de tanımlıysa fetch in hangisine gideceğini nerden biliyor.
-      return { ...state, loading: false, error: null, roles: action.payload };
-    case SET_THEME:
-      return { ...state, loading: false, error: null, theme: action.payload };
-    case SET_LANGUAGE:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        language: action.payload,
-      };
-
     default:
       return state;
   }

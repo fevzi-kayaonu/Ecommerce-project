@@ -4,7 +4,6 @@ import {
   REQUEST_START_PRODUCT,
 } from "../actions/productAction";
 import {
-  SET_CATEGORİES,
   SET_FILTER,
   SET_LIMIT,
   SET_OFFSET,
@@ -13,11 +12,10 @@ import {
 } from "../actions/productAction";
 
 const product = {
-  categories: [],
   products: [],
   total: 0,
-  limit: 10,
-  offset: null,
+  limit: 12,
+  offset: 0,
   filter: "",
   loading: true,
   error: null,
@@ -50,13 +48,6 @@ const productReducer = (state = { ...product }, action) => {
         loading: false,
         error: null,
         products: [...state.products, ...action.payload],
-      };
-    case SET_CATEGORİES:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        categories: [...action.payload],
       };
     case SET_TOTAL:
       return { ...state, loading: false, error: null, total: action.payload };

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../store/actions/productAction";
+import { getCategories } from "../../store/actions/globalAction";
 import { useEffect } from "react";
 import Spinner from "../others/Spinner";
 
 export const ShopContainer = () => {
-  const { categories, loading } = useSelector((store) => store.product);
+  const { categories, loading } = useSelector((store) => store.global);
   const dispatch = useDispatch();
 
   useEffect(() => {

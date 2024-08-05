@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryCard from "./CategoryCard";
-import { getCategories } from "../../store/actions/productAction";
+import { getCategories } from "../../store/actions/globalAction";
 import Spinner from "../others/Spinner";
 
 function Categories() {
-  const { categories, loading } = useSelector((store) => store.product);
+  const { categories, loading } = useSelector((store) => store.global);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -11,7 +11,7 @@ import {
   SET_TOTAL,
 } from "../actions/productAction";
 
-const product = {
+export const product = {
   products: [],
   total: 0,
   limit: 12,

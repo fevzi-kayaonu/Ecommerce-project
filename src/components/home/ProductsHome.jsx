@@ -1,48 +1,73 @@
 import { ProductCard } from "../product/ProductCard";
-//import ProductImg from "../../assets/ProductImg.jpg";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts, setLimit } from "../../store/actions/productAction";
+import Spinner from "../others/Spinner";
 
-/*
-const data = [
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-  ProductImg,
-];
-*/
+const selectionSort = { label: "Rating High to Low", value: "rating:desc" };
+
 export const ProductsHome = () => {
-  const [products, setProducts] = useState([]);
-  const [offSet, setOffSet] = useState(0);
-  const limit = 10;
-  useEffect(() => {
-    axios
-      .get("https://workintech-fe-ecommerce.onrender.com/products", {
-        params: {
-          offset: offSet,
-          limit: limit,
-        },
-      })
-      .then((response) => {
-        setProducts((prevProducts) => [
-          ...prevProducts,
-          ...response.data.products,
-        ]);
-        console.log(response.data.products);
-      })
-      .catch((err) => console.error("Error fetching data:", err));
-  }, [offSet]);
+  const { products, loading, limit, offset } = useSelector(
+    (store) => store.product
+  );
+  const dispatch = useDispatch();
 
-  const handleClick = () => {
-    setOffSet((offSet) => offSet + limit);
+  const updateLimit = () => {
+    const width = window.innerWidth;
+    if (width < 640) {
+      dispatch(setLimit(4));
+    } else if (width < 768) {
+      dispatch(setLimit(8));
+    } else if (width < 1024) {
+      dispatch(setLimit(12));
+    } else {
+      dispatch(setLimit(16));
+    }
   };
 
+  useEffect(() => {
+    updateLimit();
+    window.addEventListener("resize", updateLimit);
+    dispatch(
+      getProducts({
+        sort: selectionSort.value,
+        limit,
+      })
+    );
+    return () => window.removeEventListener("resize", updateLimit);
+  }, []);
+
+  const handleClick = () => {
+    dispatch(
+      getProducts({
+        sort: selectionSort.value,
+
+        offset: offset,
+      })
+    );
+  };
+
+  /* 
+  useEffect(() => {
+    //dispatch(setOffset(0));
+    dispatch(
+      getProducts({
+        sort: selectionSort.value,
+      })
+    );
+    //dispatch(setTotal(0));
+    //dispatch(setLimit());
+  }, []);
+
+  const handleClick = () => {
+    dispatch(
+      getProducts({
+        sort: selectionSort.value,
+        offset: offset,
+      })
+    );
+  };
+ */
   return (
     <>
       <main className="flex justify-center py-20 max-sm:py-10 max-md:py-15">
@@ -58,16 +83,20 @@ export const ProductsHome = () => {
               Problems trying to resolve the conflict between{" "}
             </p>
           </div>
-          <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-            {/*   {products?.map((item) => (
-              <ProductCard
-                key={item.id}
-                item={item.images[0].url}
-                cssContainer="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%]"
-                colors={false}
-              />
-            ))} */}
-          </div>
+          {!loading ? (
+            <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
+              {products?.map((item) => (
+                <ProductCard
+                  key={item.id}
+                  item={item}
+                  cssContainer="basis-[18%] max-xl:basis-[23.1%] max-lg:basis-[31.66%] max-md:basis-[48.74%] max-sm:basis-[100%]"
+                  colors={false}
+                />
+              ))}
+            </div>
+          ) : (
+            <Spinner divCss="self-center mx-auto" svgCss="w-14 h-14" />
+          )}
           <button
             className="font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6 hover:opacity-60"
             onClick={handleClick}

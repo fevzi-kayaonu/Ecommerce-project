@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getProducts,
   setFilter,
+  setLimit,
   setOffset,
 } from "../../store/actions/productAction";
 import { useEffect, useState } from "react";
@@ -26,6 +27,7 @@ export const ProductsShop = () => {
   const [totalPage, setTotalPage] = useState(Math.ceil(total / limit));
   const [disabledNext, setDisabledNext] = useState(false);
   const [disabledPrev, setDisabledPrev] = useState(true);
+  const [searchInput, setSearchInput] = useState(filter); // State for input value
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -33,7 +35,20 @@ export const ProductsShop = () => {
 
   useEffect(() => {
     dispatch(setOffset(0));
-  }, []);
+    dispatch(setFilter(""));
+    dispatch(setLimit(12));
+    setSearchInput("");
+    setCurrentPage(1);
+    const parts = location.pathname?.split("/");
+    const category = parts.length >= 3 ? parts.pop() : null;
+    dispatch(
+      getProducts({
+        category,
+        sort,
+        limit: limit,
+      })
+    );
+  }, [dispatch, location.pathname, sort]);
 
   useEffect(() => {
     setDisabledPrev(currentPage === 1);
@@ -42,6 +57,7 @@ export const ProductsShop = () => {
 
   useEffect(() => {
     setTotalPage(Math.ceil(total / 12));
+    setSort(selectionSort[0].value); //total değişimine bağlanmamalı ama sort değişiminede bağlanmıyor daha sonra düzelt.
   }, [total]);
 
   useEffect(() => {
@@ -49,7 +65,6 @@ export const ProductsShop = () => {
     const category = parts.length >= 3 ? parts.pop() : null;
     const needOffset = (currentPage - 1) * limit;
 
-    //const currOffset = needOffset > offset ? offset : 0;
     const currentLimit =
       needOffset > offset
         ? needOffset - offset + limit
@@ -63,28 +78,20 @@ export const ProductsShop = () => {
         getProducts({
           category,
           sort,
-          filter: null,
-          limit: limit,
+          filter: filter,
+          limit: currentLimit,
           offset: offset,
         })
       );
-  }, [dispatch, location.pathname, sort, currentPage]);
+  }, [currentPage, filter]);
 
   const handleClick = (e) => {
     const { name, value } = e.target;
-    const parts = location.pathname?.split("/");
-    const category = parts.length >= 3 ? parts.pop() : null;
 
     if (name === "search") {
-      dispatch(
-        getProducts({
-          category,
-          sort,
-          filter,
-          limit: limit,
-          page: currentPage,
-        })
-      );
+      dispatch(setFilter(searchInput)); // Update filter on search click
+      setCurrentPage(1);
+      dispatch(setOffset(0));
     } else if (name === "prev") {
       setCurrentPage((prev) => Math.max(prev - 1, 1));
     } else if (name === "next") {
@@ -103,7 +110,7 @@ export const ProductsShop = () => {
     if (name === "select") {
       setSort(value);
     } else if (name === "filter") {
-      dispatch(setFilter(value));
+      setSearchInput(value); // Update search input state
     }
   };
 
@@ -151,7 +158,7 @@ export const ProductsShop = () => {
                 className="border border-[#DADADA] py-2 rounded-md bg-[#F5F5F5] text-black p-2 w-60 max-xl:w-40 max-md:w-30"
                 placeholder="Search"
                 onChange={handleChange}
-                value={filter}
+                value={searchInput} // Bind input to searchInput state
               />
               <button
                 name="search"
@@ -163,69 +170,78 @@ export const ProductsShop = () => {
             </div>
           </div>
         </div>
-        {!loading ? (
-          <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
-            {products
-              ?.slice((currentPage - 1) * limit, currentPage * limit)
-              ?.map((item) => (
-                <ProductCard
-                  key={item.id}
-                  item={item}
-                  cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
-                  colors={true}
-                />
-              ))}
-          </div>
+        {total === 0 && !loading ? (
+          <p className="font-bold text-4xl mt-10 text-center">
+            Not found product
+          </p>
         ) : (
-          <Spinner divCss="self-center mb-6" svgCss="w-14 h-14" />
+          <>
+            {!loading ? (
+              <div className="flex flex-wrap mx-auto py-5 px-10 gap-[2.5%]">
+                {products
+                  ?.slice((currentPage - 1) * limit, currentPage * limit)
+                  ?.map((item) => (
+                    <ProductCard
+                      key={item.id}
+                      item={item}
+                      cssContainer="basis-[23%] max-lg:basis-[31.6%] max-md:basis-[48.7%] max-sm:basis-[100%]"
+                      colors={true}
+                    />
+                  ))}
+              </div>
+            ) : (
+              <Spinner divCss="self-center mb-6" svgCss="w-14 h-14" />
+            )}
+            <div className="text-primary w-[313px] h-[74px] flex mx-auto border-2 border-lightGray rounded-md">
+              <button
+                name="prev"
+                className={`basis-[33%] border-r-2 border-lightGray cursor-pointer ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
+                onClick={handleClick}
+                disabled={disabledPrev}
+              >
+                Prev
+              </button>
+              {currentPage > pageLimit && (
+                <button
+                  name="jumpBack"
+                  className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
+                  onClick={handleClick}
+                >
+                  ...
+                </button>
+              )}
+              {getPaginationGroup().map((pageNumber) => (
+                <button
+                  key={pageNumber}
+                  name="page"
+                  value={pageNumber}
+                  className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${currentPage === pageNumber ? "bg-primary text-white" : ""} ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
+                  onClick={handleClick}
+                >
+                  {pageNumber}
+                </button>
+              ))}
+              {totalPage > pageLimit &&
+                currentPage <= totalPage - pageLimit && (
+                  <button
+                    name="jumpForward"
+                    className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${!disabledNext ? "hover:bg-primary hover:text-white" : ""}`}
+                    onClick={handleClick}
+                  >
+                    ...
+                  </button>
+                )}
+              <button
+                name="next"
+                className={`basis-[33%] cursor-pointer ${!disabledNext ? "hover:bg-primary hover:text-white" : ""}`}
+                onClick={handleClick}
+                disabled={disabledNext}
+              >
+                Next
+              </button>
+            </div>
+          </>
         )}
-        <div className="text-primary w-[313px] h-[74px] flex mx-auto border-2 border-lightGray rounded-md">
-          <button
-            name="prev"
-            className={`basis-[33%] border-r-2 border-lightGray cursor-pointer ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
-            onClick={handleClick}
-            disabled={disabledPrev}
-          >
-            Prev
-          </button>
-          {currentPage > pageLimit && (
-            <button
-              name="jumpBack"
-              className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
-              onClick={handleClick}
-            >
-              ...
-            </button>
-          )}
-          {getPaginationGroup().map((pageNumber) => (
-            <button
-              key={pageNumber}
-              name="page"
-              value={pageNumber}
-              className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${currentPage === pageNumber ? "bg-primary text-white" : ""} ${!disabledPrev ? "hover:bg-primary hover:text-white" : ""}`}
-              onClick={handleClick}
-            >
-              {pageNumber}
-            </button>
-          ))}
-          {totalPage > pageLimit && currentPage <= totalPage - pageLimit && (
-            <button
-              name="jumpForward"
-              className={`basis-[22%] border-r-2 border-lightGray cursor-pointer ${!disabledNext ? "hover:bg-primary hover:text-white" : ""}`}
-              onClick={handleClick}
-            >
-              ...
-            </button>
-          )}
-          <button
-            name="next"
-            className={`basis-[33%] cursor-pointer ${!disabledNext ? "hover:bg-primary hover:text-white" : ""}`}
-            onClick={handleClick}
-            disabled={disabledNext}
-          >
-            Next
-          </button>
-        </div>
       </div>
     </main>
   );

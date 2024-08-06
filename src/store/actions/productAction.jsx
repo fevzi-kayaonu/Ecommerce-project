@@ -1,4 +1,5 @@
 import { METHODS, sendRequest } from "../../util/axiosUtil";
+import { product } from "../reducers/productReducer";
 
 export const SET_PRODUCT = "SET_PRODUCT";
 export const ADD_PRODUCT = "ADD_PRODUCT";
@@ -63,6 +64,7 @@ export const getProducts =
       },
       callbackError: (error) => {
         dispatch(requestError(error.message));
+        offset === 0 && setProduct({ ...product, loading: false });
       },
     });
   };

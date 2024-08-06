@@ -48,6 +48,7 @@ export const getProducts =
     };
     offset === 0 && dispatch(setOffset(0));
     filter === null && dispatch(setFilter(""));
+    limit !== 25 && dispatch(setLimit(limit));
     dispatch(requestStart());
     sendRequest({
       url: "/products",

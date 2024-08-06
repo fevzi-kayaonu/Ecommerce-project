@@ -14,24 +14,26 @@ export const ProductsHome = () => {
 
   const updateLimit = () => {
     const width = window.innerWidth;
-    if (width < 640) {
-      dispatch(setLimit(4));
-    } else if (width < 768) {
-      dispatch(setLimit(8));
-    } else if (width < 1024) {
-      dispatch(setLimit(12));
-    } else {
-      dispatch(setLimit(16));
-    }
+    const limit =
+      width < 640
+        ? 10
+        : width < 768
+          ? 12
+          : width < 1024
+            ? 18
+            : width < 1280
+              ? 24
+              : 30;
+    return limit;
   };
 
+  const currentLimit = updateLimit();
+
   useEffect(() => {
-    updateLimit();
-    window.addEventListener("resize", updateLimit);
     dispatch(
       getProducts({
         sort: selectionSort.value,
-        limit,
+        limit: currentLimit,
       })
     );
     return () => window.removeEventListener("resize", updateLimit);
@@ -41,8 +43,8 @@ export const ProductsHome = () => {
     dispatch(
       getProducts({
         sort: selectionSort.value,
-
         offset: offset,
+        limit: limit,
       })
     );
   };

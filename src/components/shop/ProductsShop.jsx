@@ -36,7 +36,6 @@ export const ProductsShop = () => {
   useEffect(() => {
     dispatch(setOffset(0));
     dispatch(setFilter(""));
-    dispatch(setLimit(12));
     setSearchInput("");
     setCurrentPage(1);
     const parts = location.pathname?.split("/");
@@ -45,7 +44,8 @@ export const ProductsShop = () => {
       getProducts({
         category,
         sort,
-        limit: limit,
+        limit: 12,
+        updateLimit: true,
       })
     );
   }, [dispatch, location.pathname, sort]);

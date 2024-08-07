@@ -39,7 +39,14 @@ export const setFilter = (data) => {
 };
 
 export const getProducts =
-  ({ category = null, filter = null, sort = null, limit = 25, offset = 0 }) =>
+  ({
+    category = null,
+    filter = null,
+    sort = null,
+    limit = 25,
+    offset = 0,
+    updateLimit = false,
+  }) =>
   (dispatch) => {
     const callBackAction = (data) => {
       offset == 0
@@ -48,7 +55,7 @@ export const getProducts =
     };
     offset === 0 && dispatch(setOffset(0));
     filter === null && dispatch(setFilter(""));
-    limit !== 25 && dispatch(setLimit(limit));
+    updateLimit && dispatch(setLimit(limit));
     dispatch(requestStart());
     sendRequest({
       url: "/products",

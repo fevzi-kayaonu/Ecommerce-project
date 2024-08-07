@@ -6,11 +6,6 @@ import Spinner from "../others/Spinner";
 
 export const ShopContainer = () => {
   const { categories, loading } = useSelector((store) => store.global);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (categories.length === 0) dispatch(getCategories());
-  }, [dispatch]);
 
   return (
     <>

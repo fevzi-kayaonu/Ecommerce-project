@@ -7,7 +7,7 @@ import Spinner from "../others/Spinner";
 const selectionSort = { label: "Rating High to Low", value: "rating:desc" };
 
 export const ProductsHome = () => {
-  const { products, loading, limit, offset } = useSelector(
+  const { products, loading, limit, offset, total } = useSelector(
     (store) => store.product
   );
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ export const ProductsHome = () => {
       getProducts({
         sort: selectionSort.value,
         limit: currentLimit,
+        updateLimit: true,
       })
     );
     return () => window.removeEventListener("resize", updateLimit);
@@ -48,7 +49,8 @@ export const ProductsHome = () => {
       })
     );
   };
-
+  console.log("length :", products.length);
+  console.log("total :", total);
   /* 
   useEffect(() => {
     //dispatch(setOffset(0));
@@ -73,8 +75,8 @@ export const ProductsHome = () => {
   return (
     <>
       <main className="flex justify-center py-20 max-sm:py-10 max-md:py-15">
-        <div className="basis-[90%] text-center">
-          <div className="">
+        <div className="basis-[90%] text-center flex flex-col items-center">
+          <div>
             <p className="font-semibold text-xl tracking-wider text-secondTextColor">
               Featured Products
             </p>
@@ -97,11 +99,12 @@ export const ProductsHome = () => {
               ))}
             </div>
           ) : (
-            <Spinner divCss="self-center mx-auto" svgCss="w-14 h-14" />
+            <Spinner divCss="self-center mb-10 mt-14" svgCss="w-14 h-14" />
           )}
           <button
-            className="font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6 hover:opacity-60"
+            className={`font-bold text-primary text-sm tracking-wider border-2	border-primary px-14 py-4 mt-6 ${!(products.length === total) ? "hover:opacity-60" : ""}  `}
             onClick={handleClick}
+            disabled={products.length === total}
           >
             LOAD MORE PRODUCTS
           </button>

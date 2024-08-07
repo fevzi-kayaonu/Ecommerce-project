@@ -6,11 +6,6 @@ import Spinner from "../others/Spinner";
 
 function Categories() {
   const { categories, loading } = useSelector((store) => store.global);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (categories.length === 0) dispatch(getCategories());
-  }, [dispatch]);
 
   return (
     <div className="flex bg-purple-200 px-5 py-3 gap-5">

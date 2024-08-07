@@ -4,11 +4,13 @@ import { client } from "../store/reducers/clientReducer";
 import { setUser } from "../store/actions/clientAction";
 import CryptoJS from "crypto-js";
 import { useState } from "react";
+import ShoppingCartDropDown from "../components/shop/ShoppingCartDropDown";
 import Categories from "../components/category/Categories";
 
 export const Header = () => {
   const user = useSelector((state) => state.client.userInfo);
-  const [toogleClick, setToogleClick] = useState(false);
+  const [toogleClickCategory, setToogleClickCategory] = useState(false);
+  const [toogleClickShop, setToogleClickShop] = useState(false);
   const [toogleTouch, setToogleTouch] = useState(false);
 
   const history = useHistory();
@@ -24,8 +26,11 @@ export const Header = () => {
     history.push("/");
   };
 
-  const handleClick = () => {
-    setToogleClick(!toogleClick);
+  const handleClickCategory = () => {
+    setToogleClickCategory(!toogleClickCategory);
+  };
+  const handleClickShop = () => {
+    setToogleClickShop(!toogleClickShop);
   };
   const handleTouch = () => {
     setToogleTouch(!toogleTouch);
@@ -70,9 +75,9 @@ export const Header = () => {
                 <button className="relative">
                   <i
                     className="fa-solid fa-angle-down "
-                    onClick={handleClick}
+                    onClick={handleClickCategory}
                   ></i>
-                  {toogleClick && (
+                  {toogleClickCategory && (
                     <div className="absolute z-10 origin-bottom-left">
                       <Categories />
                     </div>
@@ -113,7 +118,17 @@ export const Header = () => {
               )}
             </div>
             <i className="fa-solid fa-magnifying-glass hover:opacity-75"></i>
-            <i className="fa-solid fa-cart-shopping hover:opacity-75"></i>
+            <div className="relative">
+              <i
+                className="fa-solid fa-cart-shopping hover:opacity-75"
+                onClick={handleClickShop}
+              ></i>
+              {toogleClickShop && (
+                <div className="absolute z-10 -left-[350px] max-sm:-left-[250px]">
+                  <ShoppingCartDropDown />
+                </div>
+              )}
+            </div>
             <i className="fa-regular fa-heart max-md:hidden hover:opacity-75"></i>
             <i className="fa-solid fa-bars md:hidden hover:opacity-75"></i>
             {user.token && <button onClick={handleLogout}>Logout</button>}

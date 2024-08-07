@@ -1,25 +1,34 @@
 import { Link } from "react-router-dom";
 import DescriptionImg from "../../assets/Description-Img.png";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 export const ProductDescription = () => {
+  const { categories } = useSelector((store) => store.global);
+  const location = useLocation();
+
+  const categoryId = location.pathname?.split("/")[4];
+  const category = categories.find((category) => category.id == categoryId);
+  console.log("category: ", category);
+  console.log("categoryId: ", categoryId);
   return (
     <>
       <section className="flex justify-center pb-10 pt-10 max-sm:py-10 max-md:pb-5">
         <div className="basis-[90%] flex flex-col">
           <section className="pb-7 text-center ">
             <div className="flex justify-center gap-7 text-secondTextColor text-sm pb-7">
-              <Link to="">Description</Link>
-              <Link to="">Additional Information</Link>
-              <Link to="">
+              <h6>Description</h6>
+              <h6>Additional Information</h6>
+              <h6>
                 Reviews (<span className="text-secondary">0</span>)
-              </Link>
+              </h6>
             </div>
             <div className="border-[1px] border-lightGray" />
           </section>
           <section className="flex justify-center items-center text-left gap-10 max-lg:flex-col px-7">
             <div className="basis-[30%] aspect-[1/1.15] rounded-md shadow-[0_17px_30px_-15px_rgba(0,0,0,0.3)] shadow-black">
               <img
-                src={DescriptionImg}
+                src={category.img}
                 alt="DescriptionImg"
                 className="object-cover w-full h-full rounded-md "
               />

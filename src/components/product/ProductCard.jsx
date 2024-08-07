@@ -1,10 +1,18 @@
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 export const ProductCard = ({ item, cssContainer, colors }) => {
   const history = useHistory();
 
+  const { categories } = useSelector((store) => store.global);
+  const category = categories.find(
+    (category) => category.id === item.category_id
+  );
+
   const handleClick = () => {
-    history.push("/detail");
+    history.push(
+      `/shop/${category.gender}/${category.title.toLowerCase()}/${item.category_id}/${item.name}/${item.id}`
+    );
   };
 
   return (

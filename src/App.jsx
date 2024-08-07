@@ -8,10 +8,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserWithToken } from "./store/actions/clientAction";
 import { useEffect } from "react";
 import Spinner from "./components/others/Spinner";
+import { getCategories } from "./store/actions/globalAction";
 
 function App() {
   const loading = useSelector((state) => state.client.loading);
+
+  const { categories } = useSelector((store) => store.global);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (categories.length === 0) dispatch(getCategories());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getUserWithToken());

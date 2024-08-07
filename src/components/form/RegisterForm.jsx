@@ -20,7 +20,7 @@ const formData = {
   },
 };
 
-export const Register = () => {
+export const RegisterForm = () => {
   const {
     register,
     handleSubmit,

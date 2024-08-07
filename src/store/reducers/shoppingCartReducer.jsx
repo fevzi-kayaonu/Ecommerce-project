@@ -8,7 +8,6 @@ import {
   SET_CART,
   SET_PAYMENT,
 } from "../actions/shoppingCartAction";
-import { product } from "./productReducer";
 
 const order = {
   cart: [],

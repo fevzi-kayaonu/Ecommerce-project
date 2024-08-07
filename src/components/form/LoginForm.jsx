@@ -10,7 +10,7 @@ const formData = {
   rememberMe: false,
 };
 
-export const Login = () => {
+export const LoginForm = () => {
   const {
     register,
     handleSubmit,

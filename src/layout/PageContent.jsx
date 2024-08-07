@@ -8,7 +8,8 @@ import ProductDetailPage from "../pages/ProductDetailPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ShoppingCartPage from "../pages/ShoppingCartPage";
-///:gender?/:category?
+import CreateOrderPage from "../pages/CreateOrderPage";
+
 export const PageContent = () => {
   return (
     <>
@@ -40,8 +41,8 @@ export const PageContent = () => {
         <Route path="/shopping-cart">
           <ShoppingCartPage />
         </Route>
-        <Route path="/creat-order">
-          <ShoppingCartPage />
+        <Route path="/create-order">
+          <CreateOrderPage />
         </Route>
       </Switch>
     </>

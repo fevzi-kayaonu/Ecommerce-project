@@ -37,7 +37,7 @@ const ShoppingCartPage = () => {
             ))}
           </div>
 
-          <div className="w-[350px]  max-lg:w-[30px] max-md:w-[350px]">
+          <div className="w-[350px]  max-lg:w-[300px] max-md:w-[350px]">
             <div className="border-2 border-gray-200 rounded-md p-4">
               <h1 className="pb-4 text-2xl max-lg:text-xl">Sipariş Özeti</h1>
               <div className="flex justify-between">

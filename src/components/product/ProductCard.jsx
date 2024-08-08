@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 export const ProductCard = ({ item, cssContainer, colors }) => {
   const history = useHistory();
 
+  console.log(item);
   const { categories } = useSelector((store) => store.global);
   const category = categories.find(
     (category) => category.id === item.category_id

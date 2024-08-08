@@ -125,7 +125,7 @@ export const Header = () => {
               ></i>
               {toogleClickShop && (
                 <div className="absolute z-10 -left-[350px] max-sm:-left-[250px]">
-                  <ShoppingCartDropDown />
+                  <ShoppingCartDropDown handleClickShop={handleClickShop} />
                 </div>
               )}
             </div>

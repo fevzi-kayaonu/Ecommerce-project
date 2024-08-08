@@ -3,8 +3,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import ShoppingCart from "./ShoppingCart";
 import { useEffect, useState } from "react";
 
-function ShoppingCartDropDown() {
-  const { categories, loading } = useSelector((store) => store.global);
+function ShoppingCartDropDown({ handleClickShop }) {
   const cart = useSelector((store) => store.shoppingCart.cart);
   const [disabled, setDisabled] = useState(cart.length > 0);
 
@@ -16,6 +15,10 @@ function ShoppingCartDropDown() {
     }
   }, [cart]);
 
+  const handleClick = () => {
+    handleClickShop();
+  };
+
   return (
     <div className="flex text-black flex-col bg-white border-2 border-gray-300 rounded-xl w-[350px] max-sm:w-[300px]">
       <p className="px-5 py-3 font-bold">Sepetim ({cart.length} ürün)</p>
@@ -24,7 +27,10 @@ function ShoppingCartDropDown() {
           <ShoppingCart key={cart.id} product={product} />
         ))}
       </div>
-      <div className="px-5 py-4 flex justify-between gap-2">
+      <div
+        className="px-5 py-4 flex justify-between gap-2"
+        onClick={handleClick}
+      >
         <Link
           to={!disabled ? "#" : "/shopping-cart"}
           className={`basis-1/2 text-center ${disabled ? "hover:bg-orange-500  hover:text-white" : ""} text-base max-md:text-sm border-[1px] bg-gray-100 border-gray-200 rounded-md py-2`}
@@ -32,7 +38,7 @@ function ShoppingCartDropDown() {
           Sepete Git
         </Link>
         <Link
-          to={!disabled ? "#" : "/shopping-cart"}
+          to={!disabled ? "#" : "/create-order"}
           className={`basis-1/2 bg-orange-500 text-center border-[1px] ${disabled ? "hover:scale-105 hover:opacity-85 " : ""} max-md:text-sm  border-gray-200  text-white rounded-md py-2`}
         >
           Siparişi Tamamla

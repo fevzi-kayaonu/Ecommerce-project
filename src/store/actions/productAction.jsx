@@ -76,3 +76,17 @@ export const getProducts =
       },
     });
   };
+
+export const getProductById = (id) => (dispatch) => {
+  dispatch(requestStart());
+  sendRequest({
+    url: `/products/${id}`,
+    method: METHODS.GET,
+    callbackSuccess: (data) => {
+      dispatch(addProduct(data.products));
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
+};

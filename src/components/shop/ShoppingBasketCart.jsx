@@ -31,13 +31,13 @@ function ShoppingBasketCart({ product }) {
           {">"}
           <p className="inline-block text-sm border-[1px] border-primary text-primary px-2 py-1 mx-3 rounded-sm">
             Kurumsal
-            <i class="fa-solid fa-circle-info ml-1"></i>
+            <i className="fa-solid fa-circle-info ml-1"></i>
           </p>
         </div>
         <div className="flex gap-4 bg-orange-100 items-center px-2 border-[1px] border-gray-200 rounded-lg max-sm:text-xs">
           <p>
-            <i class="fa-solid fa-ticket text-orange-400 "></i> 3 adet ve üzeri
-            40 TL indirim
+            <i className="fa-solid fa-ticket text-orange-400 "></i> 3 adet ve
+            üzeri 40 TL indirim
           </p>
           <Link
             to="/shop"
@@ -50,8 +50,8 @@ function ShoppingBasketCart({ product }) {
       <div className="text-center bg-green-200  py-2">
         <h5>
           {" "}
-          <i class="fa-solid fa-cube text-green-500 max-lg:text-sm"></i> Kargo
-          Bedava !
+          <i className="fa-solid fa-cube text-green-500 max-lg:text-sm"></i>{" "}
+          Kargo Bedava !
         </h5>
       </div>
       <div className="flex gap-3 justify-between  py-4 px-6 items-center">
@@ -71,13 +71,13 @@ function ShoppingBasketCart({ product }) {
             <p className="max-lg:text-sm">Beden : 38</p>
             <p className="max-lg:text-sm">
               {" "}
-              <i class="fa-solid fa-truck text-green-500"></i> 39 dk içinde
+              <i className="fa-solid fa-truck text-green-500"></i> 39 dk içinde
               sipariş verirsen en geç yarın kargoda
             </p>
           </div>
 
           <div className=" flex justify-around gap-2 basis-[45%] items-center max-lg:gap-10 max-md:gap-5">
-            <div class="text-base flex items-center justify-between border border-gray-300 rounded-md ">
+            <div className="text-base flex items-center justify-between border border-gray-300 rounded-md ">
               <button
                 name="decrement"
                 className="text-lg max-lg:text-sm bg-gray-100 text-gray-400 px-4 max-lg:px-3 py-2 max-lg:py-1 border-r-2 border-gray-300 hover:scale-110 rounded-l-md"

@@ -28,7 +28,7 @@ export const AddressForm = () => {
   };
 
   return (
-    <div className="fixed inset-0 bottom-44 top-24  max-w-lg mx-auto my-auto bg-white p-8 rounded-lg shadow-md">
+    <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg mx-auto max-h-[800px] overflow-auto max-md:max-h-[700px] max-sm:max-h-[500px]">
       <h1 className="text-2xl font-bold mb-6">Adres Bilgisi Formu</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -164,7 +164,7 @@ export const AddressForm = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full bg-orange-500 text-white  py-2 px-4 rounded-md hover:scale-105 hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-orange-800"
         >
           Gönder
         </button>

@@ -4,7 +4,7 @@ import {
   REMOVE_TO_CART,
   REQUEST_ERROR_SHOP,
   REQUEST_START_SHOP,
-  SET_ADDRESS,
+  SET_ORDER_ADDRESS,
   SET_CART,
   SET_PAYMENT,
 } from "../actions/shoppingCartAction";
@@ -12,7 +12,7 @@ import {
 const order = {
   cart: [],
   payment: {},
-  address: {},
+  orderAddress: {},
   loading: true,
   error: null,
 };
@@ -90,12 +90,12 @@ const shoppingCartReducer = (state = { ...order }, action) => {
         error: null,
         payment: [...state.payment, action.payload],
       };
-    case SET_ADDRESS:
+    case SET_ORDER_ADDRESS:
       return {
         ...state,
         loading: false,
         error: null,
-        address: [...state.address, action.payload],
+        orderAddress: [...state.orderAddress, action.payload],
       };
     default:
       return state;

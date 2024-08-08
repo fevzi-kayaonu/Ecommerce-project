@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import detailImg1 from "../../assets/detail-1.jpg";
-import detailImg2 from "../../assets/detail-2.jpeg";
 import { Link } from "react-router-dom";
 import {
   useHistory,
@@ -8,28 +6,29 @@ import {
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/actions/shoppingCartAction";
-
-const data = [detailImg1, detailImg2];
+import { getProductById } from "../../store/actions/productAction";
 
 export const ProductDetail = () => {
+  const location = useLocation();
+  const productId = location.pathname?.split("/").pop();
+  const [activeIndex, setActiveIndex] = useState(0);
   const { products } = useSelector((store) => store.product);
+  const [product, setProduct] = useState(() =>
+    products?.find((product) => product.id == productId)
+  );
 
   const dispatch = useDispatch();
-
-  const [activeIndex, setActiveIndex] = useState(0);
-  const location = useLocation();
   const history = useHistory();
-  const productid = location.pathname?.split("/").pop();
-  const product = products.find((product) => product.id == productid);
 
-  console.log("productid : ", productid);
-  console.log("product : ", product);
+  useEffect(() => {
+    if (!product) {
+      dispatch(getProductById(productId));
+    }
+  }, []);
 
-  /*   useEffect(()=>{
-    const parts = location.pathname?.split("/");
-    const productid = location.pathname?.split("/").pop();
-
-  },[]) */
+  useEffect(() => {
+    setProduct(products?.find((product) => product.id == productId));
+  }, [products]);
 
   const handleClick = (e) => {
     const name = e.target.name;

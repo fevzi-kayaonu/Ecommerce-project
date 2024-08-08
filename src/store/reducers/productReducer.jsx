@@ -47,7 +47,9 @@ const productReducer = (state = { ...product }, action) => {
         ...state,
         loading: false,
         error: null,
-        products: [...state.products, ...action.payload],
+        products: Array.isArray(action.payload)
+          ? [...state.products, ...action.payload]
+          : [...state.products, action.payload],
       };
     case SET_TOTAL:
       return { ...state, loading: false, error: null, total: action.payload };

@@ -23,8 +23,8 @@ function ShoppingCartDropDown({ handleClickShop }) {
     <div className="flex text-black flex-col bg-white border-2 border-gray-300 rounded-xl w-[350px] max-sm:w-[300px]">
       <p className="px-5 py-3 font-bold">Sepetim ({cart.length} ürün)</p>
       <div className="flex flex-col gap-2 max-h-[400px] overflow-y-auto">
-        {cart?.map((product, index) => (
-          <ShoppingCart key={cart.id} product={product} />
+        {cart?.map((product) => (
+          <ShoppingCart key={product.id} product={product} />
         ))}
       </div>
       <div

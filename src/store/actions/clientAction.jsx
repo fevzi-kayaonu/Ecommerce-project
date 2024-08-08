@@ -103,7 +103,7 @@ export const getUser = (data, history) => (dispatch) => {
 };
 
 export const getAddress = () => (dispatch) => {
-  dispatch(requestStart());
+  //dispatch(requestStart());
   sendRequest({
     url: "/user/address",
     method: METHODS.GET,

@@ -49,7 +49,7 @@ const clientReducer = (state = { ...client }, action) => {
         ...state,
         loading: false,
         error: null,
-        addressList: action.payload,
+        addressList: [...action.payload],
       };
     case SET_CREDIT_CARD:
       return {

@@ -22,10 +22,6 @@ const CreateOrderPage = () => {
   console.log("create-order-page:");
 
   useEffect(() => {
-    dispatch(getAddress);
-  }, []);
-
-  useEffect(() => {
     setTotalPrice(totalPriceCalculate());
   }, [cart]);
 

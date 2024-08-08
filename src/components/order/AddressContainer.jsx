@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddressForm } from "../form/AddressForm";
 import { AddressCart } from "./AddressCart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAddress } from "../../store/actions/clientAction";
 
 export const AddressContainer = () => {
   const [visibleForm, setVisibleForm] = useState(false);
   const { addressList } = useSelector((store) => store.client);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAddress());
+  }, []);
 
   const handleClick = (e) => {
     const name = e.target.name || e.target.getAttribute("data-name");

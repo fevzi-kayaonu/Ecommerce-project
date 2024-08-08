@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  useHistory,
-  useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/actions/shoppingCartAction";
 import { getProductById } from "../../store/actions/productAction";
@@ -28,10 +25,10 @@ export const ProductDetail = () => {
 
   useEffect(() => {
     setProduct(products?.find((product) => product.id == productId));
-  }, [products]);
+  }, [products, productId]);
 
   const handleClick = (e) => {
-    const name = e.target.name;
+    const name = e.currentTarget.name;
 
     if (name === "prev") {
       setActiveIndex(
@@ -46,10 +43,14 @@ export const ProductDetail = () => {
     } else if (name === "basket") {
       dispatch(addToCart({ ...product }));
     } else {
-      console.log(e.target.dataset.value + "girdim");
+      console.log(e.currentTarget.dataset.value + " girdim");
       setActiveIndex(Number(e.currentTarget.dataset.value));
     }
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -74,8 +75,8 @@ export const ProductDetail = () => {
             <article className="basis-[48%]">
               <div className="relative aspect-[1.1/1] pb-5">
                 <img
-                  src={product.images[activeIndex].url}
-                  alt="detail.jpg"
+                  src={product.images[activeIndex]?.url}
+                  alt={`Product image ${activeIndex + 1}`}
                   className="w-full h-full object-contain"
                 />
                 <button
@@ -104,8 +105,10 @@ export const ProductDetail = () => {
                   >
                     <img
                       src={item.url}
-                      alt="detail.jpg"
-                      className={`w-full h-full object-cover ${index == activeIndex ? "opacity-20" : null}`}
+                      alt={`Product thumbnail ${index + 1}`}
+                      className={`w-full h-full object-cover ${
+                        index === activeIndex ? "opacity-20" : ""
+                      }`}
                     />
                   </div>
                 ))}

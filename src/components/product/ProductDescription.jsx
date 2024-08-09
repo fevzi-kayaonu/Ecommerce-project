@@ -26,11 +26,11 @@ export const ProductDescription = () => {
             <div className="border-[1px] border-lightGray" />
           </section>
           <section className="flex justify-center items-center text-left gap-10 max-lg:flex-col px-7">
-            <div className="basis-[30%] aspect-[1/1.15] rounded-md shadow-[0_17px_30px_-15px_rgba(0,0,0,0.3)] shadow-black">
+            <div className="relative basis-[30%]  aspect-[1/1.15]  max-h-96 rounded-md shadow-[0_17px_30px_-15px_rgba(0,0,0,0.3)] shadow-black">
               <img
                 src={category.img}
                 alt="DescriptionImg"
-                className="object-cover w-full h-full rounded-md "
+                className="object-contain w-full h-full rounded-md "
               />
             </div>
             <section className="basis-[60%] flex max-sm:flex-col justify-center gap-10">

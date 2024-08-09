@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// API İstek Metodlarını Tanımla
 export const METHODS = {
   POST: "post",
   GET: "get",
@@ -8,7 +7,6 @@ export const METHODS = {
   DELETE: "delete",
 };
 
-// sendRequest Fonksiyonunu Yarat
 export const sendRequest = (
   {
     url,
@@ -29,7 +27,6 @@ export const sendRequest = (
   const token = authentication ? localStorage.getItem("token") : undefined;
   const headers = authentication ? { Authorization: token } : {};
 
-  // Parametreleri ekle
   const params = {};
   if (category) params.category = category;
   if (filter) params.filter = filter;
@@ -41,7 +38,7 @@ export const sendRequest = (
     baseURL: "https://workintech-fe-ecommerce.onrender.com",
     timeout: 5000,
     headers,
-    params, // Parametreleri buraya ekledik
+    params,
   });
 
   instance[method](url, data)

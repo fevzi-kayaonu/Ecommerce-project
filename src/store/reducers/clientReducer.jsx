@@ -8,6 +8,7 @@ import {
   SET_CREDIT_CARD,
   SET_USER,
   SET_ADDRESS,
+  UPDATE_ADDRESS,
 } from "../actions/clientAction";
 
 export const client = {
@@ -19,7 +20,7 @@ export const client = {
   },
   addressList: [],
   creditCards: [],
-  loading: true,
+  loading: { userInfo: true, local: true },
   error: null,
 };
 
@@ -28,61 +29,111 @@ const clientReducer = (state = { ...client }, action) => {
     case REQUEST_START_CLİENT:
       return {
         ...state,
-        loading: true,
+        loading: {
+          ...state.loading,
+          [action.payload]: true,
+        },
         error: null,
       };
     case REQUEST_ERROR_CLİENT:
       return {
         ...state,
-        loading: false,
-        error: action.error,
+        loading: {
+          ...state.loading,
+          [action.payload.loadingKey]: false,
+        },
+        error: action.payload.error,
       };
     case SET_USER:
       return {
         ...state,
-        loading: false,
+        loading: {
+          ...state.loading,
+          userInfo: false,
+        },
         error: null,
         userInfo: { ...action.payload },
       };
     case SET_ADDRESS:
       return {
         ...state,
-        loading: false,
+        loading: {
+          ...state.loading,
+          local: false,
+        },
         error: null,
         addressList: [...action.payload],
       };
     case SET_CREDIT_CARD:
       return {
         ...state,
-        loading: false,
+        loading: {
+          ...state.loading,
+          local: false,
+        },
         error: null,
         creditCards: [...action.payload],
       };
     case ADD_ADDRESS:
       return {
         ...state,
-        loading: false,
+        loading: {
+          ...state.loading,
+          local: false,
+        },
         error: null,
-        addressList: [...state.addressList, ...action.payload],
+        addressList: Array.isArray(action.payload)
+          ? [...state.addressList, ...action.payload]
+          : [...state.addressList, action.payload],
+      };
+    case UPDATE_ADDRESS:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          local: false,
+        },
+        error: null,
+        addressList: [
+          ...state.addressList.filter(
+            (address) => address.id !== action.payload.id
+          ),
+          action.payload,
+        ],
       };
     case ADD_CREDIT_CARD:
       return {
         ...state,
-        loading: false,
+        loading: {
+          ...state.loading,
+          local: false,
+        },
         error: null,
-        creditCards: [...state.creditCards, ...action.payload],
+        creditCards: Array.isArray(action.payload)
+          ? [...state.creditCards, ...action.payload]
+          : [...state.creditCards, action.payload],
       };
     case REMOVE_ADDRESS:
       return {
         ...state,
-        loading: false,
+        loading: {
+          ...state.loading,
+          local: false,
+        },
         error: null,
-        addressList: [...action.payload],
+        addressList: [
+          ...state.addressList.filter(
+            (address) => address.id != action.payload
+          ),
+        ],
       };
     case REMOVE_CREDIT_CARD:
       return {
         ...state,
-        loading: false,
+        loading: {
+          ...state.loading,
+          local: false,
+        },
         error: null,
         creditCards: [...action.payload],
       };

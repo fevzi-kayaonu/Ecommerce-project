@@ -54,9 +54,9 @@ const CreateOrderPage = () => {
               <>
                 <i className="fa-solid fa-circle-info text-orange-500 mr-2"></i>
                 <h6 className=" text-gray-600 font-bold">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
-                  in ratione repudiandae, itaque eos blanditiis dolore velit? Ut
-                  officia iusto, eius mollitia necessitatib
+                  Kurumsal faturalı alışveriş yapmak için "Faturamı Aynı Adrese
+                  Gönder" tikini kaldırın ve Fatura adresi olarak kayıtlı
+                  Kurumsal Fatura adresinizi seçin.
                 </h6>
               </>
             ) : (
@@ -66,7 +66,7 @@ const CreateOrderPage = () => {
                   <h6 className="inline font-bold text-2xl">Kart ile öde</h6>
                   <p>
                     Kart ile ödemeyi seçtiniz. Banka veya kredi kartı kullanarak
-                    ödemenizi gğvenle yapabilirsiniz.
+                    ödemenizi güvenle yapabilirsiniz.
                   </p>
                 </div>
               </div>

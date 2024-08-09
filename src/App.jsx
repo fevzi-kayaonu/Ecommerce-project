@@ -11,7 +11,7 @@ import Spinner from "./components/others/Spinner";
 import { getCategories } from "./store/actions/globalAction";
 
 function App() {
-  const loading = useSelector((state) => state.client.loading);
+  const loading = useSelector((state) => state.client.loading.userInfo);
 
   const { categories } = useSelector((store) => store.global);
   const dispatch = useDispatch();

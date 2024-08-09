@@ -20,9 +20,9 @@ const ShoppingCartPage = () => {
     setTotalPrice(totalPriceCalculate());
   }, [cart]);
 
-  /*  useEffect(() => {
+  useEffect(() => {
     setTotalPrice(totalPriceCalculate());
-  }, []); */
+  }, []);
 
   const cargoPrice = 20;
 
@@ -82,5 +82,3 @@ const ShoppingCartPage = () => {
   );
 };
 export default ShoppingCartPage;
-
-/*  */

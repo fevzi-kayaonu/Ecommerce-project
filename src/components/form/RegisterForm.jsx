@@ -5,7 +5,7 @@ import { showToast } from "../../util/ShowToast";
 import { useDispatch, useSelector } from "react-redux";
 import { getRoles } from "../../store/actions/globalAction";
 import { METHODS, sendRequest } from "../../util/axiosUtil";
-
+import Spinner from "../others/Spinner";
 const formData = {
   name: "",
   email: "",
@@ -379,7 +379,7 @@ export const RegisterForm = () => {
                 ></path>
               </svg>
             )}
-            {isSubmitting ? "Processing..." : "Register"}
+            {isSubmitting ? <Spinner svgCss="w-5 h-5" /> : "Register"}
           </button>
         </form>
       </div>

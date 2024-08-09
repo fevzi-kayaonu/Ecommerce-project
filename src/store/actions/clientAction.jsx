@@ -10,13 +10,23 @@ export const ADD_ADDRESS = "ADD_ADDRESS";
 export const ADD_CREDIT_CARD = "ADD_CREDIT_CARD";
 export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
 export const REMOVE_CREDIT_CARD = "REMOVE_CREDIT_CARD";
+export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
 
 export const REQUEST_START_CLİENT = "REQUEST_START_CLİENT";
 export const REQUEST_SUCCESS_CLİENT = "REQUEST_SUCCESS_CLİENT";
 export const REQUEST_ERROR_CLİENT = "REQUEST_ERROR_CLİENT";
 
-export const requestStart = () => ({ type: REQUEST_START_CLİENT });
-export const requestError = (error) => ({ type: REQUEST_ERROR_CLİENT, error });
+export const requestStart = (loadingKey = "local") => ({
+  type: REQUEST_START_CLİENT,
+  payload: loadingKey,
+});
+export const requestError = (error, loadingKey = "local") => ({
+  type: REQUEST_ERROR_CLİENT,
+  payload: {
+    error,
+    loadingKey,
+  },
+});
 
 export const setUser = (data) => {
   return { type: SET_USER, payload: data };
@@ -40,10 +50,14 @@ export const removeCreditCart = (data) => {
   return { type: REMOVE_CREDIT_CARD, payload: data };
 };
 
+export const updateAddress = (data) => {
+  return { type: UPDATE_ADDRESS, payload: data };
+};
+
 export const getUserWithToken = () => (dispatch) => {
   const token = localStorage.getItem("token");
   token
-    ? (dispatch(requestStart()),
+    ? (dispatch(requestStart("userInfo")),
       sendRequest({
         url: "/verify",
         method: METHODS.GET,
@@ -51,7 +65,7 @@ export const getUserWithToken = () => (dispatch) => {
           dispatch(setUser(data));
         },
         callbackError: (error) => {
-          dispatch(requestError(error.message));
+          dispatch(requestError(error.message, "userInfo"));
           error.response &&
             error.response.status === 401 &&
             localStorage.removeItem("token");
@@ -65,7 +79,7 @@ export const getUserWithToken = () => (dispatch) => {
 
 export const getUser = (data, history) => (dispatch) => {
   const { rememberMe, ...sendData } = data;
-  dispatch(requestStart());
+  dispatch(requestStart("userInfo"));
   sendRequest(
     {
       url: "/login",
@@ -86,7 +100,7 @@ export const getUser = (data, history) => (dispatch) => {
         });
       },
       callbackError: (error) => {
-        dispatch(requestError(error.message));
+        dispatch(requestError(error.message, "userInfo"));
         showToast({
           message: "Your email or password is incorrect.",
           type: "error",
@@ -103,7 +117,7 @@ export const getUser = (data, history) => (dispatch) => {
 };
 
 export const getAddress = () => (dispatch) => {
-  //dispatch(requestStart());
+  dispatch(requestStart());
   sendRequest({
     url: "/user/address",
     method: METHODS.GET,
@@ -111,6 +125,91 @@ export const getAddress = () => (dispatch) => {
     callbackSuccess: (data) => {
       dispatch(setAddress(data));
       console.log("data : ", data);
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
+};
+
+export const getCreditCards = () => (dispatch) => {
+  dispatch(requestStart());
+  sendRequest({
+    url: "/user/card",
+    method: METHODS.GET,
+    authentication: true,
+    callbackSuccess: (data) => {
+      dispatch(setCreditCard(data));
+      console.log("data:", data);
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
+};
+
+export const postAddress = (data) => (dispatch) => {
+  dispatch(requestStart());
+  sendRequest({
+    url: "/user/address",
+    method: METHODS.POST,
+    data,
+    authentication: true,
+    callbackSuccess: (data) => {
+      dispatch(addAddress(data[0]));
+      console.log("data : ", data[0]);
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
+};
+
+export const postCreditCards = (data) => (dispatch) => {
+  dispatch(requestStart());
+  sendRequest({
+    url: "/user/card",
+    method: METHODS.POST,
+    data,
+    authentication: true,
+    callbackSuccess: (data) => {
+      dispatch(addCreditCard(data));
+      console.log("data:", data);
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
+};
+
+export const deleteAddress = (id) => (dispatch) => {
+  dispatch(requestStart());
+  const callBackAction = () => {
+    dispatch(removeAddress(id));
+  };
+  sendRequest({
+    url: `/user/address/${id}`,
+    method: METHODS.DELETE,
+    authentication: true,
+    callbackSuccess: (data) => {
+      callBackAction();
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
+};
+
+export const editAddress = (data) => (dispatch) => {
+  dispatch(requestStart());
+  sendRequest({
+    url: "/user/address",
+    method: METHODS.PUT,
+    data,
+    authentication: true,
+    callbackSuccess: (data) => {
+      dispatch(updateAddress(data[0]));
+      console.log("data : ", data[0]);
     },
     callbackError: (error) => {
       dispatch(requestError(error.message));

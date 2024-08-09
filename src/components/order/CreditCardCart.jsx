@@ -52,18 +52,20 @@ const visaSvg = () => {
   );
 };
 
-export const CreditCardCart = ({ cartType = "visa" }) => {
+export const CreditCardCart = ({ creditCard, cardType }) => {
   return (
     <div className="basis-[45%] max-xl:w-full mr-auto shadow-lg rounded-lg overflow-hidden bg-blue-300">
       <div className="relative p-4 border border-gray-300 rounded-lg shadow-md w-full">
         <div className="absolute top-2 right-2">
-          {cartType === "mastercard" ? masterSvg() : visaSvg()}
+          {cardType === "masterCard" ? masterSvg() : visaSvg()}
         </div>
         <div className="text-xl font-bold mb-2">Credit Card</div>
-        <div className="text-sm text-blue-700 mb-4">**** **** **** 1234</div>
+        <div className="text-sm text-blue-700 mb-4">{creditCard.card_no}</div>
         <div className="flex justify-between text-sm text-gray-600">
-          <span className="text-red-800">John Doe</span>
-          <span className="text-white">12/24</span>
+          <span className="text-red-800">{creditCard.name_on_card}</span>
+          <span className="text-white">
+            {creditCard.expire_month + "/" + creditCard.expire_year}
+          </span>
         </div>
       </div>
     </div>

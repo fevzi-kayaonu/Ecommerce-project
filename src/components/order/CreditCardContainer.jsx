@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreditCardCart } from "./CreditCardCart";
 import { CreditCardForm } from "../form/CreditCardForm";
+import { useDispatch, useSelector } from "react-redux";
+import { getCreditCards } from "../../store/actions/clientAction";
 
 const installments = [
   { id: 1, installmentCount: "Tek Çekim", monthlyPayment: 100 },
@@ -11,6 +13,12 @@ const installments = [
 export const CreditCardContainer = () => {
   const [visibleForm, setVisibleForm] = useState(false);
   const [checkTaksit, setCheckTaksit] = useState(installments[0].id);
+  const { creditCards } = useSelector((store) => store.client);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCreditCards());
+  }, []);
 
   const handleClick = (e) => {
     const name = e.target.name || e.target.getAttribute("data-name");
@@ -40,9 +48,13 @@ export const CreditCardContainer = () => {
             </button>
           </div>
           <div className="flex justify-between max-xl:flex-col flex-wrap gap-3">
-            <CreditCardCart />
-            <CreditCardCart />
-            <CreditCardCart />
+            {creditCards.map((creditCard, index) => (
+              <CreditCardCart
+                key={creditCard.id}
+                creditCard={creditCard}
+                cardType={index % 2 === 0 ? "visa" : "masterCard"}
+              />
+            ))}
           </div>
         </div>
         <div className="flex gap-4 flex-wrap max-lg:flex-col"></div>

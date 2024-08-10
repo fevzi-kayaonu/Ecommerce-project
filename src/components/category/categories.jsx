@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CategoryCard from "./CategoryCard";
-import { getCategories } from "../../store/actions/globalAction";
 import Spinner from "../others/Spinner";
 
 function Categories() {

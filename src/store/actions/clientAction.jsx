@@ -11,6 +11,7 @@ export const ADD_CREDIT_CARD = "ADD_CREDIT_CARD";
 export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
 export const REMOVE_CREDIT_CARD = "REMOVE_CREDIT_CARD";
 export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
+export const UPDATE_CREDIT_CARD = "UPDATE_CREDIT_CARD";
 
 export const REQUEST_START_CLİENT = "REQUEST_START_CLİENT";
 export const REQUEST_SUCCESS_CLİENT = "REQUEST_SUCCESS_CLİENT";
@@ -52,6 +53,9 @@ export const removeCreditCart = (data) => {
 
 export const updateAddress = (data) => {
   return { type: UPDATE_ADDRESS, payload: data };
+};
+export const updateCreditCard = (data) => {
+  return { type: UPDATE_CREDIT_CARD, payload: data };
 };
 
 export const getUserWithToken = () => (dispatch) => {
@@ -173,8 +177,8 @@ export const postCreditCards = (data) => (dispatch) => {
     data,
     authentication: true,
     callbackSuccess: (data) => {
-      dispatch(addCreditCard(data));
-      console.log("data:", data);
+      dispatch(addCreditCard(data[0]));
+      console.log("Crditcartdata:", data);
     },
     callbackError: (error) => {
       dispatch(requestError(error.message));
@@ -199,6 +203,23 @@ export const deleteAddress = (id) => (dispatch) => {
     },
   });
 };
+export const deleteCreditCard = (id) => (dispatch) => {
+  dispatch(requestStart());
+  const callBackAction = () => {
+    dispatch(removeCreditCart(id));
+  };
+  sendRequest({
+    url: `/user/card/${id}`,
+    method: METHODS.DELETE,
+    authentication: true,
+    callbackSuccess: (data) => {
+      callBackAction();
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
+};
 
 export const editAddress = (data) => (dispatch) => {
   dispatch(requestStart());
@@ -209,6 +230,23 @@ export const editAddress = (data) => (dispatch) => {
     authentication: true,
     callbackSuccess: (data) => {
       dispatch(updateAddress(data[0]));
+      console.log("data : ", data[0]);
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
+};
+
+export const editCreditCard = (data) => (dispatch) => {
+  dispatch(requestStart());
+  sendRequest({
+    url: "/user/card",
+    method: METHODS.PUT,
+    data,
+    authentication: true,
+    callbackSuccess: (data) => {
+      dispatch(updateCreditCard(data[0]));
       console.log("data : ", data[0]);
     },
     callbackError: (error) => {

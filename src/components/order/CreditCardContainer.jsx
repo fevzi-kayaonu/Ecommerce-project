@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { CreditCardCart } from "./CreditCardCart";
 import { CreditCardForm } from "../form/CreditCardForm";
 import { useDispatch, useSelector } from "react-redux";
-import { getCreditCards } from "../../store/actions/clientAction";
+import {
+  deleteCreditCard,
+  getCreditCards,
+} from "../../store/actions/clientAction";
 
 const installments = [
   { id: 1, installmentCount: "Tek Çekim", monthlyPayment: 100 },
@@ -14,6 +17,7 @@ export const CreditCardContainer = () => {
   const [visibleForm, setVisibleForm] = useState(false);
   const [checkTaksit, setCheckTaksit] = useState(installments[0].id);
   const { creditCards } = useSelector((store) => store.client);
+  const [editId, setEditId] = useState(undefined);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,12 +30,24 @@ export const CreditCardContainer = () => {
       setVisibleForm(!visibleForm);
     } else if (name === "exit" || name === "space") {
       setVisibleForm(false);
+      setEditId(undefined);
+    } else if (name === "onEdit") {
+      const id = e.target.value;
+      setEditId(id);
+    } else if (name === "onDelete") {
+      const id = e.target.value;
+      console.log("id: ", id);
+      dispatch(deleteCreditCard(id));
     }
   };
 
   const handleChange = (e) => {
     setCheckTaksit(Number(e.target.value));
   };
+
+  useEffect(() => {
+    if (editId) setVisibleForm(true);
+  }, [editId]);
 
   return (
     <div className="flex max-sm:flex-col max-sm:gap-3 border-2 rounded-lg px-4 py-6">
@@ -53,6 +69,7 @@ export const CreditCardContainer = () => {
                 key={creditCard.id}
                 creditCard={creditCard}
                 cardType={index % 2 === 0 ? "visa" : "masterCard"}
+                handleClick={handleClick}
               />
             ))}
           </div>
@@ -136,7 +153,7 @@ export const CreditCardContainer = () => {
             >
               &times;
             </button>
-            <CreditCardForm />
+            <CreditCardForm creditCardId={editId} />
           </div>
         </div>
       )}

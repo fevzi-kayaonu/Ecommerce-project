@@ -9,6 +9,7 @@ import {
   SET_USER,
   SET_ADDRESS,
   UPDATE_ADDRESS,
+  UPDATE_CREDIT_CARD,
 } from "../actions/clientAction";
 
 export const client = {
@@ -86,6 +87,18 @@ const clientReducer = (state = { ...client }, action) => {
           ? [...state.addressList, ...action.payload]
           : [...state.addressList, action.payload],
       };
+    case ADD_CREDIT_CARD:
+      return {
+        ...state,
+        loading: {
+          ...state.loading,
+          local: false,
+        },
+        error: null,
+        creditCards: Array.isArray(action.payload)
+          ? [...state.creditCards, ...action.payload]
+          : [...state.creditCards, action.payload],
+      };
     case UPDATE_ADDRESS:
       return {
         ...state,
@@ -101,7 +114,7 @@ const clientReducer = (state = { ...client }, action) => {
           action.payload,
         ],
       };
-    case ADD_CREDIT_CARD:
+    case UPDATE_CREDIT_CARD:
       return {
         ...state,
         loading: {
@@ -109,10 +122,14 @@ const clientReducer = (state = { ...client }, action) => {
           local: false,
         },
         error: null,
-        creditCards: Array.isArray(action.payload)
-          ? [...state.creditCards, ...action.payload]
-          : [...state.creditCards, action.payload],
+        creditCards: [
+          ...state.creditCards.filter(
+            (creditCard) => creditCard.id !== action.payload.id
+          ),
+          action.payload,
+        ],
       };
+
     case REMOVE_ADDRESS:
       return {
         ...state,
@@ -135,7 +152,11 @@ const clientReducer = (state = { ...client }, action) => {
           local: false,
         },
         error: null,
-        creditCards: [...action.payload],
+        creditCards: [
+          ...state.creditCards.filter(
+            (creditCard) => creditCard.id != action.payload
+          ),
+        ],
       };
     default:
       return state;

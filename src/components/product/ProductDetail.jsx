@@ -1,30 +1,64 @@
-import { useState } from "react";
-import detailImg1 from "../../assets/detail-1.jpg";
-import detailImg2 from "../../assets/detail-2.jpeg";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-const data = [detailImg1, detailImg2];
+import { useHistory, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/actions/shoppingCartAction";
+import { getProductById } from "../../store/actions/productAction";
 
 export const ProductDetail = () => {
+  const location = useLocation();
+  const productId = location.pathname?.split("/").pop();
   const [activeIndex, setActiveIndex] = useState(0);
+  const { products } = useSelector((store) => store.product);
+  const [product, setProduct] = useState(() =>
+    products?.find((product) => product.id == productId)
+  );
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!product) {
+      dispatch(getProductById(productId));
+    }
+  }, []);
+
+  useEffect(() => {
+    setProduct(products?.find((product) => product.id == productId));
+  }, [products, productId]);
 
   const handleClick = (e) => {
-    const name = e.target.name;
+    const name = e.currentTarget.name;
 
     if (name === "prev") {
-      setActiveIndex(activeIndex <= 0 ? data.length - 1 : activeIndex - 1);
+      setActiveIndex(
+        activeIndex <= 0 ? product.images.length - 1 : activeIndex - 1
+      );
     } else if (name === "next") {
-      setActiveIndex(activeIndex >= data.length - 1 ? 0 : activeIndex + 1);
+      setActiveIndex(
+        activeIndex >= product.images.length - 1 ? 0 : activeIndex + 1
+      );
+    } else if (name === "back") {
+      history.goBack();
+    } else if (name === "basket") {
+      dispatch(addToCart({ ...product }));
     } else {
-      console.log(e.target.dataset.value + "girdim");
+      console.log(e.currentTarget.dataset.value + " girdim");
       setActiveIndex(Number(e.currentTarget.dataset.value));
     }
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
       <section className="flex justify-center bg-bgGray py-16">
         <article className="basis-[85%]">
+          <button className="text-xl" name="back" onClick={handleClick}>
+            {"<"} Back
+          </button>
           <div className="py-5 px-5">
             <Link className="font-bold text-sm hover:underline" to="/">
               Home
@@ -32,7 +66,7 @@ export const ProductDetail = () => {
             <i className="fa-solid fa-chevron-right m-2 text-muted"></i>
             <Link
               className="font-bold text-sm text-muted hover:underline"
-              href="/shop"
+              to="/shop"
             >
               Shop
             </Link>
@@ -41,8 +75,8 @@ export const ProductDetail = () => {
             <article className="basis-[48%]">
               <div className="relative aspect-[1.1/1] pb-5">
                 <img
-                  src={data[activeIndex]}
-                  alt="detail.jpg"
+                  src={product.images[activeIndex]?.url}
+                  alt={`Product image ${activeIndex + 1}`}
                   className="w-full h-full object-contain"
                 />
                 <button
@@ -61,7 +95,7 @@ export const ProductDetail = () => {
                 </button>
               </div>
               <div className="flex gap-[3%]">
-                {data.map((item, index) => (
+                {product.images.map((item, index) => (
                   <div
                     name="direct"
                     data-value={index}
@@ -70,16 +104,18 @@ export const ProductDetail = () => {
                     onClick={handleClick}
                   >
                     <img
-                      src={item}
-                      alt="detail.jpg"
-                      className={`w-full h-full object-cover ${index == activeIndex ? "opacity-20" : null}`}
+                      src={item.url}
+                      alt={`Product thumbnail ${index + 1}`}
+                      className={`w-full h-full object-cover ${
+                        index === activeIndex ? "opacity-20" : ""
+                      }`}
                     />
                   </div>
                 ))}
               </div>
             </article>
             <article className="flex flex-col justify-between basis-[48%] aspect-[1.1/1] max-md:aspect-[4/3] max-sm:aspect-[1/1.1] pb-[10.5%] max-lg:pb-[2%]">
-              <h4 className="text-xl">Floating Phone</h4>
+              <h4 className="text-xl">{product.name}</h4>
               <div className="flex gap-1">
                 <i className="fa-solid fa-star text-yellow text-sm max-sm:text-base"></i>
                 <i className="fa-solid fa-star text-yellow text-sm max-sm:text-base"></i>
@@ -90,17 +126,20 @@ export const ProductDetail = () => {
                   10 Reviews
                 </p>
               </div>
-              <p className="text-2xl font-bold">$1,139.33</p>
+              <div className="flex justify-center text-2xl font-bold tracking-wide gap-2 mr-auto">
+                <p className="text-secondTextColor">${product.price}</p>
+                <p className="text-secondary">
+                  ${(product.price * 0.8).toFixed(2)}
+                </p>
+              </div>
               <div className="flex">
                 <p className="text-sm font-bold text-secondTextColor">
                   Availability :
                 </p>
                 <p className="text-sm font-bold text-primary">In Stock </p>
               </div>
-              <p className="text-sm text-secondTextColor">
-                Met minim Mollie non desert Alamo est sit cliquey dolor do met
-                sent. RELIT official consequent door ENIM RELIT Mollie.
-                Excitation venial consequent sent nostrum met.
+              <p className="text-xl text-secondTextColor">
+                {product.description}
               </p>
               <hr />
               <div className="flex gap-3">
@@ -110,8 +149,12 @@ export const ProductDetail = () => {
                 <div className="bg-black w-[26px] h-[26px] rounded-full"></div>
               </div>
               <div className="flex gap-4">
-                <button className="text-sm font-bold bg-primary text-white rounded-md px-6 hover:opacity-75">
-                  Select Options
+                <button
+                  name="basket"
+                  className="text-sm font-bold bg-primary text-white rounded-md px-6 hover:opacity-75"
+                  onClick={handleClick}
+                >
+                  Sepete ekle
                 </button>
                 <div className="flex justify-center gap-4 text-xl max-xl:text-sm max-lg:text-xs max-sm:text-2xl">
                   <div className="bg-white rounded-full p-2">

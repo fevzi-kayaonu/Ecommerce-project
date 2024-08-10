@@ -1,6 +1,41 @@
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { client } from "../store/reducers/clientReducer";
+import { setUser } from "../store/actions/clientAction";
+import CryptoJS from "crypto-js";
+import { useState } from "react";
+import ShoppingCartDropDown from "../components/shop/ShoppingCartDropDown";
+import Categories from "../components/category/Categories";
 
 export const Header = () => {
+  const user = useSelector((state) => state.client.userInfo);
+  const [toogleClickCategory, setToogleClickCategory] = useState(false);
+  const [toogleClickShop, setToogleClickShop] = useState(false);
+  const [toogleTouch, setToogleTouch] = useState(false);
+
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  const hash = CryptoJS.MD5(user.email);
+  const gravatarUrl = `https://www.gravatar.com/avatar/${hash}?s=20`;
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(setUser(client.userInfo));
+    history.push("/");
+  };
+
+  const handleClickCategory = () => {
+    setToogleClickCategory(!toogleClickCategory);
+  };
+  const handleClickShop = () => {
+    setToogleClickShop(!toogleClickShop);
+  };
+  const handleTouch = () => {
+    setToogleTouch(!toogleTouch);
+  };
+
   return (
     <>
       <section className="text-sm max-md:pt-6 max-md:px-4">
@@ -33,12 +68,22 @@ export const Header = () => {
               <Link className="hover:underline" to="/">
                 Home
               </Link>
-              <Link className="hover:underline" to="/shop">
-                Shop{" "}
-                <span>
-                  <i className="fa-solid fa-angle-down"></i>
-                </span>
-              </Link>
+              <div className="flex gap-1 items-center ">
+                <Link className="hover:underline" to="/shop">
+                  Shop{" "}
+                </Link>
+                <button className="relative">
+                  <i
+                    className="fa-solid fa-angle-down "
+                    onClick={handleClickCategory}
+                  ></i>
+                  {toogleClickCategory && (
+                    <div className="absolute z-10 origin-bottom-left">
+                      <Categories />
+                    </div>
+                  )}
+                </button>
+              </div>
               <Link className="hover:underline" to="/about-us">
                 About
               </Link>
@@ -55,21 +100,38 @@ export const Header = () => {
           </div>
           <div className="flex gap-5 text-[#23A6F0] max-md:text-black items-center max-md:text-2xl">
             <div className="max-md:hidden">
-              <i className="fa-regular fa-user"> </i>
-              <span> </span>
-              <Link className="hover:underline" to="/login">
-                {" "}
-                Login
-              </Link>
-              /
-              <Link className="hover:underline" to="/register">
-                Register
-              </Link>
+              {user.token ? (
+                <div className="flex gap-2">
+                  <img src={gravatarUrl} alt="" />
+                  <p>{user.name}</p>
+                </div>
+              ) : (
+                <>
+                  <Link className="hover:underline" to="/login">
+                    Login
+                  </Link>
+                  /
+                  <Link className="hover:underline" to="/register">
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
             <i className="fa-solid fa-magnifying-glass hover:opacity-75"></i>
-            <i className="fa-solid fa-cart-shopping hover:opacity-75"></i>
+            <div className="relative">
+              <i
+                className="fa-solid fa-cart-shopping hover:opacity-75"
+                onClick={handleClickShop}
+              ></i>
+              {toogleClickShop && (
+                <div className="absolute z-10 -left-[350px] max-sm:-left-[250px]">
+                  <ShoppingCartDropDown handleClickShop={handleClickShop} />
+                </div>
+              )}
+            </div>
             <i className="fa-regular fa-heart max-md:hidden hover:opacity-75"></i>
             <i className="fa-solid fa-bars md:hidden hover:opacity-75"></i>
+            {user.token && <button onClick={handleLogout}>Logout</button>}
           </div>
         </article>
         <div>
@@ -77,12 +139,22 @@ export const Header = () => {
             <Link className="hover:underline" to="/">
               Home
             </Link>
-            <Link className="hover:underline" to="/Shop">
-              Shop{" "}
-              <span>
-                <i className="fa-solid fa-angle-down"></i>
-              </span>
-            </Link>
+            <div className="flex gap-1 items-center ">
+              <Link className="hover:underline" to="/shop">
+                Shop{" "}
+              </Link>
+              <button className="relative">
+                <i
+                  className="fa-solid fa-angle-down "
+                  onClick={handleTouch}
+                ></i>
+                {toogleTouch && (
+                  <div className="absolute z-10 origin-bottom-left">
+                    <Categories />
+                  </div>
+                )}
+              </button>
+            </div>
             <Link className="hover:underline" to="/about-us">
               About
             </Link>
@@ -101,3 +173,5 @@ export const Header = () => {
     </>
   );
 };
+
+export default Header;

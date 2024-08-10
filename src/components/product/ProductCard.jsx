@@ -1,33 +1,42 @@
-import { useHistory, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export const ProductCard = ({ item, cssContainer, colors }) => {
   const history = useHistory();
 
+  console.log(item);
+  const { categories } = useSelector((store) => store.global);
+  const category = categories.find(
+    (category) => category.id === item.category_id
+  );
+
   const handleClick = () => {
-    history.push("/detail");
+    history.push(
+      `/shop/${category.gender}/${category.title.toLowerCase()}/${item.category_id}/${item.name}/${item.id}`
+    );
   };
 
   return (
     <>
       <div
-        className={`text-center my-[1%] hover:opacity-75 ${cssContainer}`}
+        className={`text-center my-[1%] hover:opacity-75 hover:scale-105 ${cssContainer} shadow-xl border-[1px] border-gray-200`}
         onClick={handleClick}
       >
         <picture className="block aspect-[1/1.3] w-full">
           <img
-            src={item}
+            src={item?.images[0]?.url}
             alt="ProductImg"
             className="w-full h-full object-cover "
           />
         </picture>
         <div className="flex flex-col my-6 font-bold gap-3">
-          <h5 className=" text-base tracking-wide">Graphic Design</h5>
-          <p className="text-sm tracking-wider text-secondTextColor">
-            English Department
+          <h5 className=" text-base tracking-wide">{item?.name}</h5>
+          <p className="text-sm tracking-wider line-clamp-2 break-words text-secondTextColor px-3">
+            {item?.description}
           </p>
           <div className="flex justify-center text-base tracking-wide gap-2">
-            <p className="text-secondTextColor">$16.48</p>
-            <p className="text-secondary">$6.48</p>
+            <p className="text-secondTextColor">${item?.price}</p>
+            <p className="text-secondary">${(item?.price * 0.8).toFixed(2)}</p>
           </div>
           {colors ? (
             <div className="flex justify-center gap-1">

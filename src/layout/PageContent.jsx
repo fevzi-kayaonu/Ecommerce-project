@@ -7,6 +7,9 @@ import TeamPage from "../pages/TeamPage";
 import ProductDetailPage from "../pages/ProductDetailPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import ShoppingCartPage from "../pages/ShoppingCartPage";
+import CreateOrderPage from "../pages/CreateOrderPage";
+import PrivateRoute from "../util/PrivateRoute";
 
 export const PageContent = () => {
   return (
@@ -15,8 +18,11 @@ export const PageContent = () => {
         <Route path="/" exact>
           <HomePage />
         </Route>
-        <Route path="/shop" exact>
+        <Route path="/shop/:gender?/:categoryName?/:categoryId?" exact>
           <ShopPage />
+        </Route>
+        <Route path="/shop/:gender?/:categoryName?/:categoryId?/:productNameSlug?/:productId?">
+          <ProductDetailPage />
         </Route>
         <Route path="/team">
           <TeamPage />
@@ -27,15 +33,19 @@ export const PageContent = () => {
         <Route path="/about-us">
           <AboutPage />
         </Route>
-        <Route path="/detail">
-          <ProductDetailPage />
-        </Route>
         <Route path="/login">
           <LoginPage />
         </Route>
         <Route path="/register">
           <RegisterPage />
         </Route>
+        <Route path="/shopping-cart">
+          <ShoppingCartPage />
+        </Route>
+        {/*         <Route path="/create-order">
+          <CreateOrderPage />
+        </Route> */}
+        <PrivateRoute path="/create-order" component={CreateOrderPage} />
       </Switch>
     </>
   );

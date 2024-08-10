@@ -32,9 +32,9 @@ function App() {
       />
     );
   }
-
+  /* max-w-[1440px] m-auto */
   return (
-    <div className="max-w-[1440px] m-auto">
+    <div className="">
       <Header />
       <PageContent />
       <Footer />

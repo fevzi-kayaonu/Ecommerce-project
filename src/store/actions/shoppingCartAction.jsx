@@ -1,3 +1,5 @@
+import { METHODS, sendRequest } from "../../util/axiosUtil";
+
 export const SET_CART = "SET_CART";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const DECREMENT_TO_CART = "DECREMENT_TO_CART";
@@ -32,4 +34,38 @@ export const removeToCart = (data) => {
 };
 export const decrementToCart = (data) => {
   return { type: DECREMENT_TO_CART, payload: data };
+};
+
+export const postOrder = (cart, payment, orderAddress, price) => (dispatch) => {
+  const sendData = {
+    address_id: orderAddress.id,
+    order_date: new Date().toISOString(),
+    card_no: payment.card_no,
+    card_name: payment.name_on_card,
+    card_expire_month: payment.expire_month,
+    card_expire_year: payment.expire_year,
+    card_ccv: 213,
+    price: price,
+    products: cart.map((product) => {
+      return {
+        product_id: product.id,
+        count: product.sell_count,
+        detail: product.description,
+      };
+    }),
+  };
+  console.log(sendData);
+  dispatch(requestStart());
+  sendRequest({
+    url: "/order",
+    method: METHODS.POST,
+    data: sendData,
+    authentication: true,
+    callbackSuccess: (data) => {
+      console.log(data);
+    },
+    callbackError: (error) => {
+      dispatch(requestError(error.message));
+    },
+  });
 };

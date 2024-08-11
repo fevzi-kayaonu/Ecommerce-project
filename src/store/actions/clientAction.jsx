@@ -230,7 +230,6 @@ export const editAddress = (data) => (dispatch) => {
     authentication: true,
     callbackSuccess: (data) => {
       dispatch(updateAddress(data[0]));
-      console.log("data : ", data[0]);
     },
     callbackError: (error) => {
       dispatch(requestError(error.message));
@@ -247,7 +246,6 @@ export const editCreditCard = (data) => (dispatch) => {
     authentication: true,
     callbackSuccess: (data) => {
       dispatch(updateCreditCard(data[0]));
-      console.log("data : ", data[0]);
     },
     callbackError: (error) => {
       dispatch(requestError(error.message));

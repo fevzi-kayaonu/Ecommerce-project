@@ -52,7 +52,12 @@ const visaSvg = () => {
   );
 };
 
-export const CreditCardCart = ({ creditCard, cardType, handleClick }) => {
+export const CreditCardCart = ({
+  creditCard,
+  cardType,
+  handleClick,
+  isSelected,
+}) => {
   return (
     <div className="basis-[48%] max-xl:w-[70%] max-lg:w-[90%] max-md:w-[80%] max-sm:w-[70%] m-auto">
       <div className="flex justify-end mt-4">
@@ -73,7 +78,14 @@ export const CreditCardCart = ({ creditCard, cardType, handleClick }) => {
           Sil
         </button>
       </div>
-      <div className=" shadow-lg rounded-lg overflow-hidden bg-blue-300">
+      <div
+        className={`shadow-lg rounded-lg overflow-hidden bg-blue-300 border-2 ${isSelected ? " border-orange-500" : "border-gray-300"} cursor-pointer`}
+        onClick={() =>
+          handleClick({
+            target: { name: "selectCreditCard", creditCard: { ...creditCard } },
+          })
+        }
+      >
         <div className="relative p-4 border border-gray-300 rounded-lg shadow-md w-full">
           <div className="absolute top-2 right-2">
             {cardType === "masterCard" ? masterSvg() : visaSvg()}

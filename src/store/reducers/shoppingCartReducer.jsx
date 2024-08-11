@@ -88,14 +88,14 @@ const shoppingCartReducer = (state = { ...order }, action) => {
         ...state,
         loading: false,
         error: null,
-        payment: [...state.payment, action.payload],
+        payment: { ...action.payload },
       };
     case SET_ORDER_ADDRESS:
       return {
         ...state,
         loading: false,
         error: null,
-        orderAddress: [...state.orderAddress, action.payload],
+        orderAddress: { ...action.payload },
       };
     default:
       return state;

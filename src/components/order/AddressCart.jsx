@@ -1,8 +1,17 @@
 import React from "react";
 
-export const AddressCart = ({ address, handleClick }) => {
+export const AddressCart = ({ address, handleClick, isSelected }) => {
+  console.log(isSelected);
   return (
-    <div className="basis-[48%] max-lg:w-[80%] max-md:w-[98%] max-lg:m-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <div
+      className={`basis-[48%] max-lg:w-[80%] max-md:w-[98%] max-lg:m-auto bg-white shadow-lg rounded-lg overflow-hidden border-2 
+                      ${isSelected ? " border-orange-500" : "border-gray-300"} cursor-pointer`}
+      onClick={() =>
+        handleClick({
+          target: { name: "selectAddress", address: { ...address } },
+        })
+      }
+    >
       <div className="px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center">

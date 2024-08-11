@@ -3,16 +3,23 @@ import { AddressForm } from "../form/AddressForm";
 import { AddressCart } from "./AddressCart";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAddress, getAddress } from "../../store/actions/clientAction";
+import { setOrderAddress } from "../../store/actions/shoppingCartAction";
 
 export const AddressContainer = () => {
   const [visibleForm, setVisibleForm] = useState(false);
   const { addressList } = useSelector((store) => store.client);
   const [editId, setEditId] = useState(undefined);
+  const orderAddress = useSelector((store) => store.shoppingCart.orderAddress);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAddress());
   }, []);
+
+  useEffect(() => {
+    if (!orderAddress.id)
+      dispatch(setOrderAddress(addressList[0] ? addressList[0] : {}));
+  }, [addressList]);
 
   const handleClick = (e) => {
     const name = e.target.name || e.target.getAttribute("data-name");
@@ -27,6 +34,9 @@ export const AddressContainer = () => {
     } else if (name === "onDelete") {
       const id = e.target.value;
       dispatch(deleteAddress(id));
+    } else if (name === "selectAddress") {
+      const address = e.target.address;
+      dispatch(setOrderAddress(address));
     }
   };
 
@@ -34,6 +44,7 @@ export const AddressContainer = () => {
     if (editId) setVisibleForm(true);
   }, [editId]);
 
+  console.log(orderAddress);
   return (
     <div className="border-2 rounded-lg px-4 py-6">
       <div className="flex justify-between mb-8">
@@ -64,6 +75,7 @@ export const AddressContainer = () => {
             key={address.id}
             address={address}
             handleClick={handleClick}
+            isSelected={address.id === orderAddress.id}
           />
         ))}
       </div>

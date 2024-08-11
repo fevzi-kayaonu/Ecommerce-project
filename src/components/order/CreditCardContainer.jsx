@@ -6,6 +6,7 @@ import {
   deleteCreditCard,
   getCreditCards,
 } from "../../store/actions/clientAction";
+import { setPayment } from "../../store/actions/shoppingCartAction";
 
 const installments = [
   { id: 1, installmentCount: "Tek Çekim", monthlyPayment: 100 },
@@ -17,12 +18,17 @@ export const CreditCardContainer = () => {
   const [visibleForm, setVisibleForm] = useState(false);
   const [checkTaksit, setCheckTaksit] = useState(installments[0].id);
   const { creditCards } = useSelector((store) => store.client);
+  const payment = useSelector((store) => store.shoppingCart.payment);
   const [editId, setEditId] = useState(undefined);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCreditCards());
   }, []);
+
+  useEffect(() => {
+    if (!payment.id) dispatch(setPayment(creditCards[0] ? creditCards[0] : {}));
+  }, [creditCards]);
 
   const handleClick = (e) => {
     const name = e.target.name || e.target.getAttribute("data-name");
@@ -36,8 +42,11 @@ export const CreditCardContainer = () => {
       setEditId(id);
     } else if (name === "onDelete") {
       const id = e.target.value;
-      console.log("id: ", id);
       dispatch(deleteCreditCard(id));
+    } else if (name === "selectCreditCard") {
+      const creditCard = e.target.creditCard;
+      console.log(creditCard);
+      dispatch(setPayment(creditCard));
     }
   };
 
@@ -70,6 +79,7 @@ export const CreditCardContainer = () => {
                 creditCard={creditCard}
                 cardType={index % 2 === 0 ? "visa" : "masterCard"}
                 handleClick={handleClick}
+                isSelected={creditCard.id === payment.id}
               />
             ))}
           </div>

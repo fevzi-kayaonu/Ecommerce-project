@@ -1,15 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react";
 import { AddressContainer } from "../components/order/AddressContainer";
 import { CreditCardContainer } from "../components/order/CreditCardContainer";
-import { getAddress } from "../store/actions/clientAction";
+import { postOrder } from "../store/actions/shoppingCartAction";
 
 const CreateOrderPage = () => {
-  const cart = useSelector((store) => store.shoppingCart.cart);
+  const { cart, payment, orderAddress } = useSelector(
+    (store) => store.shoppingCart
+  );
+
   const [toggle, setToggle] = useState(true);
 
   const dispatch = useDispatch();
+
   const totalPriceCalculate = () => {
     return cart
       .reduce((accumulator, product) => {
@@ -19,15 +22,16 @@ const CreateOrderPage = () => {
   };
   const [totalPrice, setTotalPrice] = useState(() => totalPriceCalculate());
 
-  console.log("create-order-page:");
-
   useEffect(() => {
     setTotalPrice(totalPriceCalculate());
   }, [cart]);
 
-  console.log("toggle: ", toggle);
-  const handleClick = () => {
-    setToggle(!toggle);
+  const handleClick = (e) => {
+    const name = e.target.name;
+
+    if (name === "makePayment") {
+      dispatch(postOrder(cart, payment, orderAddress, totalPrice));
+    } else setToggle(!toggle);
   };
 
   const cargoPrice = 20;
@@ -101,16 +105,21 @@ const CreateOrderPage = () => {
             </div>
           </div>
           {toggle ? (
-            <Link
-              className="block basis-1/2 bg-orange-500 text-white text-center border-[1px] hover:scale-105 hover:opacity-85 max-md:text-sm  border-gray-200   rounded-md py-2 focus:outline-none focus:ring-2 focus:ring-orange-800"
+            <button
+              name="saveAndContinue"
+              className="block w-full bg-orange-500 text-white text-center border-[1px] hover:scale-105 hover:opacity-85 max-md:text-sm  border-gray-200   rounded-md py-2 focus:outline-none focus:ring-2 focus:ring-orange-800"
               onClick={handleClick}
             >
               Kaydet ve Devam Et
-            </Link>
+            </button>
           ) : (
-            <Link className="block basis-1/2 bg-orange-500 text-white text-center border-[1px] hover:scale-105 hover:opacity-85 max-md:text-sm  border-gray-200   rounded-md py-2 focus:outline-none focus:ring-2 focus:ring-orange-800">
+            <button
+              name="makePayment"
+              className="block w-full bg-orange-500 text-white text-center border-[1px] hover:scale-105 hover:opacity-85 max-md:text-sm  border-gray-200   rounded-md py-2 focus:outline-none focus:ring-2 focus:ring-orange-800"
+              onClick={handleClick}
+            >
               Ödeme Yap
-            </Link>
+            </button>
           )}
         </div>
       </article>

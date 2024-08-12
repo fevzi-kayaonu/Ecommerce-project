@@ -10,6 +10,7 @@ import Categories from "../components/category/Categories";
 export const Header = () => {
   const user = useSelector((state) => state.client.userInfo);
   const [toogleClickCategory, setToogleClickCategory] = useState(false);
+  const [toogleClickPrevOrders, setToogleClickPrevOrders] = useState(false);
   const [toogleClickShop, setToogleClickShop] = useState(false);
   const [toogleTouch, setToogleTouch] = useState(false);
 
@@ -28,6 +29,9 @@ export const Header = () => {
 
   const handleClickCategory = () => {
     setToogleClickCategory(!toogleClickCategory);
+  };
+  const handleClickPrevOrder = () => {
+    setToogleClickPrevOrders(!toogleClickPrevOrders);
   };
   const handleClickShop = () => {
     setToogleClickShop(!toogleClickShop);
@@ -93,9 +97,6 @@ export const Header = () => {
               <Link className="hover:underline" to="/contact">
                 Contact
               </Link>
-              <Link className="hover:underline" to="/">
-                Pages
-              </Link>
             </nav>
           </div>
           <div className="flex gap-5 text-[#23A6F0] max-md:text-black items-center max-md:text-2xl">
@@ -104,6 +105,22 @@ export const Header = () => {
                 <div className="flex gap-2">
                   <img src={gravatarUrl} alt="" />
                   <p>{user.name}</p>
+                  <button className="relative">
+                    <i
+                      className="fa-solid fa-angle-down "
+                      onClick={handleClickPrevOrder}
+                    ></i>
+                    {toogleClickPrevOrders && (
+                      <div className="absolute z-10 -left-[100px] w-[200px] bg-purple-300 rounded-md mt-3">
+                        <Link
+                          to={"/previous-orders"}
+                          className={`bg-primary inline-block w-full text-center border-[1px] hover:scale-105 hover:opacity-85 border-gray-200  text-white rounded-md py-2`}
+                        >
+                          Önceki Siparişlerim
+                        </Link>
+                      </div>
+                    )}
+                  </button>
                 </div>
               ) : (
                 <>
@@ -163,9 +180,6 @@ export const Header = () => {
             </Link>
             <Link className="hover:underline" to="/contact">
               Contact
-            </Link>
-            <Link className="hover:underline" to="/">
-              Pages
             </Link>
           </nav>
         </div>

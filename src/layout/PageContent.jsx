@@ -10,6 +10,7 @@ import RegisterPage from "../pages/RegisterPage";
 import ShoppingCartPage from "../pages/ShoppingCartPage";
 import CreateOrderPage from "../pages/CreateOrderPage";
 import PrivateRoute from "../util/PrivateRoute";
+import PreviousOrders from "../pages/PreviousOrders.jsx";
 
 export const PageContent = () => {
   return (
@@ -42,10 +43,8 @@ export const PageContent = () => {
         <Route path="/shopping-cart">
           <ShoppingCartPage />
         </Route>
-        {/*         <Route path="/create-order">
-          <CreateOrderPage />
-        </Route> */}
         <PrivateRoute path="/create-order" component={CreateOrderPage} />
+        <PrivateRoute path="/previous-orders" component={PreviousOrders} />
       </Switch>
     </>
   );

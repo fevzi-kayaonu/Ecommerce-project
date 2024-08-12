@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { editAddress, postAddress } from "../../store/actions/clientAction";
 import { districts, cities } from "../../util/countries";
+import Spinner from "../others/Spinner";
 
 const formData = {
   title: "",
@@ -14,11 +15,14 @@ const formData = {
   neighborhood: "",
 };
 
-export const AddressForm = ({ addressId }) => {
+export const AddressForm = ({ addressId, handleClick }) => {
   const address = useSelector((store) =>
     store.client.addressList.find((address) => address.id === Number(addressId))
   );
-  console.log("addressId: ", addressId, "/n", "address: ", address, "/n");
+
+  const loading = useSelector((store) => store.client.loading.local);
+
+  console.log("loading : ", loading);
   const {
     register,
     handleSubmit,
@@ -34,6 +38,7 @@ export const AddressForm = ({ addressId }) => {
 
   const onSubmit = (data) => {
     address ? dispatch(editAddress(data)) : dispatch(postAddress(data));
+    handleClick({ target: { name: "submit" } });
   };
 
   return (
@@ -229,7 +234,13 @@ export const AddressForm = ({ addressId }) => {
           disabled={isSubmitting}
           className="w-full bg-orange-500 text-white  py-2 px-4 rounded-md hover:scale-105 hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-orange-800"
         >
-          {address ? "Düzenle" : "Gönder"}
+          {loading ? (
+            <Spinner svgCss="w-5 h-5 m-auto" />
+          ) : address ? (
+            "Düzenle"
+          ) : (
+            "Gönder"
+          )}
         </button>
       </form>
     </div>

@@ -90,9 +90,9 @@ export const Footer = () => {
                 <input
                   type="text"
                   placeholder="Your Email"
-                  className="py-5 rounded-l-md bg-bgInput pl-4"
+                  className="py-5 rounded-l-md bg-bgInput pl-4 basis-[50%] "
                 />
-                <button className="py-5 px-10 bg-primary text-white rounded-r-md hover:opacity-75">
+                <button className="py-5 basis-[50%] bg-primary text-white rounded-r-xs hover:opacity-75 ">
                   Subscribe
                 </button>
               </div>

@@ -67,7 +67,7 @@ export const CreditCardCart = ({
           className="text-blue-500 hover:text-blue-700 font-semibold mr-4 hover:scale-110 hover:underline"
           onClick={handleClick}
         >
-          Düzenle
+          Edit
         </button>
         <button
           name="onDelete"
@@ -75,11 +75,11 @@ export const CreditCardCart = ({
           className="text-red-500 hover:text-red-700 font-semibold hover:underline"
           onClick={handleClick}
         >
-          Sil
+          Delete
         </button>
       </div>
       <div
-        className={`shadow-lg rounded-lg overflow-hidden bg-blue-300 border-2 ${isSelected ? " border-orange-500" : "border-gray-300"} cursor-pointer`}
+        className={`shadow-lg rounded-lg overflow-hidden bg-red-300 border-2 ${isSelected ? " border-primary" : "border-gray-300"} cursor-pointer`}
         onClick={() =>
           handleClick({
             target: { name: "selectCreditCard", creditCard: { ...creditCard } },

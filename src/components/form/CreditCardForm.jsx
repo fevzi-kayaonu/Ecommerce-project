@@ -5,6 +5,7 @@ import {
   postCreditCards,
 } from "../../store/actions/clientAction";
 import { useForm } from "react-hook-form";
+import Spinner from "../others/Spinner";
 
 const formData = {
   card_no: "",
@@ -14,15 +15,14 @@ const formData = {
   ccv: "",
 };
 
-export const CreditCardForm = ({ creditCardId }) => {
+export const CreditCardForm = ({ creditCardId, handleClick }) => {
   const dispatch = useDispatch();
   const creditCard = useSelector((store) =>
     store.client.creditCards.find(
       (creditCard) => creditCard.id === Number(creditCardId)
     )
   );
-
-  console.log("id:", creditCardId);
+  const loading = useSelector((store) => store.client.loading.local);
   const {
     register,
     handleSubmit,
@@ -40,6 +40,8 @@ export const CreditCardForm = ({ creditCardId }) => {
     creditCard
       ? dispatch(editCreditCard(sendData))
       : dispatch(postCreditCards(sendData));
+
+    handleClick({ target: { name: "submit" } });
   };
 
   return (
@@ -168,7 +170,13 @@ export const CreditCardForm = ({ creditCardId }) => {
           disabled={isSubmitting}
           className="w-full bg-orange-500 text-white  py-2 px-4 rounded-md hover:scale-105 hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-orange-800"
         >
-          {creditCard ? "Düzenle" : "Gönder"}
+          {loading ? (
+            <Spinner svgCss="w-5 h-5 m-auto" />
+          ) : creditCard ? (
+            "Düzenle"
+          ) : (
+            "Gönder"
+          )}
         </button>
       </form>
     </div>

@@ -379,7 +379,7 @@ export const RegisterForm = () => {
                 ></path>
               </svg>
             )}
-            {isSubmitting ? <Spinner svgCss="w-5 h-5" /> : "Register"}
+            {isSubmitting ? <Spinner svgCss="w-5 h-5 m-auto" /> : "Register"}
           </button>
         </form>
       </div>

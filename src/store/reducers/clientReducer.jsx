@@ -3,8 +3,8 @@ import {
   ADD_CREDIT_CARD,
   REMOVE_ADDRESS,
   REMOVE_CREDIT_CARD,
-  REQUEST_ERROR_CLİENT,
-  REQUEST_START_CLİENT,
+  REQUEST_ERROR_CLIENT,
+  REQUEST_START_CLIENT,
   SET_CREDIT_CARD,
   SET_USER,
   SET_ADDRESS,
@@ -27,7 +27,7 @@ export const client = {
 
 const clientReducer = (state = { ...client }, action) => {
   switch (action.type) {
-    case REQUEST_START_CLİENT:
+    case REQUEST_START_CLIENT:
       return {
         ...state,
         loading: {
@@ -36,7 +36,7 @@ const clientReducer = (state = { ...client }, action) => {
         },
         error: null,
       };
-    case REQUEST_ERROR_CLİENT:
+    case REQUEST_ERROR_CLIENT:
       return {
         ...state,
         loading: {

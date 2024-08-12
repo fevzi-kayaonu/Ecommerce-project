@@ -8,11 +8,12 @@ import ShoppingCartDropDown from "../components/shop/ShoppingCartDropDown";
 import Categories from "../components/category/Categories";
 
 export const Header = () => {
-  const user = useSelector((state) => state.client.userInfo);
+  const user = useSelector((store) => store.client.userInfo);
+  const shoppingCart = useSelector((store) => store.shoppingCart.cart);
   const [toogleClickCategory, setToogleClickCategory] = useState(false);
   const [toogleClickPrevOrders, setToogleClickPrevOrders] = useState(false);
   const [toogleClickShop, setToogleClickShop] = useState(false);
-  const [toogleTouch, setToogleTouch] = useState(false);
+  const [toogleTouchCategory, setToogleTouchCategory] = useState(false);
 
   const history = useHistory();
 
@@ -37,7 +38,14 @@ export const Header = () => {
     setToogleClickShop(!toogleClickShop);
   };
   const handleTouch = () => {
-    setToogleTouch(!toogleTouch);
+    setToogleTouchCategory(!toogleTouchCategory);
+  };
+
+  const handleClose = () => {
+    toogleTouchCategory && setToogleTouchCategory(false);
+    toogleClickCategory && setToogleClickCategory(false);
+    toogleClickPrevOrders && setToogleClickPrevOrders(false);
+    toogleClickShop && setToogleClickShop(false);
   };
 
   return (
@@ -83,7 +91,7 @@ export const Header = () => {
                   ></i>
                   {toogleClickCategory && (
                     <div className="absolute z-10 origin-bottom-left">
-                      <Categories />
+                      <Categories handleClose={handleClose} />
                     </div>
                   )}
                 </button>
@@ -99,7 +107,7 @@ export const Header = () => {
               </Link>
             </nav>
           </div>
-          <div className="flex gap-5 text-[#23A6F0] max-md:text-black items-center max-md:text-2xl">
+          <div className="flex gap-5 text-[#23A6F0] items-center max-md:text-2xl">
             <div className="max-md:hidden">
               {user.token ? (
                 <div className="flex gap-2">
@@ -115,8 +123,9 @@ export const Header = () => {
                         <Link
                           to={"/previous-orders"}
                           className={`bg-primary inline-block w-full text-center border-[1px] hover:scale-105 hover:opacity-85 border-gray-200  text-white rounded-md py-2`}
+                          onClick={handleClose}
                         >
-                          Önceki Siparişlerim
+                          Previous Orders
                         </Link>
                       </div>
                     )}
@@ -136,13 +145,23 @@ export const Header = () => {
             </div>
             <i className="fa-solid fa-magnifying-glass hover:opacity-75"></i>
             <div className="relative">
-              <i
-                className="fa-solid fa-cart-shopping hover:opacity-75"
-                onClick={handleClickShop}
-              ></i>
+              <div className="flex justify-center items-center relative">
+                <i
+                  className="fa-solid fa-cart-shopping hover:opacity-75"
+                  onClick={handleClickShop}
+                ></i>
+                {shoppingCart.length > 0 ? (
+                  <div className="bg-primary text-white rounded-full w-4 h-4 flex justify-center items-center absolute -top-3 -right-3 text-xs">
+                    <p>{shoppingCart.length}</p>
+                  </div>
+                ) : null}
+              </div>
               {toogleClickShop && (
                 <div className="absolute z-10 -left-[350px] max-sm:-left-[250px]">
-                  <ShoppingCartDropDown handleClickShop={handleClickShop} />
+                  <ShoppingCartDropDown
+                    handleClickShop={handleClickShop}
+                    handleClose={handleClose}
+                  />
                 </div>
               )}
             </div>
@@ -156,7 +175,7 @@ export const Header = () => {
             <Link className="hover:underline" to="/">
               Home
             </Link>
-            <div className="flex gap-1 items-center ">
+            <div className="flex gap-1 items-center">
               <Link className="hover:underline" to="/shop">
                 Shop{" "}
               </Link>
@@ -165,9 +184,9 @@ export const Header = () => {
                   className="fa-solid fa-angle-down "
                   onClick={handleTouch}
                 ></i>
-                {toogleTouch && (
-                  <div className="absolute z-10 origin-bottom-left">
-                    <Categories />
+                {toogleTouchCategory && (
+                  <div className="absolute z-10 -left-[170px]">
+                    <Categories handleClose={handleClose} />
                   </div>
                 )}
               </button>

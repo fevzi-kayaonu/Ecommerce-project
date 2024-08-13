@@ -200,6 +200,41 @@ export const Header = () => {
             <Link className="hover:underline" to="/contact">
               Contact
             </Link>
+            <div className="md:hidden text-primary">
+              {user.token ? (
+                <div className="flex gap-2 ">
+                  <img src={gravatarUrl} alt="" className="object-contain" />
+                  <p>{user.name}</p>
+                  <button className="relative">
+                    <i
+                      className="fa-solid fa-angle-down "
+                      onClick={handleClickPrevOrder}
+                    ></i>
+                    {toogleClickPrevOrders && (
+                      <div className="absolute z-10 -left-[100px] w-[200px] bg-purple-300 rounded-md mt-3">
+                        <Link
+                          to={"/previous-orders"}
+                          className={`bg-primary inline-block w-full text-center border-[1px] hover:scale-105 hover:opacity-85 border-gray-200  text-white rounded-md py-2`}
+                          onClick={handleClose}
+                        >
+                          Previous Orders
+                        </Link>
+                      </div>
+                    )}
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Link className="hover:underline" to="/login">
+                    Login
+                  </Link>
+                  /
+                  <Link className="hover:underline" to="/register">
+                    Register
+                  </Link>
+                </>
+              )}
+            </div>
           </nav>
         </div>
       </section>

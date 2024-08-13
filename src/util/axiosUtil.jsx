@@ -49,11 +49,9 @@ export const sendRequest = (
         const previousPathname = new URL(previousURL).pathname;
         console.log(previousPathname);
 
-        previousPathname === "/register"
-          ? history.push("/")
-          : history.length > 1
-            ? history.goBack()
-            : history.push("/");
+        history.length > 1 && previousPathname !== "/register"
+          ? history.goBack()
+          : history.push("/");
       } else if (redirect) {
         history.push(redirect);
       }

@@ -5,10 +5,11 @@ import {
   setFilter,
   setLimit,
   setOffset,
+  setSort,
 } from "../../store/actions/productAction";
 import { useEffect, useState } from "react";
 import Spinner from "../others/Spinner";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const selectionSort = [
   { label: "Default", value: "" },
@@ -19,10 +20,9 @@ const selectionSort = [
 ];
 
 export const ProductsShop = () => {
-  const { products, loading, filter, total, limit, offset } = useSelector(
+  const { products, loading, filter, total, limit, offset, sort } = useSelector(
     (store) => store.product
   );
-  const [sort, setSort] = useState(selectionSort[0].value);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(Math.ceil(total / limit));
   const [disabledNext, setDisabledNext] = useState(false);
@@ -30,25 +30,75 @@ export const ProductsShop = () => {
   const [searchInput, setSearchInput] = useState(filter); // State for input value
   const location = useLocation();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const pageLimit = 5;
 
   useEffect(() => {
+    console.log("giridm1");
     dispatch(setOffset(0));
-    dispatch(setFilter(""));
-    setSearchInput("");
+    console.log("giridm2");
     setCurrentPage(1);
+
+    const params = new URLSearchParams(location.search);
+    const filterParam = params.get("filter") || "";
+    const sortParam = params.get("sort") || selectionSort[0].value;
+
     const parts = location.pathname?.split("/");
-    const category = parts.length >= 3 ? parts.pop() : null;
+    const category = parts.length >= 3 ? parts[4] : null;
+
+    dispatch(setFilter(filterParam));
+    dispatch(setSort(sortParam));
+    console.log(
+      "sortParam :",
+      sortParam,
+      "filterParam :",
+      filterParam,
+      "category :",
+      category,
+      "filter :",
+      filter,
+      " sort :",
+      sort
+    );
     dispatch(
       getProducts({
         category,
-        sort,
+        sort: sortParam,
+        filter: filterParam,
         limit: 12,
         updateLimit: true,
       })
     );
-  }, [dispatch, location.pathname, sort]);
+    setSearchInput(filterParam);
+  }, [location]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (filter) {
+      params.set("filter", filter);
+    } else {
+      params.delete("filter");
+    }
+    if (sort) {
+      params.set("sort", sort);
+    } else {
+      params.delete("sort");
+    }
+    console.log(
+      "girdim sort :",
+      sort,
+      "filter ",
+      filter,
+      " params :",
+      params.toString()
+    );
+
+    history.replace({
+      pathname: location.pathname,
+      search: params.toString(),
+    });
+  }, [sort, filter]);
 
   useEffect(() => {
     setDisabledPrev(currentPage === 1);
@@ -83,13 +133,13 @@ export const ProductsShop = () => {
           offset: offset,
         })
       );
-  }, [currentPage, filter]);
+  }, [currentPage]);
 
   const handleClick = (e) => {
     const { name, value } = e.target;
 
     if (name === "search") {
-      dispatch(setFilter(searchInput)); // Update filter on search click
+      dispatch(setFilter(searchInput));
       setCurrentPage(1);
       dispatch(setOffset(0));
     } else if (name === "prev") {
@@ -108,9 +158,9 @@ export const ProductsShop = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "select") {
-      setSort(value);
+      dispatch(setSort(value));
     } else if (name === "filter") {
-      setSearchInput(value); // Update search input state
+      setSearchInput(value);
     }
   };
 

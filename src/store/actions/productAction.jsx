@@ -7,6 +7,7 @@ export const SET_TOTAL = "SET_TOTAL";
 export const SET_LIMIT = "SET_LIMIT";
 export const SET_OFFSET = "SET_OFFSET";
 export const SET_FILTER = "SET_FILTER";
+export const SET_SORT = "SET_SORT";
 
 export const REQUEST_START_PRODUCT = "REQUEST_START_PRODUCT";
 export const REQUEST_ERROR_PRODUCT = "REQUEST_ERROR_PRODUCT";
@@ -36,6 +37,10 @@ export const setOffset = (data) => {
 
 export const setFilter = (data) => {
   return { type: SET_FILTER, payload: data };
+};
+
+export const setSort = (data) => {
+  return { type: SET_SORT, payload: data };
 };
 
 export const getProducts =

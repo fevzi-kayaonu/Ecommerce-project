@@ -2,6 +2,7 @@ import {
   ADD_PRODUCT,
   REQUEST_ERROR_PRODUCT,
   REQUEST_START_PRODUCT,
+  SET_SORT,
 } from "../actions/productAction";
 import {
   SET_FILTER,
@@ -17,6 +18,7 @@ export const product = {
   limit: 12,
   offset: 0,
   filter: "",
+  sort: "",
   loading: true,
   error: null,
 };
@@ -58,7 +60,9 @@ const productReducer = (state = { ...product }, action) => {
     case SET_OFFSET:
       return { ...state, loading: false, error: null, offset: action.payload };
     case SET_FILTER:
-      return { ...state, loading: false, error: null, filter: action.payload }; //filterdan reference type geliyorsa direk atanmıcak
+      return { ...state, loading: false, error: null, filter: action.payload };
+    case SET_SORT:
+      return { ...state, loading: false, error: null, sort: action.payload };
     default:
       return state;
   }

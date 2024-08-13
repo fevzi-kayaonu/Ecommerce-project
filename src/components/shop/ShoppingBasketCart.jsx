@@ -21,37 +21,37 @@ function ShoppingBasketCart({ product }) {
     }
   };
   return (
-    <div className="border-2 border-gray-200">
+    <div className="border-2 border-gray-200 rounded-md mb-2">
       <div className="flex justify-between bg-gray-100 py-2 px-4 flex-wrap gap-2">
         <div className="max-lg:text-sm">
-          Satıcı: Workintech{" "}
+          Seller: Workintech{" "}
           <span className="font-bold bg-green-500 text-white p-1 mx-2 rounded-sm">
             9.7
           </span>{" "}
           {">"}
           <p className="inline-block text-sm border-[1px] border-primary text-primary px-2 py-1 mx-3 rounded-sm">
-            Kurumsal
+            Institutional
             <i className="fa-solid fa-circle-info ml-1"></i>
           </p>
         </div>
         <div className="flex gap-4 bg-orange-100 items-center px-2 border-[1px] border-gray-200 rounded-lg max-sm:text-xs">
-          <p>
-            <i className="fa-solid fa-ticket text-orange-400 "></i> 3 adet ve
-            üzeri 40 TL indirim
+          <p className="text-black">
+            <i className="fa-solid fa-ticket text-orange-400 px-2"></i>$40
+            discount for 3 pieces and above
           </p>
           <Link
             to="/shop"
             className="text-orange-600 hover:underline hover:opacity-75"
           >
-            Tüm ürünler {">"}
+            All Products {">"}
           </Link>
         </div>
       </div>
       <div className="text-center bg-green-200  py-2">
-        <h5>
+        <h5 className="text-black">
           {" "}
           <i className="fa-solid fa-cube text-green-500 max-lg:text-sm"></i>{" "}
-          Kargo Bedava !
+          Free Shipping !
         </h5>
       </div>
       <div className="flex gap-3 justify-between  py-4 px-6 items-center">
@@ -68,11 +68,11 @@ function ShoppingBasketCart({ product }) {
               <span className="font-bold ">{product.name}</span>{" "}
               {product.description}
             </p>
-            <p className="max-lg:text-sm">Beden : 38</p>
+            <p className="max-lg:text-sm">Body : 38</p>
             <p className="max-lg:text-sm">
               {" "}
-              <i className="fa-solid fa-truck text-green-500"></i> 39 dk içinde
-              sipariş verirsen en geç yarın kargoda
+              <i className="fa-solid fa-truck text-green-500"></i> If you order
+              within 39 minutes, it will be shipped tomorrow at the latest.
             </p>
           </div>
 
@@ -90,13 +90,13 @@ function ShoppingBasketCart({ product }) {
               </p>
               <button
                 name="increment"
-                className="text-lg max-lg:text-sm bg-gray-100 text-orange-500 px-4 max-lg:px-3 py-2 max-lg:py-1 border-l-2 border-gray-300 hover:scale-110 rounded-r-md"
+                className="text-lg max-lg:text-sm bg-gray-100 text-primary px-4 max-lg:px-3 py-2 max-lg:py-1 border-l-2 border-gray-300 hover:scale-110 rounded-r-md"
                 onClick={handleClick}
               >
                 +
               </button>
             </div>
-            <p className="text-orange-500 font-bold text-center text-xl max-sm:text-base">
+            <p className="text-primary font-bold text-center text-xl max-sm:text-base">
               ${(product.price * product.sell_count * 0.8).toFixed(2)}
             </p>
             <i

@@ -52,20 +52,52 @@ const visaSvg = () => {
   );
 };
 
-export const CreditCardCart = ({ creditCard, cardType }) => {
+export const CreditCardCart = ({
+  creditCard,
+  cardType,
+  handleClick,
+  isSelected,
+}) => {
   return (
-    <div className="basis-[45%] max-xl:w-full mr-auto shadow-lg rounded-lg overflow-hidden bg-blue-300">
-      <div className="relative p-4 border border-gray-300 rounded-lg shadow-md w-full">
-        <div className="absolute top-2 right-2">
-          {cardType === "masterCard" ? masterSvg() : visaSvg()}
-        </div>
-        <div className="text-xl font-bold mb-2">Credit Card</div>
-        <div className="text-sm text-blue-700 mb-4">{creditCard.card_no}</div>
-        <div className="flex justify-between text-sm text-gray-600">
-          <span className="text-red-800">{creditCard.name_on_card}</span>
-          <span className="text-white">
-            {creditCard.expire_month + "/" + creditCard.expire_year}
-          </span>
+    <div className="basis-[48%] max-xl:w-[70%] max-lg:w-[90%] max-md:w-[80%] max-sm:w-[70%] m-auto">
+      <div className="flex justify-end mt-4">
+        <button
+          name="onEdit"
+          value={creditCard.id}
+          className="text-blue-500 hover:text-blue-700 font-semibold mr-4 hover:scale-110 hover:underline"
+          onClick={handleClick}
+        >
+          Edit
+        </button>
+        <button
+          name="onDelete"
+          value={creditCard.id}
+          className="text-red-500 hover:text-red-700 font-semibold hover:underline"
+          onClick={handleClick}
+        >
+          Delete
+        </button>
+      </div>
+      <div
+        className={`shadow-lg rounded-lg overflow-hidden bg-red-300 border-2 ${isSelected ? " border-primary" : "border-gray-300"} cursor-pointer`}
+        onClick={() =>
+          handleClick({
+            target: { name: "selectCreditCard", creditCard: { ...creditCard } },
+          })
+        }
+      >
+        <div className="relative p-4 border border-gray-300 rounded-lg shadow-md w-full">
+          <div className="absolute top-2 right-2">
+            {cardType === "masterCard" ? masterSvg() : visaSvg()}
+          </div>
+          <div className="text-xl font-bold mb-2">Credit Card</div>
+          <div className="text-sm text-blue-700 mb-4">{creditCard.card_no}</div>
+          <div className="flex justify-between text-sm text-gray-600">
+            <span className="text-red-800">{creditCard.name_on_card}</span>
+            <span className="text-white">
+              {creditCard.expire_month + "/" + creditCard.expire_year}
+            </span>
+          </div>
         </div>
       </div>
     </div>

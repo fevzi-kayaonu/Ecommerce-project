@@ -230,11 +230,13 @@ export const RegisterForm = () => {
                     console.log(value);
                   }}
                 >
-                  {roles?.map((role) => (
-                    <option key={role.id} value={role.id}>
-                      {role.name}
-                    </option>
-                  ))}
+                  {roles
+                    ?.filter((role) => role.name != "Yönetici")
+                    ?.map((role) => (
+                      <option key={role.id} value={role.id}>
+                        {role.name}
+                      </option>
+                    ))}
                 </select>
               )}
             />
@@ -379,7 +381,7 @@ export const RegisterForm = () => {
                 ></path>
               </svg>
             )}
-            {isSubmitting ? <Spinner svgCss="w-5 h-5" /> : "Register"}
+            {isSubmitting ? <Spinner svgCss="w-5 h-5 m-auto" /> : "Register"}
           </button>
         </form>
       </div>

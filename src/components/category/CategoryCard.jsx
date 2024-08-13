@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom/";
 
-function CategoryCard({ category }) {
+function CategoryCard({ category, handleClose }) {
   return (
     <div>
       <Link
@@ -10,6 +10,8 @@ function CategoryCard({ category }) {
             ? `kadin/${category.code.slice(2)}/${category.id}`
             : `erkek/${category.code.slice(2)}/${category.id}`
         }`}
+        className="text-black hover:underline hover:text-white"
+        onClick={handleClose}
       >
         {category?.title}
       </Link>

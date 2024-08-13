@@ -230,11 +230,13 @@ export const RegisterForm = () => {
                     console.log(value);
                   }}
                 >
-                  {roles?.map((role) => (
-                    <option key={role.id} value={role.id}>
-                      {role.name}
-                    </option>
-                  ))}
+                  {roles
+                    ?.filter((role) => role.name != "Yönetici")
+                    ?.map((role) => (
+                      <option key={role.id} value={role.id}>
+                        {role.name}
+                      </option>
+                    ))}
                 </select>
               )}
             />

@@ -46,23 +46,23 @@ export const CreditCardForm = ({ creditCardId, handleClick }) => {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg mx-auto max-h-[800px] overflow-auto max-md:max-h-[700px] max-sm:max-h-[500px]">
-      <h1 className="text-2xl font-bold mb-6">Kredi Kartı Bilgisi Formu</h1>
+      <h1 className="text-2xl font-bold mb-6">Credit Card Information Form</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label
             htmlFor="card_no"
             className="block text-gray-700 font-medium mb-2"
           >
-            Kart Numarası
+            Card Number
           </label>
           <input
             type="text"
             id="card_no"
             {...register("card_no", {
-              required: "Kart numarası zorunludur",
+              required: "Card number is required",
             })}
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Kart Numarası"
+            placeholder="Card Number"
           />
           {errors.card_no && (
             <p className="text-red-500">{errors.card_no.message}</p>
@@ -75,20 +75,20 @@ export const CreditCardForm = ({ creditCardId, handleClick }) => {
               htmlFor="expire_month"
               className="block text-gray-700 font-medium mb-2"
             >
-              Son Kullanım Ayı
+              Expiration Month
             </label>
             <input
               type="number"
               id="expire_month"
               {...register("expire_month", {
-                required: "Son kullanım ayı zorunludur",
+                required: "Expiration month is required",
                 min: {
                   value: 1,
-                  message: "Geçerli bir ay giriniz",
+                  message: "Please enter a valid month",
                 },
                 max: {
                   value: 12,
-                  message: "Geçerli bir ay giriniz",
+                  message: "Please enter a valid month",
                 },
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -103,16 +103,16 @@ export const CreditCardForm = ({ creditCardId, handleClick }) => {
               htmlFor="expire_year"
               className="block text-gray-700 font-medium mb-2"
             >
-              Son Kullanım Yılı
+              Expiration Year
             </label>
             <input
               type="number"
               id="expire_year"
               {...register("expire_year", {
-                required: "Son kullanım yılı zorunludur",
+                required: "Expiration year is required",
                 min: {
                   value: new Date().getFullYear(),
-                  message: "Geçerli bir yıl giriniz",
+                  message: "Please enter a valid year",
                 },
               })}
               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -129,16 +129,16 @@ export const CreditCardForm = ({ creditCardId, handleClick }) => {
             htmlFor="name_on_card"
             className="block text-gray-700 font-medium mb-2"
           >
-            Kart Üzerindeki İsim
+            Name on Card
           </label>
           <input
             type="text"
             id="name_on_card"
             {...register("name_on_card", {
-              required: "Kart üzerindeki isim zorunludur",
+              required: "Name on card is required",
             })}
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Kart Üzerindeki İsim"
+            placeholder="Name on Card"
           />
           {errors.name_on_card && (
             <p className="text-red-500">{errors.name_on_card.message}</p>
@@ -153,10 +153,10 @@ export const CreditCardForm = ({ creditCardId, handleClick }) => {
             type="text"
             id="ccv"
             {...register("ccv", {
-              required: "CCV zorunludur",
+              required: "CCV is required",
               pattern: {
                 value: /^\d{3}$/,
-                message: "CCV 3 haneli olmalıdır",
+                message: "CCV must be 3 digits",
               },
             })}
             className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -168,14 +168,14 @@ export const CreditCardForm = ({ creditCardId, handleClick }) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-orange-500 text-white  py-2 px-4 rounded-md hover:scale-105 hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-orange-800"
+          className="w-full bg-primary text-white py-2 px-4 rounded-md hover:scale-105 hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {loading ? (
             <Spinner svgCss="w-5 h-5 m-auto" />
           ) : creditCard ? (
-            "Düzenle"
+            "Edit"
           ) : (
-            "Gönder"
+            "Submit"
           )}
         </button>
       </form>

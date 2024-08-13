@@ -43,23 +43,23 @@ export const AddressForm = ({ addressId, handleClick }) => {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg mx-auto max-h-[800px] overflow-auto max-md:max-h-[700px] max-sm:max-h-[500px]">
-      <h1 className="text-2xl font-bold mb-6">Adres Bilgisi Formu</h1>
+      <h1 className="text-2xl font-bold mb-6">Address Information Form</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label
             htmlFor="title"
             className="block text-gray-700 font-medium mb-2"
           >
-            Adres Başlığı
+            Address Title
           </label>
           <input
             type="text"
             id="title"
-            {...register("title", { required: "Adres başlığı zorunludur." })}
+            {...register("title", { required: "Address title is required." })}
             className={`w-full px-3 py-2 border ${
               errors.title ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            placeholder="Adres Başlığı"
+            placeholder="Address Title"
           />
           {errors.title && (
             <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
@@ -71,22 +71,22 @@ export const AddressForm = ({ addressId, handleClick }) => {
             htmlFor="name"
             className="block text-gray-700 font-medium mb-2"
           >
-            Ad
+            Name
           </label>
           <input
             type="text"
             id="name"
             {...register("name", {
-              required: "Ad zorunludur.",
+              required: "Name is required.",
               minLength: {
                 value: 2,
-                message: "Ad en az 2 karakter olmalıdır.",
+                message: "Name must be at least 2 characters.",
               },
             })}
             className={`w-full px-3 py-2 border ${
               errors.name ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            placeholder="Ad"
+            placeholder="Name"
           />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
@@ -98,22 +98,22 @@ export const AddressForm = ({ addressId, handleClick }) => {
             htmlFor="surname"
             className="block text-gray-700 font-medium mb-2"
           >
-            Soyad
+            Surname
           </label>
           <input
             type="text"
             id="surname"
             {...register("surname", {
-              required: "Soyad zorunludur.",
+              required: "Surname is required.",
               minLength: {
                 value: 2,
-                message: "Soyad en az 2 karakter olmalıdır.",
+                message: "Surname must be at least 2 characters.",
               },
             })}
             className={`w-full px-3 py-2 border ${
               errors.surname ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            placeholder="Soyad"
+            placeholder="Surname"
           />
           {errors.surname && (
             <p className="text-red-500 text-sm mt-1">
@@ -127,22 +127,22 @@ export const AddressForm = ({ addressId, handleClick }) => {
             htmlFor="phone"
             className="block text-gray-700 font-medium mb-2"
           >
-            Telefon
+            Phone
           </label>
           <input
             type="text"
             id="phone"
             {...register("phone", {
-              required: "Telefon numarası zorunludur.",
+              required: "Phone number is required.",
               pattern: {
                 value: /^[0-9]{10,11}$/,
-                message: "Telefon numarası 10-11 rakamdan oluşmalıdır.",
+                message: "Phone number must be 10-11 digits.",
               },
             })}
             className={`w-full px-3 py-2 border ${
               errors.phone ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            placeholder="Telefon"
+            placeholder="Phone"
           />
           {errors.phone && (
             <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
@@ -154,16 +154,16 @@ export const AddressForm = ({ addressId, handleClick }) => {
             htmlFor="city"
             className="block text-gray-700 font-medium mb-2"
           >
-            Şehir (İl)
+            City
           </label>
           <select
             id="city"
-            {...register("city", { required: "Şehir seçimi zorunludur." })}
+            {...register("city", { required: "City selection is required." })}
             className={`w-full px-3 py-2 border ${
               errors.city ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
           >
-            <option value="">Şehir Seçiniz</option>
+            <option value="">Select City</option>
             {cities.map((city, index) => (
               <option key={index} value={city}>
                 {city}
@@ -180,16 +180,18 @@ export const AddressForm = ({ addressId, handleClick }) => {
             htmlFor="district"
             className="block text-gray-700 font-medium mb-2"
           >
-            İlçe
+            District
           </label>
           <select
             id="district"
-            {...register("district", { required: "İlçe seçimi zorunludur." })}
+            {...register("district", {
+              required: "District selection is required.",
+            })}
             className={`w-full px-3 py-2 border ${
               errors.district ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
           >
-            <option value="">İlçe Seçiniz</option>
+            <option value="">Select District</option>
             {selectedCity &&
               districts[selectedCity]?.map((district, index) => (
                 <option key={index} value={district}>
@@ -209,18 +211,18 @@ export const AddressForm = ({ addressId, handleClick }) => {
             htmlFor="neighborhood"
             className="block text-gray-700 font-medium mb-2"
           >
-            Mahalle
+            Neighborhood
           </label>
           <input
             type="text"
             id="neighborhood"
             {...register("neighborhood", {
-              required: "Mahalle adı zorunludur.",
+              required: "Neighborhood is required.",
             })}
             className={`w-full px-3 py-2 border ${
               errors.neighborhood ? "border-red-500" : "border-gray-300"
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            placeholder="Mahalle"
+            placeholder="Neighborhood"
           />
           {errors.neighborhood && (
             <p className="text-red-500 text-sm mt-1">
@@ -232,14 +234,14 @@ export const AddressForm = ({ addressId, handleClick }) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-orange-500 text-white  py-2 px-4 rounded-md hover:scale-105 hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-orange-800"
+          className="w-full bg-primary text-white py-2 px-4 rounded-md hover:scale-105 hover:opacity-85 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           {loading ? (
             <Spinner svgCss="w-5 h-5 m-auto" />
           ) : address ? (
-            "Düzenle"
+            "Edit"
           ) : (
-            "Gönder"
+            "Submit"
           )}
         </button>
       </form>

@@ -95,14 +95,19 @@ const CreateOrderPage = () => {
                 Free Shipping on Orders Over $150 (Covered by Seller)
               </p>
               <br />
-              <p className="text-primary max-lg:text-sm font-bold">
+              <p className="text-primary max-lg:text-sm font-bold whitespace-nowrap pl-2">
                 -$ {totalPrice >= 150 ? cargoPrice : 0}
               </p>
             </div>
             <div className="flex justify-between max-lg:text-sm pt-2">
               <p className="text-gray-700">Total</p>
               <p className="text-primary font-bold">
-                {totalPrice >= 150 ? totalPrice + cargoPrice : totalPrice}
+                ${" "}
+                {totalPrice > 150
+                  ? totalPrice
+                  : (parseFloat(totalPrice) + parseFloat(cargoPrice)).toFixed(
+                      2
+                    )}
               </p>
             </div>
           </div>

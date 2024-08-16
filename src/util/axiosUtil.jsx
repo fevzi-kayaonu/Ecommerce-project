@@ -45,13 +45,7 @@ export const sendRequest = (
     .then((response) => {
       callbackSuccess && callbackSuccess(response.data);
       if (redirect === "goBack") {
-        const previousURL = document.referrer;
-        const previousPathname = new URL(previousURL).pathname;
-        console.log(previousPathname);
-
-        history.length > 1 && previousPathname !== "/register"
-          ? history.goBack()
-          : history.push("/");
+        history.length > 1 ? history.goBack() : history.push("/");
       } else if (redirect) {
         history.push(redirect);
       }

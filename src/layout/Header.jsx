@@ -194,9 +194,6 @@ export const Header = () => {
             <Link className="hover:underline" to="/about-us">
               About
             </Link>
-            <Link className="hover:underline" to="/blog">
-              Blog
-            </Link>
             <Link className="hover:underline" to="/contact">
               Contact
             </Link>

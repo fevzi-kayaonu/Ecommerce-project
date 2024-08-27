@@ -32,14 +32,14 @@ function App() {
       />
     );
   }
-  /* max-w-[1440px] m-auto */
+  /* className="max-w-[1440px] m-auto "*/
   return (
-    <div className="">
+    <>
       <Header />
       <PageContent />
       <Footer />
       <ToastContainer />
-    </div>
+    </>
   );
 }
 

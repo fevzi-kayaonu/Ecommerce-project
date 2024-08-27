@@ -73,9 +73,11 @@ export const Header = () => {
             <i className="fa-brands fa-x-twitter hover:opacity-75"></i>
           </div>
         </address>
-        <article className="flex justify-between px-5 py-3 items-center">
-          <div className="flex gap-6  items-center ">
-            <h1 className="text-2xl">BrandName</h1>
+        <article className="flex justify-between px-5 py-3 items-center ">
+          <div className="flex gap-6 items-center ">
+            <h1 className="text-2xl font-bold text-headerBlue">
+              FevziCommerce
+            </h1>
             <nav className="flex text-[#737373] gap-2 max-md:hidden">
               <Link className="hover:underline" to="/">
                 Home
